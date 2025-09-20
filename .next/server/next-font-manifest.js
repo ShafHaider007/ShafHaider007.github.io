@@ -1,1 +1,1 @@
-self.__NEXT_FONT_MANIFEST='{"pages":{},"app":{"/Users/shaf/Developer/Research/v0-portfolio/app/layout":["static/media/e4af272ccee01ff0-s.p.woff2","static/media/bb3ef058b751a6ad-s.p.woff2","static/media/eaead17c7dbfcd5d-s.p.woff2"]},"appUsingSizeAdjust":true,"pagesUsingSizeAdjust":false}';
+self.__NEXT_FONT_MANIFEST='{"pages":{},"app":{"/Users/shaf/Developer/Research/v0-portfolio/app/layout":["static/media/eaead17c7dbfcd5d-s.p.woff2","static/media/e4af272ccee01ff0-s.p.woff2","static/media/bb3ef058b751a6ad-s.p.woff2"]},"appUsingSizeAdjust":true,"pagesUsingSizeAdjust":false}';
