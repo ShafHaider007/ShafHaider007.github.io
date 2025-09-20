@@ -1,151 +1,196 @@
-"use client";
+"use client"
 
-import { Card } from '@/components/ui/Card'
-import { GraduationCap, Award, Users, Lightbulb, Target, TrendingUp, BookOpen } from 'lucide-react'
-import SplitText from '@/components/SplitText'
-import PixelTransition from '@/components/PixelTransition'
-import GradualBlur from '@/components/GradualBlur'
+import { useEffect, useRef } from "react"
+import { GraduationCap, Award, Users, Target, TrendingUp, Calendar, Star, Code, Database, Globe, Zap, Brain, MapPin } from "lucide-react"
 
 export function About() {
+  const sectionRef = useRef<HTMLElement>(null)
+
+  const skills = [
+    { name: "GIS Development", level: 90, icon: Globe },
+    { name: "Web Development", level: 85, icon: Code },
+    { name: "Machine Learning", level: 80, icon: Brain },
+    { name: "Database Management", level: 75, icon: Database }
+  ]
+
+  const achievements = [
+    {
+      icon: Award,
+      title: "Vice President Operations",
+      description: "GIS Day 2024 at NUST - Led event coordination and management"
+    },
+    {
+      icon: Target,
+      title: "Research Focus",
+      description: "AR Applications for Urban Mobility Mapping"
+    },
+    {
+      icon: Users,
+      title: "Leadership",
+      description: "Team Lead at Jugrafiya - Managed 3-member development team"
+    },
+    {
+      icon: Star,
+      title: "Academic Excellence",
+      description: "Current CGPA: 3.55 - Consistent high performance"
+    }
+  ]
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-fade-in-up")
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { 
+        threshold: 0.1,
+        rootMargin: '50px'
+      }
+    )
+
+    if (sectionRef.current) {
+      const elements = sectionRef.current.querySelectorAll('.animate-on-scroll')
+      elements.forEach((el) => observer.observe(el))
+    }
+
+    return () => observer.disconnect()
+  }, [])
+
   return (
-    <section id="about" className="relative py-20 px-4 bg-slate-800 overflow-hidden">
-      <div className="container mx-auto max-w-7xl">
-        <div className="text-center mb-16">
-          <SplitText
-            text="About Me"
-            className="text-5xl font-bold text-white mb-6"
-            splitType="chars"
-            delay={0.2}
-            duration={0.6}
-            ease="power3.out"
-            from={{ opacity: 0, y: 40, scale: 0.8 }}
-            to={{ opacity: 1, y: 0, scale: 1 }}
-            trigger="#about"
-          />
-          <SplitText
-            text="A passionate Geoinformatics Engineering student with a strong foundation in spatial analysis, web development, and machine learning applications."
-            className="text-2xl text-slate-300 max-w-4xl mx-auto"
-            splitType="words"
-            delay={0.6}
-            duration={0.5}
-            ease="power2.out"
-            from={{ opacity: 0, y: 30 }}
-            to={{ opacity: 1, y: 0 }}
-            trigger="#about"
-          />
+    <section ref={sectionRef} id="about" className="py-24 px-6 bg-background relative overflow-hidden">
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 pointer-events-none" />
+      
+      <div className="max-w-6xl mx-auto relative z-10">
+        {/* Section header */}
+        <div className="text-center mb-20 animate-on-scroll">
+          <p className="text-primary font-mono text-sm tracking-wider uppercase mb-4">
+            01. About Me
+          </p>
+          <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
+            About
+            <span className="text-primary block">Me</span>
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            Geoinformatics Engineering student creating GIS solutions and web applications.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-16">
-          {/* Education */}
-          <Card className="p-10 bg-slate-700/50 border-slate-600 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-            <div className="flex items-center mb-8">
-              <div className="w-16 h-16 bg-blue-600 rounded-xl flex items-center justify-center mr-6">
-                <GraduationCap className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-3xl font-bold text-white">Education</h3>
+        {/* Main content grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-20">
+          {/* Left column - About text */}
+          <div className="space-y-6 animate-on-scroll">
+            <div className="space-y-4 text-muted-foreground leading-relaxed">
+              <p>
+                Currently pursuing Geoinformatics Engineering at <span className="text-primary font-medium">NUST</span>, 
+                specializing in spatial analysis, web GIS development, and machine learning applications.
+              </p>
+              
+              <p>
+                Experience includes developing <span className="text-foreground font-medium">GIS solutions</span>, 
+                <span className="text-foreground font-medium"> web applications</span>, and 
+                <span className="text-foreground font-medium"> AR applications for urban mobility</span>.
+              </p>
             </div>
-            
-            <div className="space-y-6">
-              <div>
-                <h4 className="text-xl font-semibold text-white mb-2">
-                  Bachelor of Science in Geoinformatics Engineering
-                </h4>
-                <p className="text-blue-400 font-medium text-lg">National University of Science and Technology (NUST)</p>
-                <p className="text-slate-300 text-lg">Islamabad, Pakistan</p>
-                <div className="mt-4 flex flex-wrap gap-6 text-lg text-slate-400">
-                  <span className="flex items-center">
-                    <TrendingUp className="w-5 h-5 mr-2" />
-                    Current CGPA: 3.55
-                  </span>
-                  <span className="flex items-center">
-                    <Target className="w-5 h-5 mr-2" />
-                    Expected Graduation: May 2025
-                  </span>
+
+            {/* Education */}
+            <div className="p-6 bg-card border border-border rounded-lg">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mr-4">
+                  <GraduationCap className="w-6 h-6 text-primary" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-foreground">Education</h3>
+                  <p className="text-sm text-muted-foreground">Bachelor of Science</p>
+                </div>
+              </div>
+              
+              <div className="space-y-2">
+                <h4 className="font-medium text-foreground">Geoinformatics Engineering</h4>
+                <p className="text-primary font-medium">National University of Science and Technology (NUST)</p>
+                <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                  <div className="flex items-center gap-1">
+                    <MapPin className="w-4 h-4" />
+                    <span>Islamabad, Pakistan</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Calendar className="w-4 h-4" />
+                    <span>Expected May 2025</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-1 text-sm">
+                  <TrendingUp className="w-4 h-4 text-primary" />
+                  <span className="text-foreground font-medium">CGPA: 3.55</span>
                 </div>
               </div>
             </div>
-          </Card>
+          </div>
 
-          {/* Key Highlights */}
-          <Card className="p-10 bg-slate-700/50 border-slate-600 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-            <div className="flex items-center mb-8">
-              <div className="w-16 h-16 bg-emerald-600 rounded-xl flex items-center justify-center mr-6">
-                <Award className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-3xl font-bold text-white">Key Highlights</h3>
-            </div>
-            
+          {/* Right column - Skills */}
+          <div className="animate-on-scroll">
+            <h3 className="text-2xl font-bold text-foreground mb-8">Technical Skills</h3>
             <div className="space-y-6">
-              <div className="flex items-start space-x-4">
-                <Users className="w-6 h-6 text-blue-400 mt-1 flex-shrink-0" />
-                <p className="text-slate-300 text-lg">
-                  <strong className="text-white">Leadership:</strong> Vice President of Operations for "GIS Day 2024" at NUST
-                </p>
-              </div>
-              <div className="flex items-start space-x-4">
-                <Award className="w-6 h-6 text-blue-400 mt-1 flex-shrink-0" />
-                <p className="text-slate-300 text-lg">
-                  <strong className="text-white">Sports:</strong> Active hard ball cricketer with event management experience
-                </p>
-              </div>
-              <div className="flex items-start space-x-4">
-                <Lightbulb className="w-6 h-6 text-blue-400 mt-1 flex-shrink-0" />
-                <p className="text-slate-300 text-lg">
-                  <strong className="text-white">Problem Solving:</strong> Proven analytical skills through end-semester projects
-                </p>
-              </div>
-              <div className="flex items-start space-x-4">
-                <BookOpen className="w-6 h-6 text-blue-400 mt-1 flex-shrink-0" />
-                <p className="text-slate-300 text-lg">
-                  <strong className="text-white">Research:</strong> Currently working on AR applications for urban mobility mapping
-                </p>
+              {skills.map((skill, index) => (
+                <div key={index} className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                        <skill.icon className="w-5 h-5 text-primary" />
+                      </div>
+                      <span className="font-medium text-foreground">{skill.name}</span>
+                    </div>
+                    <span className="text-sm text-muted-foreground">{skill.level}%</span>
+                  </div>
+                  <div className="w-full bg-border rounded-full h-2">
+                    <div 
+                      className="h-2 bg-primary rounded-full transition-all duration-1000 ease-out"
+                      style={{ width: `${skill.level}%` }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Technologies */}
+            <div className="mt-8">
+              <h4 className="text-lg font-semibold text-foreground mb-4">Technologies I work with</h4>
+              <div className="flex flex-wrap gap-2">
+                {["Python", "JavaScript", "React", "Next.js", "TypeScript", "ArcGIS", "QGIS", "PostgreSQL", "MongoDB", "TensorFlow"].map((tech) => (
+                  <span key={tech} className="px-3 py-1 text-sm font-medium bg-primary/10 text-primary rounded-full border border-primary/20">
+                    {tech}
+                  </span>
+                ))}
               </div>
             </div>
-          </Card>
+          </div>
         </div>
 
-        {/* Interactive Skills Showcase */}
-        <div className="relative">
-          <div className="h-[400px] rounded-2xl overflow-hidden shadow-2xl">
-            <PixelTransition
-              firstContent={
-                <div className="w-full h-full bg-gradient-to-br from-purple-600 to-pink-700 flex items-center justify-center">
-                  <div className="text-center text-white">
-                    <Target className="w-20 h-20 mx-auto mb-6" />
-                    <h3 className="text-3xl font-bold mb-4">Research Focus</h3>
-                    <p className="text-xl opacity-90">AR Applications for Urban Mobility</p>
-                  </div>
-                </div>
-              }
-              secondContent={
-                <div className="w-full h-full bg-gradient-to-br from-blue-600 to-cyan-700 flex items-center justify-center">
-                  <div className="text-center text-white">
-                    <TrendingUp className="w-20 h-20 mx-auto mb-6" />
-                    <h3 className="text-3xl font-bold mb-4">Career Goals</h3>
-                    <p className="text-xl opacity-90">GIS Development & Spatial Analysis</p>
-                  </div>
-                </div>
-              }
-              gridSize={10}
-              pixelColor='#ffffff'
-              animationStepDuration={0.7}
-              className="w-full h-full"
-            />
+        {/* Key highlights */}
+        <div className="animate-on-scroll">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="text-center p-6 bg-card border border-border rounded-lg">
+              <div className="text-2xl font-bold text-foreground mb-1">3.55</div>
+              <div className="text-sm text-muted-foreground">CGPA</div>
+            </div>
+            <div className="text-center p-6 bg-card border border-border rounded-lg">
+              <div className="text-2xl font-bold text-foreground mb-1">2</div>
+              <div className="text-sm text-muted-foreground">Internships</div>
+            </div>
+            <div className="text-center p-6 bg-card border border-border rounded-lg">
+              <div className="text-2xl font-bold text-foreground mb-1">3+</div>
+              <div className="text-sm text-muted-foreground">Projects</div>
+            </div>
+            <div className="text-center p-6 bg-card border border-border rounded-lg">
+              <div className="text-2xl font-bold text-foreground mb-1">2025</div>
+              <div className="text-sm text-muted-foreground">Graduation</div>
+            </div>
           </div>
         </div>
       </div>
-
-      {/* Gradual Blur Effect */}
-      <GradualBlur
-        target="parent"
-        position="bottom"
-        height="8rem"
-        strength={2.5}
-        divCount={6}
-        curve="bezier"
-        exponential={true}
-        opacity={0.7}
-      />
     </section>
   )
 }

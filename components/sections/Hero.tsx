@@ -1,120 +1,133 @@
 "use client"
 
+import { useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, MapPin, Mail, Github, Linkedin, ExternalLink } from "lucide-react"
+import { ArrowRight, MapPin, Mail, Github, Linkedin, ExternalLink, Download } from "lucide-react"
 import Link from "next/link"
 
 export function Hero() {
+  const heroRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-fade-in-up")
+            observer.unobserve(entry.target) // Stop observing once animated
+          }
+        })
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '50px'
+      }
+    )
+
+    if (heroRef.current) {
+      observer.observe(heroRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [])
+
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center px-6 py-20">
-      <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          {/* Left Column - Main Content */}
-          <div className="space-y-8">
-            <div className="space-y-6">
-              <h1 className="text-5xl lg:text-6xl font-bold text-foreground leading-tight text-balance">
-                Muhammad Shaf Haider
-              </h1>
-              <p className="text-xl text-muted-foreground font-medium">Developer & GIS Engineer</p>
-              <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl">
-                I'm a developer passionate about crafting spatial solutions that blend thoughtful design with robust
-                engineering. My work lies at the intersection of geospatial technology and web development, creating
-                experiences that are both functional and beautiful.
-              </p>
-            </div>
+    <section
+      ref={heroRef}
+      id="home"
+      className="min-h-screen flex items-center justify-center px-6 py-20 relative overflow-hidden"
+    >
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 pointer-events-none" />
 
-            {/* Current Status */}
-            <div className="space-y-4">
-              <p className="text-muted-foreground">
-                Currently, I'm a <span className="text-primary font-medium">Geoinformatics Engineering Student</span> at{" "}
-                <span className="text-foreground font-medium">NUST</span>, specializing in spatial analysis and web GIS
-                development. I contribute to projects that bridge the gap between complex geospatial data and
-                user-friendly interfaces.
-              </p>
-
-              <p className="text-muted-foreground">
-                In the past, I've had the opportunity to develop software across a variety of domains — from{" "}
-                <span className="text-foreground font-medium">machine learning applications</span> and{" "}
-                <span className="text-foreground font-medium">web development</span> to{" "}
-                <span className="text-foreground font-medium">GIS solutions</span>. Additionally, I also work on{" "}
-                <span className="text-foreground font-medium">spatial data analysis</span> projects, exploring the
-                intersection of geography and technology.
-              </p>
-            </div>
-
-            {/* Contact Info */}
-            <div className="flex flex-wrap gap-6 text-sm text-muted-foreground">
-              <div className="flex items-center gap-2">
-                <MapPin size={16} />
-                <span>Islamabad, Pakistan</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Mail size={16} />
-                <span>shaf.shafheidar@gmail.com</span>
-              </div>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="flex flex-wrap gap-4">
-              <Button size="lg" className="group">
-                View My Work
-                <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
-              <Button variant="outline" size="lg">
-                Download CV
-                <ExternalLink size={16} className="ml-2" />
-              </Button>
-            </div>
+      <div className="max-w-4xl mx-auto text-center space-y-12 relative z-10">
+        {/* Main heading */}
+        <div className="space-y-6">
+          <div className="space-y-2">
+            <p className="text-primary font-mono text-sm tracking-wider uppercase">
+              Hello, I'm
+            </p>
+            <h1 className="text-6xl lg:text-8xl font-bold text-foreground leading-none tracking-tight">
+              Muhammad Shaf
+              <span className="block text-primary">Haider</span>
+            </h1>
           </div>
 
-          {/* Right Column - Experience Timeline */}
-          <div className="space-y-8">
-            <div className="space-y-6">
-              <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Experience</h3>
+          <p className="text-2xl lg:text-3xl text-muted-foreground font-light max-w-3xl mx-auto leading-relaxed">
+            GIS Developer & Engineering Student
+          </p>
+        </div>
 
-              {/* Current Position */}
-              <div className="space-y-4">
-                <div className="flex items-start justify-between">
-                  <div className="space-y-1">
-                    <h4 className="text-lg font-semibold text-foreground">Geoinformatics Engineering Student</h4>
-                    <p className="text-primary font-medium">NUST</p>
-                    <p className="text-sm text-muted-foreground">
-                      Focusing on spatial analysis, web GIS development, and machine learning applications in geospatial
-                      domains. Working on projects that integrate modern web technologies with geospatial data
-                      processing.
-                    </p>
-                  </div>
-                  <span className="text-sm text-muted-foreground whitespace-nowrap">2021 — Present</span>
-                </div>
-              </div>
+        {/* Description */}
+        <div className="max-w-2xl mx-auto space-y-6">
+          <p className="text-lg text-muted-foreground leading-relaxed">
+            Building innovative geospatial solutions and web applications at NUST.
+          </p>
 
-              {/* Skills Tags */}
-              <div className="space-y-3">
-                <h4 className="text-sm font-medium text-muted-foreground">Technologies</h4>
-                <div className="flex flex-wrap gap-2">
-                  {["Python", "JavaScript", "React", "Next.js", "ArcGIS", "QGIS"].map((tech) => (
-                    <span key={tech} className="px-3 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
+          {/* Location & Contact */}
+          <div className="flex flex-wrap justify-center gap-8 text-sm text-muted-foreground">
+            <div className="flex items-center gap-2">
+              <MapPin size={16} className="text-primary" />
+              <span>Islamabad, Pakistan</span>
             </div>
-
-            {/* Social Links */}
-            <div className="flex gap-4 pt-8">
-              <Link href="#" className="p-2 text-muted-foreground hover:text-foreground transition-colors">
-                <Github size={20} />
-              </Link>
-              <Link href="#" className="p-2 text-muted-foreground hover:text-foreground transition-colors">
-                <Linkedin size={20} />
-              </Link>
-              <Link href="#" className="p-2 text-muted-foreground hover:text-foreground transition-colors">
-                <Mail size={20} />
-              </Link>
+            <div className="flex items-center gap-2">
+              <Mail size={16} className="text-primary" />
+              <span>shaf.shafheidar@gmail.com</span>
             </div>
           </div>
         </div>
+
+        {/* Action buttons */}
+        <div className="flex flex-wrap justify-center gap-6">
+          <Button
+            size="lg"
+            className="group px-8 py-4 text-lg font-medium bg-primary hover:bg-primary/90 text-primary-foreground"
+            asChild
+          >
+            <Link href="#projects">
+              View My Work
+              <ArrowRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </Button>
+
+          <Button
+            variant="outline"
+            size="lg"
+            className="px-8 py-4 text-lg font-medium border-primary/20 hover:border-primary/40 hover:bg-primary/5"
+            asChild
+          >
+            <Link href="/resume.pdf" target="_blank">
+              <Download size={20} className="mr-2" />
+              Resume
+            </Link>
+          </Button>
+        </div>
+
+        {/* Social links */}
+        <div className="flex justify-center gap-6 pt-8">
+          <Link
+            href="https://github.com"
+            target="_blank"
+            className="p-3 text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-110"
+          >
+            <Github size={24} />
+          </Link>
+          <Link
+            href="https://linkedin.com"
+            target="_blank"
+            className="p-3 text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-110"
+          >
+            <Linkedin size={24} />
+          </Link>
+          <Link
+            href="mailto:shaf.shafheidar@gmail.com"
+            className="p-3 text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-110"
+          >
+            <Mail size={24} />
+          </Link>
+        </div>
+
+
       </div>
     </section>
   )

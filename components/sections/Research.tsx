@@ -1,7 +1,7 @@
 "use client";
 
 import { Card } from '@/components/ui/Card'
-import { Button } from '@/components/ui/Button'
+import { Button } from '@/components/ui/button'
 import { Microscope, Brain, Cpu, Smartphone, Target, TrendingUp } from 'lucide-react'
 import SplitText from '@/components/SplitText'
 import PixelTransition from '@/components/PixelTransition'

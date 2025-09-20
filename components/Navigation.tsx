@@ -6,7 +6,8 @@ import { Menu, X } from "lucide-react"
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
-  const [activeSection, setActiveSection] = useState("about")
+  const [activeSection, setActiveSection] = useState("home")
+  const [scrolled, setScrolled] = useState(false)
 
   const navItems = [
     { name: "About", href: "#about", number: "01" },
@@ -17,8 +18,11 @@ export function Navigation() {
 
   useEffect(() => {
     const handleScroll = () => {
+      const scrollPosition = window.scrollY
+      setScrolled(scrollPosition > 50)
+
       const sections = ["home", "about", "experience", "projects", "contact"]
-      const scrollPosition = window.scrollY + 100
+      const offset = 100
 
       for (const section of sections) {
         const element = document.getElementById(section)
@@ -26,7 +30,7 @@ export function Navigation() {
           const offsetTop = element.offsetTop
           const offsetHeight = element.offsetHeight
 
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+          if (scrollPosition >= offsetTop - offset && scrollPosition < offsetTop + offsetHeight - offset) {
             setActiveSection(section)
             break
           }
@@ -39,29 +43,36 @@ export function Navigation() {
   }, [])
 
   return (
-    <nav className="fixed top-0 w-full bg-background/95 backdrop-blur-sm border-b border-border/50 z-50">
+    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+      scrolled 
+        ? "bg-background/95 backdrop-blur-md border-b border-border/20 shadow-lg" 
+        : "bg-transparent"
+    }`}>
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link
             href="#home"
-            className="text-2xl font-playfair font-bold text-foreground hover:text-primary transition-colors duration-300"
+            className="text-2xl font-bold text-foreground hover:text-primary transition-all duration-300 hover:scale-105"
           >
-            SH
+            <span className="font-mono">SH</span>
           </Link>
 
-          {/* Desktop Navigation - Inspired by Brittany Chiang's style */}
-          <div className="hidden lg:flex items-center space-x-12">
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center space-x-8">
             {navItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className={`group flex items-center space-x-2 text-sm font-mono transition-all duration-300 hover:text-primary ${
+                className={`group flex items-center space-x-2 text-sm font-mono transition-all duration-300 hover:text-primary relative ${
                   activeSection === item.href.slice(1) ? "text-primary" : "text-muted-foreground"
                 }`}
               >
-                <span className="text-primary text-xs">{item.number}.</span>
+                <span className="text-primary text-xs opacity-70">{item.number}.</span>
                 <span className="group-hover:translate-x-1 transition-transform duration-300">{item.name}</span>
+                {activeSection === item.href.slice(1) && (
+                  <div className="absolute -bottom-2 left-0 right-0 h-0.5 bg-primary rounded-full" />
+                )}
               </Link>
             ))}
 
@@ -69,7 +80,7 @@ export function Navigation() {
             <Link
               href="/resume.pdf"
               target="_blank"
-              className="ml-8 px-4 py-2 border border-primary text-primary text-sm font-mono hover:bg-primary/10 transition-all duration-300 rounded"
+              className="ml-6 px-6 py-2 border border-primary/30 text-primary text-sm font-mono hover:bg-primary/10 hover:border-primary/60 transition-all duration-300 rounded-md hover:scale-105"
             >
               Resume
             </Link>
@@ -78,41 +89,57 @@ export function Navigation() {
           {/* Mobile menu button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-2 text-muted-foreground hover:text-primary transition-colors duration-300"
+            className="lg:hidden p-2 text-muted-foreground hover:text-primary transition-colors duration-300 relative z-10"
           >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+            <div className="w-6 h-6 relative">
+              <span className={`absolute block w-full h-0.5 bg-current transition-all duration-300 ${
+                isOpen ? 'rotate-45 top-3' : 'top-1'
+              }`} />
+              <span className={`absolute block w-full h-0.5 bg-current transition-all duration-300 top-3 ${
+                isOpen ? 'opacity-0' : 'opacity-100'
+              }`} />
+              <span className={`absolute block w-full h-0.5 bg-current transition-all duration-300 ${
+                isOpen ? '-rotate-45 top-3' : 'top-5'
+              }`} />
+            </div>
           </button>
         </div>
 
         {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="lg:hidden absolute top-full left-0 w-full bg-background/95 backdrop-blur-sm border-b border-border/50">
-            <div className="px-6 py-8 space-y-6">
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={`flex items-center space-x-3 text-lg font-mono transition-colors duration-300 hover:text-primary ${
-                    activeSection === item.href.slice(1) ? "text-primary" : "text-muted-foreground"
-                  }`}
-                  onClick={() => setIsOpen(false)}
-                >
-                  <span className="text-primary text-sm">{item.number}.</span>
-                  <span>{item.name}</span>
-                </Link>
-              ))}
-
+        <div className={`lg:hidden absolute top-full left-0 w-full transition-all duration-300 ${
+          isOpen 
+            ? "opacity-100 visible bg-background/95 backdrop-blur-md border-b border-border/20" 
+            : "opacity-0 invisible"
+        }`}>
+          <div className="px-6 py-8 space-y-6">
+            {navItems.map((item, index) => (
               <Link
-                href="/resume.pdf"
-                target="_blank"
-                className="inline-block mt-8 px-6 py-3 border border-primary text-primary font-mono hover:bg-primary/10 transition-all duration-300 rounded"
+                key={item.name}
+                href={item.href}
+                className={`flex items-center space-x-3 text-lg font-mono transition-all duration-300 hover:text-primary transform ${
+                  isOpen ? 'translate-x-0 opacity-100' : 'translate-x-4 opacity-0'
+                } ${activeSection === item.href.slice(1) ? "text-primary" : "text-muted-foreground"}`}
+                style={{ transitionDelay: `${index * 100}ms` }}
                 onClick={() => setIsOpen(false)}
               >
-                Resume
+                <span className="text-primary text-sm opacity-70">{item.number}.</span>
+                <span>{item.name}</span>
               </Link>
-            </div>
+            ))}
+
+            <Link
+              href="/resume.pdf"
+              target="_blank"
+              className={`inline-block mt-8 px-6 py-3 border border-primary/30 text-primary font-mono hover:bg-primary/10 transition-all duration-300 rounded-md transform ${
+                isOpen ? 'translate-x-0 opacity-100' : 'translate-x-4 opacity-0'
+              }`}
+              style={{ transitionDelay: '400ms' }}
+              onClick={() => setIsOpen(false)}
+            >
+              Resume
+            </Link>
           </div>
-        )}
+        </div>
       </div>
     </nav>
   )
