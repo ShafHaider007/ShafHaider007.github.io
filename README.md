@@ -1,30 +1,66 @@
-# portfolio
+# Next.js Profile Project
 
-*Automatically synced with your [v0.app](https://v0.app) deployments*
+A modern Next.js application built with TypeScript and Tailwind CSS.
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/shafhaider007s-projects/v0-portfolio)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/projects/4DGX3ZXtrnF)
+## Features
 
-## Overview
+- ⚡ **Next.js 14** with App Router
+- 🔷 **TypeScript** for type safety
+- 🎨 **Tailwind CSS** for styling
+- 📱 **Responsive design**
+- 🧩 **Reusable components**
+- 🔍 **ESLint** for code quality
 
-This repository will stay in sync with your deployed chats on [v0.app](https://v0.app).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.app](https://v0.app).
+## Getting Started
 
-## Deployment
+First, install the dependencies:
 
-Your project is live at:
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
 
-**[https://vercel.com/shafhaider007s-projects/v0-portfolio](https://vercel.com/shafhaider007s-projects/v0-portfolio)**
+Then, run the development server:
 
-## Build your app
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+```
 
-Continue building your app on:
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-**[https://v0.app/chat/projects/4DGX3ZXtrnF](https://v0.app/chat/projects/4DGX3ZXtrnF)**
+## Project Structure
 
-## How It Works
+```
+├── app/                    # App Router pages
+│   ├── layout.tsx         # Root layout
+│   ├── page.tsx           # Home page
+│   ├── about/             # About page
+│   └── globals.css        # Global styles
+├── components/            # Reusable components
+│   └── ui/                # UI components
+├── lib/                   # Utility functions
+├── public/                # Static assets
+└── ...config files
+```
 
-1. Create and modify your project using [v0.app](https://v0.app)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+## Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
+- `npm run type-check` - Run TypeScript type checking
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
