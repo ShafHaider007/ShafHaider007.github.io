@@ -46,11 +46,11 @@ const ScrollStack = ({
   useWindowScroll = false,
   onStackComplete
 }: ScrollStackProps) => {
-  const scrollerRef = useRef(null);
+  const scrollerRef = useRef<HTMLDivElement | null>(null);
   const stackCompletedRef = useRef(false);
-  const animationFrameRef = useRef(null);
-  const lenisRef = useRef(null);
-  const cardsRef = useRef([]);
+  const animationFrameRef = useRef<number | null>(null);
+  const lenisRef = useRef<Lenis | null>(null);
+  const cardsRef = useRef<HTMLElement[]>([]);
   const lastTransformsRef = useRef(new Map());
   const isUpdatingRef = useRef(false);
 
@@ -76,6 +76,13 @@ const ScrollStack = ({
       };
     } else {
       const scroller = scrollerRef.current;
+      if (!scroller) {
+        return {
+          scrollTop: 0,
+          containerHeight: 0,
+          scrollContainer: document.documentElement
+        };
+      }
       return {
         scrollTop: scroller.scrollTop,
         containerHeight: scroller.clientHeight,
@@ -238,7 +245,7 @@ const ScrollStack = ({
 
       const lenis = new Lenis({
         wrapper: scroller,
-        content: scroller.querySelector('.scroll-stack-inner'),
+        content: scroller.querySelector('.scroll-stack-inner') || scroller,
         duration: 1.2,
         easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         smoothWheel: true,
@@ -322,18 +329,18 @@ const ScrollStack = ({
   ]);
 
   // Container styles based on scroll mode
-  const containerStyles = useWindowScroll
+  const containerStyles: React.CSSProperties = useWindowScroll
     ? {
         // Global scroll mode - no overflow constraints
         overscrollBehavior: 'contain',
-        WebkitOverflowScrolling: 'touch',
+        WebkitOverflowScrolling: 'touch' as any,
         WebkitTransform: 'translateZ(0)',
         transform: 'translateZ(0)'
       }
     : {
         // Container scroll mode - original behavior
         overscrollBehavior: 'contain',
-        WebkitOverflowScrolling: 'touch',
+        WebkitOverflowScrolling: 'touch' as any,
         scrollBehavior: 'smooth',
         WebkitTransform: 'translateZ(0)',
         transform: 'translateZ(0)',
