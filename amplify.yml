@@ -7,6 +7,8 @@ frontend:
     build:
       commands:
         - npm run build
+        - echo '{"version":3,"routes":[{"src":"/","dest":"/index.html"},{"src":"/about","dest":"/about/index.html"},{"src":"/404","dest":"/404.html"}]}' > out/required-server-files.json
+        - echo "Build completed successfully"
   artifacts:
     baseDirectory: out
     files:
@@ -15,10 +17,3 @@ frontend:
     paths:
       - node_modules/**/*
       - .next/cache/**/*
-  customHeaders:
-    - pattern: '**/*'
-      headers:
-        - key: 'X-Frame-Options'
-          value: 'DENY'
-        - key: 'X-Content-Type-Options'
-          value: 'nosniff'
