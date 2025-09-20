@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/Button"
 import { Mail, MapPin, GraduationCap, Briefcase, Github, Linkedin, Send, Download, MessageCircle, Clock, Calendar, ArrowRight } from "lucide-react"
 import Link from "next/link"
 

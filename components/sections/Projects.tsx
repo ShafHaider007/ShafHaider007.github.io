@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/Button"
 import { Route, Shield, Satellite, ExternalLink, Github, Code, Database, Globe, ArrowRight } from "lucide-react"
 import Link from "next/link"
 
