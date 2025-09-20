@@ -15,29 +15,29 @@ A modern Next.js application built with TypeScript and Tailwind CSS.
 
 First, install the dependencies:
 
-```bash
+\`\`\`bash
 npm install
 # or
 yarn install
 # or
 pnpm install
-```
+\`\`\`
 
 Then, run the development server:
 
-```bash
+\`\`\`bash
 npm run dev
 # or
 yarn dev
 # or
 pnpm dev
-```
+\`\`\`
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Project Structure
 
-```
+\`\`\`
 ├── app/                    # App Router pages
 │   ├── layout.tsx         # Root layout
 │   ├── page.tsx           # Home page
@@ -48,7 +48,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ├── lib/                   # Utility functions
 ├── public/                # Static assets
 └── ...config files
-```
+\`\`\`
 
 ## Available Scripts
 
