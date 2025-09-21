@@ -6,19 +6,12 @@ frontend:
         - npm ci
     build:
       commands:
-        - npm run build
-        - echo "Build completed successfully"
+        - npm run build          # no `next export`
   artifacts:
-    baseDirectory: out
+    baseDirectory: .next         # SSR expects .next with required-server-files.json
     files:
       - '**/*'
   cache:
     paths:
       - node_modules/**/*
-customHeaders:
-  - pattern: '**/*'
-    headers:
-      - key: 'X-Frame-Options'
-        value: 'DENY'
-      - key: 'X-XSS-Protection'
-        value: '1; mode=block'
+      - .next/cache/**/*

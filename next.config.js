@@ -1,11 +1,8 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+module.exports = {
+  // IMPORTANT: do NOT set `output: 'export'`
   reactStrictMode: true,
-  output: 'export',
-  trailingSlash: true,
-  images: {
-    unoptimized: true
-  }
-}
-
-module.exports = nextConfig
+  poweredByHeader: false,
+  // If you previously set a custom dist dir, keep it here and set NEXT_DIST_DIR in Amplify.
+  // distDir: '.next', // default; leave commented unless you changed it
+};
