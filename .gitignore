@@ -1,1 +1,60 @@
-node_modules
+# Node / package managers
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+
+# Build outputs (Next.js static export & common builds)
+out/
+.next/
+.next/cache/
+dist/
+build/
+
+# Coverage / test artifacts
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+.cypress/
+.cypress-cache/
+
+# Lint/format caches
+.eslintcache
+.stylelintcache
+.prettier-cache
+
+# Env files (keep .env.example committed)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
+
+# Monorepo / tooling caches
+.turbo/
+.cache/
+.cache-loader/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+*.iml
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Next.js hosting (other platforms)
+.vercel/
+
+# Amplify (only local/ephemeral — keep amplify/ code committed if you use CLI)
+amplify/#current-cloud-backend/
+amplify/.config/local-*
+amplify/mock-data/
+amplify/backend/.temp/
