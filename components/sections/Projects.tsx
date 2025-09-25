@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import { Button } from "@/components/ui/Button"
-import { Route, Shield, Satellite, ExternalLink, Github, Code, Database, Globe, ArrowRight, ChevronDown } from "lucide-react"
+import { Route, Shield, Satellite, Code, Database, Globe, ArrowRight, ChevronDown } from "lucide-react"
 import Link from "next/link"
 
 export function Projects() {
@@ -161,16 +161,6 @@ export function Projects() {
                       </div>
                     </div>
 
-                    <div className="flex gap-3">
-                      <Button size="sm" variant="outline">
-                        <ExternalLink className="w-3 h-3 mr-1" />
-                        View
-                      </Button>
-                      <Button size="sm" variant="outline">
-                        <Github className="w-3 h-3 mr-1" />
-                        Code
-                      </Button>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -193,12 +183,6 @@ export function Projects() {
                 <Link href="#contact">
                   <ArrowRight className="w-4 h-4 mr-2" />
                   Let's Collaborate
-                </Link>
-              </Button>
-              <Button variant="outline" asChild>
-                <Link href="https://github.com" target="_blank">
-                  <Github className="w-4 h-4 mr-2" />
-                  View GitHub
                 </Link>
               </Button>
             </div>
