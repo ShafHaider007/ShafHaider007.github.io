@@ -54,14 +54,14 @@ export function Hero() {
           </div>
 
           <p className="text-2xl lg:text-3xl text-muted-foreground font-light max-w-3xl mx-auto leading-relaxed">
-            GIS Developer & Engineering Student
+            GIS Developer & Spatial Solutions Consultant
           </p>
         </div>
 
         {/* Description */}
         <div className="max-w-2xl mx-auto space-y-6">
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            Building innovative geospatial solutions and web applications at NUST.
+          <p className="text-lg text-muted-foreground leading-relaxed italic">
+            "GIS is a toolbox—unlocking a world of geospatial possibilities."
           </p>
 
           {/* Location & Contact */}

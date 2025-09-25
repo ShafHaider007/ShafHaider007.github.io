@@ -1,12 +1,13 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Button } from "@/components/ui/Button"
-import { Route, Shield, Satellite, ExternalLink, Github, Code, Database, Globe, ArrowRight } from "lucide-react"
+import { Route, Shield, Satellite, ExternalLink, Github, Code, Database, Globe, ArrowRight, ChevronDown } from "lucide-react"
 import Link from "next/link"
 
 export function Projects() {
   const sectionRef = useRef<HTMLElement>(null)
+  const [expandedCard, setExpandedCard] = useState<number | null>(null)
 
   const projects = [
     {
@@ -79,119 +80,98 @@ export function Projects() {
           </p>
         </div>
 
-        {/* Featured project */}
-        <div className="mb-20 animate-on-scroll">
-          <div className="p-8 bg-card border border-border rounded-lg hover:border-primary/20 transition-all duration-300">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <div className="flex items-center mb-6">
-                  <div className="w-16 h-16 bg-primary/10 rounded-lg flex items-center justify-center mr-4">
-                    <Route className="w-8 h-8 text-primary" />
-                  </div>
-                  <div>
-                    <span className="px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full mb-2 inline-block">
-                      Featured Project
-                    </span>
-                    <h3 className="text-2xl font-bold text-foreground">Shortest Route Finder</h3>
-                    <p className="text-muted-foreground">Algorithm & GIS</p>
-                  </div>
-                </div>
-                
-                <p className="text-muted-foreground leading-relaxed mb-6">
-                  Route optimization system using Dijkstra's algorithm with geospatial data integration 
-                  and automated vector file processing.
-                </p>
-                
-                <div className="flex flex-wrap gap-2 mb-8">
-                  {["Python", "Dijkstra Algorithm", "Geospatial Data", "Graph Theory"].map((tech) => (
-                    <span key={tech} className="px-3 py-1 text-sm font-medium bg-primary/10 text-primary rounded-full border border-primary/20">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-                
-                <div className="flex gap-4">
-                  <Button className="bg-primary hover:bg-primary/90">
-                    <ExternalLink className="w-4 h-4 mr-2" />
-                    View Project
-                  </Button>
-                  <Button variant="outline">
-                    <Github className="w-4 h-4 mr-2" />
-                    Source Code
-                  </Button>
-                </div>
-              </div>
-              
-              <div className="lg:pl-8">
-                <div className="bg-muted/50 rounded-lg p-6 border border-border">
-                  <h4 className="font-semibold text-foreground mb-4">Project Metrics</h4>
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Algorithm Efficiency</span>
-                      <span className="text-primary font-semibold">95%</span>
-                    </div>
-                    <div className="w-full bg-border rounded-full h-2">
-                      <div className="h-2 bg-primary rounded-full" style={{width: '95%'}} />
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Data Processing Speed</span>
-                      <span className="text-primary font-semibold">90%</span>
-                    </div>
-                    <div className="w-full bg-border rounded-full h-2">
-                      <div className="h-2 bg-primary rounded-full" style={{width: '90%'}} />
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Accuracy Rate</span>
-                      <span className="text-primary font-semibold">98%</span>
-                    </div>
-                    <div className="w-full bg-border rounded-full h-2">
-                      <div className="h-2 bg-primary rounded-full" style={{width: '98%'}} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Other projects */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
-          {projects.slice(1).map((project, index) => (
+        {/* Projects cards - horizontal layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
+          {projects.map((project, index) => (
             <div key={index} className="animate-on-scroll">
-              <div className="p-6 bg-card border border-border rounded-lg hover:border-primary/20 transition-all duration-300 hover:-translate-y-1 h-full">
-                <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mr-4">
-                    <project.icon className="w-6 h-6 text-primary" />
+              <div 
+                className="p-6 bg-card border border-border rounded-lg hover:border-primary/20 transition-all duration-300 cursor-pointer"
+                onClick={() => setExpandedCard(expandedCard === index ? null : index)}
+              >
+                {/* Compact header */}
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                    <project.icon className="w-5 h-5 text-primary" />
                   </div>
-                  <div>
-                    <span className="px-2 py-1 bg-muted text-muted-foreground text-xs font-medium rounded-full">
-                      {project.category}
-                    </span>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-lg font-bold text-foreground leading-tight">{project.title}</h3>
+                    <p className="text-sm text-primary font-medium">{project.category}</p>
                   </div>
+                  <ChevronDown 
+                    className={`w-4 h-4 text-muted-foreground transition-transform ${
+                      expandedCard === index ? 'rotate-180' : ''
+                    }`} 
+                  />
                 </div>
-                
-                <h3 className="text-xl font-bold text-foreground mb-3">{project.title}</h3>
-                <p className="text-muted-foreground leading-relaxed mb-4 text-sm">
-                  {project.description}
-                </p>
-                
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.technologies.map((tech) => (
-                    <span key={tech} className="px-2 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full border border-primary/20">
+
+                {/* Basic info */}
+                <div className="space-y-2 mb-4">
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <span className="font-medium">{project.year}</span>
+                  </div>
+                  {project.featured && (
+                    <div className="flex items-center gap-2 text-sm text-primary">
+                      <span className="px-2 py-1 bg-primary/10 text-primary text-xs font-medium rounded-full">
+                        Featured
+                      </span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Technologies */}
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.technologies.slice(0, 4).map((tech, techIndex) => (
+                    <span
+                      key={techIndex}
+                      className="px-2 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full"
+                    >
                       {tech}
                     </span>
                   ))}
+                  {project.technologies.length > 4 && (
+                    <span className="px-2 py-1 text-xs font-medium bg-muted text-muted-foreground rounded-full">
+                      +{project.technologies.length - 4}
+                    </span>
+                  )}
                 </div>
-                
-                <div className="flex gap-3">
-                  <Button size="sm" variant="outline">
-                    <ExternalLink className="w-3 h-3 mr-1" />
-                    View
-                  </Button>
-                  <Button size="sm" variant="outline">
-                    <Github className="w-3 h-3 mr-1" />
-                    Code
-                  </Button>
+
+                {/* Expandable details */}
+                <div className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                  expandedCard === index ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'
+                }`}>
+                  <div className="border-t border-border pt-4 space-y-4">
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {project.description}
+                    </p>
+                    
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-3 flex items-center text-sm">
+                        <Code className="w-4 h-4 mr-2 text-primary" />
+                        All Technologies
+                      </h4>
+                      <div className="flex flex-wrap gap-2">
+                        {project.technologies.map((tech, techIndex) => (
+                          <span
+                            key={techIndex}
+                            className="px-2 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="flex gap-3">
+                      <Button size="sm" variant="outline">
+                        <ExternalLink className="w-3 h-3 mr-1" />
+                        View
+                      </Button>
+                      <Button size="sm" variant="outline">
+                        <Github className="w-3 h-3 mr-1" />
+                        Code
+                      </Button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

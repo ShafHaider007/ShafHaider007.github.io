@@ -24,12 +24,12 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   title: "Muhammad Shaf Haider - Developer & GIS Engineer",
   description:
-    "Portfolio of Muhammad Shaf Haider - Geoinformatics Engineering Student & GIS Developer passionate about spatial analysis, web GIS, and machine learning.",
+    "Portfolio of Muhammad Shaf Haider - Geoinformatics Engineering Graduate & GIS Developer passionate about spatial analysis, web GIS, and machine learning.",
   keywords: ["GIS", "Developer", "Geoinformatics", "Spatial Analysis", "Web Development"],
   authors: [{ name: "Muhammad Shaf Haider" }],
   openGraph: {
     title: "Muhammad Shaf Haider - Developer & GIS Engineer",
-    description: "Geoinformatics Engineering Student & GIS Developer",
+    description: "Geoinformatics Engineering Graduate & GIS Developer",
     type: "website",
   },
     generator: 'v0.app'

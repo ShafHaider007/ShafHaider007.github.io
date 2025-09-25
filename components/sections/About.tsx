@@ -32,7 +32,7 @@ export function About() {
     {
       icon: Star,
       title: "Academic Excellence",
-      description: "Current CGPA: 3.55 - Consistent high performance"
+      description: "Graduated with distinction - Consistent high performance"
     }
   ]
 
@@ -76,7 +76,7 @@ export function About() {
             <span className="text-primary block">Me</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Geoinformatics Engineering student creating GIS solutions and web applications.
+            Geoinformatics Engineering graduate creating GIS solutions and web applications.
           </p>
         </div>
 
@@ -86,7 +86,7 @@ export function About() {
           <div className="space-y-6 animate-on-scroll">
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p>
-                Currently pursuing Geoinformatics Engineering at <span className="text-primary font-medium">NUST</span>, 
+                Graduated with Geoinformatics Engineering from <span className="text-primary font-medium">NUST</span>, 
                 specializing in spatial analysis, web GIS development, and machine learning applications.
               </p>
               
@@ -119,12 +119,8 @@ export function About() {
                   </div>
                   <div className="flex items-center gap-1">
                     <Calendar className="w-4 h-4" />
-                    <span>Expected May 2025</span>
+                    <span>Graduated May 2025</span>
                   </div>
-                </div>
-                <div className="flex items-center gap-1 text-sm">
-                  <TrendingUp className="w-4 h-4 text-primary" />
-                  <span className="text-foreground font-medium">CGPA: 3.55</span>
                 </div>
               </div>
             </div>
@@ -173,8 +169,8 @@ export function About() {
         <div className="animate-on-scroll">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             <div className="text-center p-6 bg-card border border-border rounded-lg">
-              <div className="text-2xl font-bold text-foreground mb-1">3.55</div>
-              <div className="text-sm text-muted-foreground">CGPA</div>
+              <div className="text-2xl font-bold text-foreground mb-1">BSc</div>
+              <div className="text-sm text-muted-foreground">Degree</div>
             </div>
             <div className="text-center p-6 bg-card border border-border rounded-lg">
               <div className="text-2xl font-bold text-foreground mb-1">2</div>
@@ -186,7 +182,7 @@ export function About() {
             </div>
             <div className="text-center p-6 bg-card border border-border rounded-lg">
               <div className="text-2xl font-bold text-foreground mb-1">2025</div>
-              <div className="text-sm text-muted-foreground">Graduation</div>
+              <div className="text-sm text-muted-foreground">Graduated</div>
             </div>
           </div>
         </div>

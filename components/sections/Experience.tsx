@@ -1,25 +1,26 @@
 "use client"
 
-import { useEffect, useRef } from "react"
-import { Building, Calendar, MapPin, Globe, Users, Award, Code, Database, Layers, ExternalLink, ChevronRight } from "lucide-react"
+import { useEffect, useRef, useState } from "react"
+import { Building, Calendar, MapPin, Globe, Users, Award, Code, Database, Layers, ExternalLink, ChevronRight, FileText, Zap, Cpu, Server, Brain, ChevronDown } from "lucide-react"
 
 export function Experience() {
   const sectionRef = useRef<HTMLElement>(null)
+  const [expandedCard, setExpandedCard] = useState<number | null>(null)
 
   const experiences = [
     {
-      company: "Institute of Geographical Information Systems (IGIS) - NUST",
-      position: "Research Intern",
-      duration: "July 15 - August 31, 2023",
-      location: "NUST (H-12 Campus), Islamabad, Pakistan",
-      description: "Worked on the project 'An Autonomous IoT Based Approach Toward Monitoring and Identifying Invasive Dengue/Zika Vectors Prevalence and Possible Dengue Outbreak Areas.'",
+      company: "GIS Plus Pvt Ltd",
+      position: "GIS Business Developer",
+      duration: "June 15, 2025 - Present",
+      location: "Islamabad, Pakistan",
+      description: "Working as a Web Developer specializing in GIS applications and business solutions.",
       achievements: [
-        "Focused on web GIS and computer vision applications",
-        "Received weekly training sessions on GeoServer and OpenCV",
-        "Completed internship with demonstrated regularity and commitment",
-        "Gained hands-on experience in IoT-based monitoring systems"
+        "Developing web applications using modern technologies",
+        "Working with Next.js and React.js for frontend development",
+        "Creating GIS business solutions and applications",
+        "Collaborating with team on spatial data visualization projects"
       ],
-      technologies: ["GeoServer", "OpenCV", "IoT", "Computer Vision", "Web GIS"],
+      technologies: ["Next.js", "React.js", "JavaScript", "TypeScript", "Web Development", "GIS"],
       icon: Building
     },
     {
@@ -37,6 +38,21 @@ export function Experience() {
       ],
       technologies: ["React", "Deck.gl", "Kepler.gl", "Loader.gl", "Geofencing", "Routing"],
       icon: Globe
+    },
+    {
+      company: "Institute of Geographical Information Systems (IGIS) - NUST",
+      position: "Research Intern",
+      duration: "July 15 - August 31, 2023",
+      location: "NUST (H-12 Campus), Islamabad, Pakistan",
+      description: "Worked on the project 'An Autonomous IoT Based Approach Toward Monitoring and Identifying Invasive Dengue/Zika Vectors Prevalence and Possible Dengue Outbreak Areas.'",
+      achievements: [
+        "Focused on web GIS and computer vision applications",
+        "Received weekly training sessions on GeoServer and OpenCV",
+        "Completed internship with demonstrated regularity and commitment",
+        "Gained hands-on experience in IoT-based monitoring systems"
+      ],
+      technologies: ["GeoServer", "OpenCV", "IoT", "Computer Vision", "Web GIS"],
+      icon: Building
     }
   ]
 
@@ -83,83 +99,104 @@ export function Experience() {
           </p>
         </div>
 
-        {/* Experience timeline */}
-        <div className="space-y-16">
+        {/* Experience cards - horizontal layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {experiences.map((exp, index) => (
             <div key={index} className="animate-on-scroll">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                {/* Timeline indicator */}
-                <div className="lg:col-span-2 flex lg:flex-col items-center lg:items-start">
-                  <div className="w-16 h-16 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                    <exp.icon className="w-8 h-8 text-primary" />
+              <div 
+                className="p-6 bg-card border border-border rounded-lg hover:border-primary/20 transition-all duration-300 cursor-pointer"
+                onClick={() => setExpandedCard(expandedCard === index ? null : index)}
+              >
+                {/* Compact header */}
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                    <exp.icon className="w-5 h-5 text-primary" />
                   </div>
-                  <div className="hidden lg:block w-px h-full bg-border ml-8 mt-4" />
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-lg font-bold text-foreground leading-tight">{exp.position}</h3>
+                    <p className="text-sm text-primary font-medium">{exp.company}</p>
+                  </div>
+                  <ChevronDown 
+                    className={`w-4 h-4 text-muted-foreground transition-transform ${
+                      expandedCard === index ? 'rotate-180' : ''
+                    }`} 
+                  />
                 </div>
 
-                {/* Experience content */}
-                <div className="lg:col-span-10">
-                  <div className="p-8 bg-card border border-border rounded-lg hover:border-primary/20 transition-all duration-300 hover:-translate-y-1">
-                    {/* Header */}
-                    <div className="mb-6">
-                      <div className="flex flex-wrap items-center gap-4 mb-2">
-                        <h3 className="text-2xl font-bold text-foreground">{exp.position}</h3>
-                        <span className="px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full">
-                          {exp.duration}
-                        </span>
-                      </div>
-                      <p className="text-lg text-primary font-medium mb-2">{exp.company}</p>
-                      <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-                        <div className="flex items-center gap-1">
-                          <MapPin className="w-4 h-4" />
-                          <span>{exp.location}</span>
-                        </div>
-                        {exp.website && (
-                          <a 
-                            href={`https://${exp.website}`} 
-                            target="_blank" 
-                            rel="noopener noreferrer" 
-                            className="flex items-center gap-1 hover:text-primary transition-colors"
-                          >
-                            <Globe className="w-4 h-4" />
-                            <span>{exp.website}</span>
-                            <ExternalLink className="w-3 h-3" />
-                          </a>
-                        )}
-                      </div>
-                    </div>
+                {/* Basic info */}
+                <div className="space-y-2 mb-4">
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <Calendar className="w-4 h-4" />
+                    <span>{exp.duration}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <MapPin className="w-4 h-4" />
+                    <span className="truncate">{exp.location}</span>
+                  </div>
+                  {exp.website && (
+                    <a 
+                      href={`https://${exp.website}`} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="flex items-center gap-2 text-sm text-primary hover:underline"
+                    >
+                      <Globe className="w-4 h-4" />
+                      <span className="truncate">{exp.website}</span>
+                    </a>
+                  )}
+                </div>
 
-                    {/* Description */}
-                    <p className="text-muted-foreground leading-relaxed mb-6">
+                {/* Technologies */}
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {exp.technologies.slice(0, 4).map((tech, techIndex) => (
+                    <span
+                      key={techIndex}
+                      className="px-2 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                  {exp.technologies.length > 4 && (
+                    <span className="px-2 py-1 text-xs font-medium bg-muted text-muted-foreground rounded-full">
+                      +{exp.technologies.length - 4}
+                    </span>
+                  )}
+                </div>
+
+                {/* Expandable details */}
+                <div className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                  expandedCard === index ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'
+                }`}>
+                  <div className="border-t border-border pt-4 space-y-4">
+                    <p className="text-sm text-muted-foreground leading-relaxed">
                       {exp.description}
                     </p>
-
-                    {/* Achievements */}
-                    <div className="mb-6">
-                      <h4 className="font-semibold text-foreground mb-4 flex items-center">
-                        <Award className="w-5 h-5 mr-2 text-primary" />
+                    
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-3 flex items-center text-sm">
+                        <Award className="w-4 h-4 mr-2 text-primary" />
                         Key Achievements
                       </h4>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <div className="space-y-2">
                         {exp.achievements.map((achievement, achIndex) => (
-                          <div key={achIndex} className="flex items-start gap-3 p-3 bg-muted/50 rounded-lg">
-                            <ChevronRight className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                            <span className="text-sm text-muted-foreground">{achievement}</span>
+                          <div key={achIndex} className="flex items-start gap-2 p-2 bg-muted/50 rounded text-xs">
+                            <ChevronRight className="w-3 h-3 text-primary mt-0.5 flex-shrink-0" />
+                            <span className="text-muted-foreground">{achievement}</span>
                           </div>
                         ))}
                       </div>
                     </div>
 
-                    {/* Technologies */}
                     <div>
-                      <h4 className="font-semibold text-foreground mb-4 flex items-center">
-                        <Code className="w-5 h-5 mr-2 text-primary" />
-                        Technologies Used
+                      <h4 className="font-semibold text-foreground mb-3 flex items-center text-sm">
+                        <Code className="w-4 h-4 mr-2 text-primary" />
+                        All Technologies
                       </h4>
                       <div className="flex flex-wrap gap-2">
                         {exp.technologies.map((tech, techIndex) => (
                           <span
                             key={techIndex}
-                            className="px-3 py-1 text-sm font-medium bg-primary/10 text-primary rounded-full border border-primary/20"
+                            className="px-2 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full"
                           >
                             {tech}
                           </span>
@@ -173,6 +210,25 @@ export function Experience() {
           ))}
         </div>
 
+        {/* Technologies Section */}
+        <div className="mt-20 animate-on-scroll">
+          <div className="text-center mb-12">
+            <h3 className="text-3xl font-bold text-foreground mb-4">
+              Technologies I Work With
+            </h3>
+            <p className="text-lg text-muted-foreground">
+              A comprehensive toolkit for GIS development and web applications
+            </p>
+          </div>
+          
+          <div className="flex flex-wrap justify-center gap-3">
+            {["Python", "JavaScript", "React", "Next.js", "TypeScript", "ArcGIS", "QGIS", "PostgreSQL", "MongoDB", "TensorFlow"].map((tech) => (
+              <span key={tech} className="px-3 py-2 text-sm font-medium bg-primary/10 text-primary rounded-full border border-primary/20">
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
 
       </div>
     </section>
