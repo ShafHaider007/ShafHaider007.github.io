@@ -104,19 +104,15 @@ export function About() {
         <div className="mt-16 grid gap-14 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="space-y-8 animate-on-scroll">
             <div className="rounded-3xl border border-primary/25 bg-card/80 p-6 backdrop-blur sm:p-7 lg:p-8">
-              <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+              <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
                 <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1 text-primary">
                   <MapPin className="h-4 w-4" /> Islamabad, Pakistan
-                </span>
-                <span className="inline-flex items-center gap-2 rounded-full border border-muted/40 bg-muted/30 px-4 py-1">
-                  <Sparkles className="h-4 w-4 text-accent" /> Curious about climate resilience & mobility futures
                 </span>
               </div>
 
               <p className="mt-6 text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
-                During my time at <span className="text-foreground font-semibold">NUST</span>, I immersed myself in spatial data science—from remote sensing labs to
-                hackathons on smart city design. Today I translate that foundation into web platforms that help leaders see their
-                territory clearly and act confidently.
+                During my time at <span className="text-foreground font-semibold">NUST</span>, I moved from remote sensing labs to smart-city hackathons, building the
+                spatial toolkit I now use to ship clear, reliable mapping products for decision-makers.
               </p>
 
               <div className="mt-8 grid gap-6 sm:grid-cols-2 md:grid-cols-3">

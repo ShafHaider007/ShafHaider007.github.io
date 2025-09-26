@@ -2,37 +2,25 @@
 
 import { useEffect, useRef } from "react"
 import { Button } from "@/components/ui/Button"
-import { ArrowRight, Map, Orbit, Route, Satellite, Shield, Sparkles } from "lucide-react"
+import { ArrowRight, Map, Orbit, Route, Satellite, Sparkles } from "lucide-react"
 import Link from "next/link"
 
 const portfolio = [
   {
-    title: "Urban Mobility Risk Studio",
-    category: "Spatial decision platform",
-    description:
-      "Multi-layer web app that overlays crime, congestion, and accessibility metrics to guide equitable transit planning across Islamabad.",
-    results: ["90-second scenario simulations", "Dynamic heatmaps for 4 commute personas", "Executive-ready PDF exports"],
-    tech: ["Next.js", "deck.gl", "PostGIS", "Supabase"],
-    icon: Shield,
-    link: "#contact"
-  },
-  {
     title: "Shortest Route Intelligence",
-    category: "Algorithmic routing",
-    description:
-      "Python-driven toolkit that converts raw shapefiles into routable graphs, applying Dijkstra for field operations and logistics teams.",
-    results: ["Automated OSM ingestion", "Interactive path playback", "Exportable GeoJSON routes"],
-    tech: ["Python", "NetworkX", "Geopandas", "Folium"],
+    category: "Routing toolkit",
+    description: "Turns raw street data into lightweight routing helpers for field crews.",
+    results: ["Automates OSM ingestion", "Exports clean GeoJSON routes"],
+    tech: ["Python", "NetworkX"],
     icon: Route,
     link: "#contact"
   },
   {
     title: "Incident Reporting Atlas",
-    category: "Civic engagement",
-    description:
-      "Citizen-sourced platform for reporting neighbourhood incidents with clustering intelligence that prioritises response zones.",
-    results: ["Real-time triage dashboard", "Sentiment tagging", "Moderation workflow"],
-    tech: ["Django", "Leaflet", "PostgreSQL", "S3"],
+    category: "Civic reporting",
+    description: "Maps citizen reports with clustering so responders can triage faster.",
+    results: ["Live moderation views", "Priority queues for planners"],
+    tech: ["Django", "Leaflet"],
     icon: Map,
     link: "#contact"
   }

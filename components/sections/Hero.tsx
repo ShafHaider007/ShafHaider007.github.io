@@ -58,20 +58,14 @@ export function Hero() {
 
       <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-10 md:gap-14 lg:flex-row lg:items-start lg:gap-16">
         <div className="space-y-8 md:space-y-10 lg:w-[58%] animate-on-scroll">
-          <div className="inline-flex items-center gap-3 rounded-full border border-primary/40 bg-primary/15 px-4 py-2 text-sm font-medium text-primary backdrop-blur">
-            <Radar className="h-4 w-4" /> Spatial product designer & GIS developer
-          </div>
+          <div className="h-10"></div>
 
           <div className="space-y-6">
             <h1 className="text-balance text-4xl font-bold leading-tight text-foreground sm:text-5xl lg:text-6xl xl:text-[3.9rem]">
-              Mapping intelligence into experiences that move
-              <span className="ml-2 inline-flex items-center gap-2 rounded-full bg-primary/20 px-3 py-1 text-foreground">
-                <Sparkles className="h-5 w-5 text-primary" /> cities forward
-              </span>
+              Crafting GIS that turns Geospatial data into confident decisions
             </h1>
             <p className="max-w-2xl text-pretty text-lg text-muted-foreground sm:text-xl">
-              I help product teams, public agencies, and researchers transform geospatial data into actionable web applications.
-              From mobility simulations to climate dashboards, I design resilient systems that scale insight across organisations.
+            I help product teams, public agencies, and researchers transform geospatial data into actionable web applications
             </p>
             <div className="grid gap-3 sm:grid-cols-2">
               <div className="rounded-2xl border border-primary/30 bg-primary/10 p-4 text-sm text-muted-foreground">

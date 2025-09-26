@@ -162,6 +162,16 @@
   opacity: 0;
 }
 
+.scroll-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.65;
+  transition: opacity 300ms ease;
+}
+
 .animate-glow {
   animation: glow 3s ease-in-out infinite;
 }

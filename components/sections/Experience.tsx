@@ -10,14 +10,12 @@ const experiences = [
     duration: "Jun 2025 – Present",
     location: "Islamabad, Pakistan",
     website: "https://www.gisplus.com",
-    summary:
-      "Designing and launching spatial web applications for public-sector and enterprise partners, leading delivery from product framing to deployment.",
+    summary: "Deliver GIS products for public and enterprise clients, steering work from framing to launch.",
     highlights: [
-      "Architected modular Next.js mapping templates to accelerate proof-of-concept delivery by 40%",
-      "Directed stakeholder discovery for provincial land-use dashboards and mobility wayfinding tools",
-      "Standardised QA workflows for geospatial datasets, improving data reliability across teams"
+      "Built reusable Next.js mapping shells to ship proofs in weeks",
+      "Set up spatial data QA loops so teams trust live layers"
     ],
-    stack: ["Next.js", "React", "deck.gl", "PostGIS", "ArcGIS Enterprise"]
+    stack: ["Next.js", "deck.gl", "PostGIS"]
   },
   {
     company: "Jugrafiya",
@@ -25,14 +23,12 @@ const experiences = [
     duration: "Jun – Aug 2024",
     location: "Islamabad, Pakistan",
     website: "https://www.jugrafiya.com",
-    summary:
-      "Led a skunkworks team exploring large-scale spatial rendering, delivering prototypes that shaped client strategy and future investment decisions.",
+    summary: "Led Jugrafiya skunkworks to test large-scale spatial rendering for mobility pilots.",
     highlights: [
-      "Evaluated deck.gl, kepler.gl, and loaders.gl for massive point clouds and geofencing at scale",
-      "Built routing experiments combining traffic, safety, and accessibility datasets for smart city pilots",
-      "Presented roadmap recommendations to C-level stakeholders with live, data-driven demos"
+      "Benchmarked deck.gl and loaders.gl on heavy point clouds",
+      "Turned mobility datasets into concise demos for executives"
     ],
-    stack: ["React", "deck.gl", "Kepler.gl", "GeoJSON", "Geofencing"]
+    stack: ["React", "deck.gl", "GeoJSON"]
   },
   {
     company: "IGIS – NUST",
@@ -40,14 +36,12 @@ const experiences = [
     duration: "Jul – Aug 2023",
     location: "Islamabad, Pakistan",
     website: "https://igis.nust.edu.pk",
-    summary:
-      "Supported an IoT-powered disease surveillance initiative by bridging field sensors, GeoServer, and analytical dashboards.",
+    summary: "Linked sensors and dashboards for an IoT-powered disease surveillance initiative.",
     highlights: [
-      "Developed web GIS interfaces to monitor dengue vector distribution in near real-time",
-      "Automated preprocessing of OpenCV outputs for epidemiological visualisation layers",
-      "Collaborated with researchers to transform complex metrics into actionable public health insights"
+      "Shipped web GIS views to monitor dengue hotspots",
+      "Automated OpenCV outputs into map-ready layers"
     ],
-    stack: ["GeoServer", "Python", "OpenCV", "Leaflet", "PostgreSQL"]
+    stack: ["GeoServer", "Python", "Leaflet"]
   }
 ]
 

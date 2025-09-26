@@ -175,25 +175,6 @@ export function Contact() {
               </div>
             </div>
 
-            <div className="rounded-3xl border border-border/50 bg-card/80 p-6 backdrop-blur sm:p-7 lg:p-8">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <div>
-                  <h3 className="text-lg font-semibold text-foreground">Project dossier template</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Download a planning sheet I use with clients to align on objectives, success metrics, and data sources.
-                  </p>
-                </div>
-                <Button
-                  asChild
-                  variant="outline"
-                  className="mt-4 inline-flex items-center gap-2 rounded-full border-primary/40 bg-background/60 px-4 py-2 text-sm font-semibold text-primary transition hover:border-primary/60 hover:bg-primary/5 sm:mt-0"
-                >
-                  <Link href="/dossier-template.pdf" target="_blank">
-                    <Share2 className="h-4 w-4" /> Download toolkit
-                  </Link>
-                </Button>
-              </div>
-            </div>
           </div>
 
           <div className="animate-on-scroll rounded-3xl border border-border/60 bg-card/80 p-6 backdrop-blur sm:p-7 lg:p-8">

@@ -118,28 +118,6 @@ export function SecondaryHero() {
         </div>
 
         <div className="animate-on-scroll flex flex-1 flex-col gap-6 rounded-[2.5rem] border border-border/60 bg-secondary/40 p-8 backdrop-blur">
-          <div className="rounded-2xl border border-border/50 bg-background/70 p-6">
-            <p className="text-xs font-semibold uppercase tracking-[0.35em] text-muted-foreground">Engagement snapshot</p>
-            <div className="mt-4 grid grid-cols-2 gap-4 text-sm text-muted-foreground">
-              <div>
-                <p className="text-3xl font-semibold text-foreground">6</p>
-                <p className="uppercase tracking-[0.3em]">Teams enabled</p>
-              </div>
-              <div>
-                <p className="text-3xl font-semibold text-foreground">4</p>
-                <p className="uppercase tracking-[0.3em]">Product streams</p>
-              </div>
-              <div>
-                <p className="text-3xl font-semibold text-foreground">24</p>
-                <p className="uppercase tracking-[0.3em]">Workshops</p>
-              </div>
-              <div>
-                <p className="text-3xl font-semibold text-foreground">∞</p>
-                <p className="uppercase tracking-[0.3em]">Iterative learning</p>
-              </div>
-            </div>
-          </div>
-
           <div className="grid gap-4 rounded-2xl border border-primary/20 bg-background/70 p-6">
             <p className="text-xs font-semibold uppercase tracking-[0.35em] text-primary/80">What we co-create</p>
             {capabilityHighlights.map((item) => (
@@ -159,4 +137,3 @@ export function SecondaryHero() {
     </section>
   )
 }
-
