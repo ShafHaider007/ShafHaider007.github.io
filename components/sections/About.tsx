@@ -1,40 +1,57 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import { GraduationCap, Award, Users, Target, TrendingUp, Calendar, Star, Code, Database, Globe, Zap, Brain, MapPin } from "lucide-react"
+import {
+  BadgeCheck,
+  Brain,
+  Building2,
+  Compass,
+  FlaskConical,
+  GraduationCap,
+  MapPin,
+  Sparkles,
+  Workflow
+} from "lucide-react"
+
+const strengths = [
+  {
+    icon: Compass,
+    title: "Human-centred strategy",
+    description: "Pairing stakeholder workshops with service blueprints to align spatial systems with daily decision-making."
+  },
+  {
+    icon: Brain,
+    title: "Analytical rigor",
+    description: "Modeling complex datasets with reproducible notebooks, versioned schemas, and automated QA checks."
+  },
+  {
+    icon: Workflow,
+    title: "End-to-end delivery",
+    description: "Prototyping, shipping, and maintaining production-ready GIS platforms across cross-functional teams."
+  }
+]
+
+const credentials = [
+  { label: "Degree", value: "BSc Geoinformatics Engineering", icon: GraduationCap },
+  { label: "Leadership", value: "Vice President Operations – GIS Day 2024", icon: Building2 },
+  { label: "Research", value: "AR experiences for urban mobility", icon: FlaskConical }
+]
+
+const toolbelt = [
+  "ArcGIS Pro",
+  "QGIS",
+  "PostGIS",
+  "deck.gl",
+  "Mapbox GL",
+  "Next.js",
+  "TypeScript",
+  "Python",
+  "GeoServer",
+  "Cloud Functions"
+]
 
 export function About() {
   const sectionRef = useRef<HTMLElement>(null)
-
-  const skills = [
-    { name: "GIS Development", level: 90, icon: Globe },
-    { name: "Web Development", level: 85, icon: Code },
-    { name: "Machine Learning", level: 80, icon: Brain },
-    { name: "Database Management", level: 75, icon: Database }
-  ]
-
-  const achievements = [
-    {
-      icon: Award,
-      title: "Vice President Operations",
-      description: "GIS Day 2024 at NUST - Led event coordination and management"
-    },
-    {
-      icon: Target,
-      title: "Research Focus",
-      description: "AR Applications for Urban Mobility Mapping"
-    },
-    {
-      icon: Users,
-      title: "Leadership",
-      description: "Team Lead at Jugrafiya - Managed 3-member development team"
-    },
-    {
-      icon: Star,
-      title: "Academic Excellence",
-      description: "Graduated with distinction - Consistent high performance"
-    }
-  ]
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -46,14 +63,14 @@ export function About() {
           }
         })
       },
-      { 
+      {
         threshold: 0.1,
-        rootMargin: '50px'
+        rootMargin: "50px"
       }
     )
 
     if (sectionRef.current) {
-      const elements = sectionRef.current.querySelectorAll('.animate-on-scroll')
+      const elements = sectionRef.current.querySelectorAll(".animate-on-scroll")
       elements.forEach((el) => observer.observe(el))
     }
 
@@ -61,128 +78,114 @@ export function About() {
   }, [])
 
   return (
-    <section ref={sectionRef} id="about" className="py-24 px-6 bg-background relative overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 pointer-events-none" />
-      
-      <div className="max-w-6xl mx-auto relative z-10">
-        {/* Section header */}
-        <div className="text-center mb-20 animate-on-scroll">
-          <p className="text-primary font-mono text-sm tracking-wider uppercase mb-4">
-            01. About Me
-          </p>
-          <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            About
-            <span className="text-primary block">Me</span>
+    <section
+      ref={sectionRef}
+      id="about"
+      className="relative overflow-hidden bg-gradient-to-br from-[#061929]/70 via-[#04131f]/80 to-[#020a12]/90 px-6 py-28"
+    >
+      <div className="absolute inset-0 opacity-30">
+        <div className="geo-grid" />
+      </div>
+      <div className="pointer-events-none absolute -top-16 left-1/3 h-52 w-52 rounded-full bg-primary/20 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-10 right-1/4 h-60 w-60 rounded-full bg-accent/10 blur-3xl" />
+
+      <div className="relative z-10 mx-auto max-w-6xl">
+        <div className="animate-on-scroll text-center">
+          <p className="font-mono text-xs uppercase tracking-[0.45em] text-primary/90">01 · About</p>
+          <h2 className="mt-6 text-balance text-4xl font-semibold text-foreground sm:text-5xl">
+            Building spatial products that marry clarity with context
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Geoinformatics Engineering graduate creating GIS solutions and web applications.
+          <p className="mx-auto mt-4 max-w-3xl text-lg text-muted-foreground">
+            I combine geospatial engineering, UX strategy, and full-stack development to craft digital experiences that make maps
+            feel intuitive, actionable, and trustworthy for the people who depend on them.
           </p>
         </div>
 
-        {/* Main content grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-20">
-          {/* Left column - About text */}
-          <div className="space-y-6 animate-on-scroll">
-            <div className="space-y-4 text-muted-foreground leading-relaxed">
-              <p>
-                Graduated with Geoinformatics Engineering from <span className="text-primary font-medium">NUST</span>, 
-                specializing in spatial analysis, web GIS development, and machine learning applications.
-              </p>
-              
-              <p>
-                Experience includes developing <span className="text-foreground font-medium">GIS solutions</span>, 
-                <span className="text-foreground font-medium"> web applications</span>, and 
-                <span className="text-foreground font-medium"> AR applications for urban mobility</span>.
-              </p>
-            </div>
-
-            {/* Education */}
-            <div className="p-6 bg-card border border-border rounded-lg">
-              <div className="flex items-center mb-4">
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mr-4">
-                  <GraduationCap className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-foreground">Education</h3>
-                  <p className="text-sm text-muted-foreground">Bachelor of Science</p>
-                </div>
+        <div className="mt-16 grid gap-14 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="space-y-8 animate-on-scroll">
+            <div className="rounded-3xl border border-primary/25 bg-card/80 p-8 backdrop-blur">
+              <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1 text-primary">
+                  <MapPin className="h-4 w-4" /> Islamabad, Pakistan
+                </span>
+                <span className="inline-flex items-center gap-2 rounded-full border border-muted/40 bg-muted/30 px-4 py-1">
+                  <Sparkles className="h-4 w-4 text-accent" /> Curious about climate resilience & mobility futures
+                </span>
               </div>
-              
-              <div className="space-y-2">
-                <h4 className="font-medium text-foreground">Geoinformatics Engineering</h4>
-                <p className="text-primary font-medium">National University of Science and Technology (NUST)</p>
-                <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                  <div className="flex items-center gap-1">
-                    <MapPin className="w-4 h-4" />
-                    <span>Islamabad, Pakistan</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Calendar className="w-4 h-4" />
-                    <span>Graduated May 2025</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          {/* Right column - Skills */}
-          <div className="animate-on-scroll">
-            <h3 className="text-2xl font-bold text-foreground mb-8">Technical Skills</h3>
-            <div className="space-y-6">
-              {skills.map((skill, index) => (
-                <div key={index} className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                        <skill.icon className="w-5 h-5 text-primary" />
-                      </div>
-                      <span className="font-medium text-foreground">{skill.name}</span>
-                    </div>
-                    <span className="text-sm text-muted-foreground">{skill.level}%</span>
-                  </div>
-                  <div className="w-full bg-border rounded-full h-2">
-                    <div 
-                      className="h-2 bg-primary rounded-full transition-all duration-1000 ease-out"
-                      style={{ width: `${skill.level}%` }}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
+              <p className="mt-6 text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
+                During my time at <span className="text-foreground font-semibold">NUST</span>, I immersed myself in spatial data science—from remote sensing labs to
+                hackathons on smart city design. Today I translate that foundation into web platforms that help leaders see their
+                territory clearly and act confidently.
+              </p>
 
-            {/* Technologies */}
-            <div className="mt-8">
-              <h4 className="text-lg font-semibold text-foreground mb-4">Technologies I work with</h4>
-              <div className="flex flex-wrap gap-2">
-                {["Python", "JavaScript", "React", "Next.js", "TypeScript", "ArcGIS", "QGIS", "PostgreSQL", "MongoDB", "TensorFlow"].map((tech) => (
-                  <span key={tech} className="px-3 py-1 text-sm font-medium bg-primary/10 text-primary rounded-full border border-primary/20">
-                    {tech}
-                  </span>
+              <div className="mt-8 grid gap-6 sm:grid-cols-3">
+                {credentials.map((item) => (
+                  <div
+                    key={item.label}
+                    className="rounded-2xl border border-border/60 bg-background/60 p-4 text-left shadow-inner shadow-black/10"
+                  >
+                    <item.icon className="h-6 w-6 text-primary" />
+                    <p className="mt-3 text-xs uppercase tracking-[0.3em] text-muted-foreground">{item.label}</p>
+                    <p className="mt-2 text-sm font-medium text-foreground">{item.value}</p>
+                  </div>
                 ))}
               </div>
             </div>
-          </div>
-        </div>
 
-        {/* Key highlights */}
-        <div className="animate-on-scroll">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div className="text-center p-6 bg-card border border-border rounded-lg">
-              <div className="text-2xl font-bold text-foreground mb-1">BSc</div>
-              <div className="text-sm text-muted-foreground">Degree</div>
+            <div className="grid gap-6 md:grid-cols-3">
+              {strengths.map((strength) => (
+                <div
+                  key={strength.title}
+                  className="animate-on-scroll rounded-3xl border border-border/50 bg-background/50 p-6 backdrop-blur transition hover:border-primary/50 hover:bg-primary/5"
+                >
+                  <strength.icon className="h-8 w-8 text-primary" />
+                  <h3 className="mt-4 text-lg font-semibold text-foreground">{strength.title}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">{strength.description}</p>
+                </div>
+              ))}
             </div>
-            <div className="text-center p-6 bg-card border border-border rounded-lg">
-              <div className="text-2xl font-bold text-foreground mb-1">2</div>
-              <div className="text-sm text-muted-foreground">Internships</div>
+          </div>
+
+          <div className="space-y-8 animate-on-scroll">
+            <div className="rounded-3xl border border-border/60 bg-secondary/50 p-7 backdrop-blur">
+              <div className="flex items-center gap-3">
+                <BadgeCheck className="h-6 w-6 text-primary" />
+                <div>
+                  <h3 className="text-lg font-semibold text-foreground">Ways I work</h3>
+                  <p className="text-sm text-muted-foreground">Design sprints, spatial data pipelines, and iterative delivery.</p>
+                </div>
+              </div>
+
+              <ul className="mt-6 space-y-4 text-sm text-muted-foreground">
+                <li className="rounded-2xl border border-border/40 bg-background/60 p-4">
+                  <p className="font-semibold text-foreground">Discovery to deployment</p>
+                  <p className="mt-1 text-xs">From stakeholder interviews to CI/CD for modern web GIS stacks.</p>
+                </li>
+                <li className="rounded-2xl border border-border/40 bg-background/60 p-4">
+                  <p className="font-semibold text-foreground">Systems thinking</p>
+                  <p className="mt-1 text-xs">Connecting field data, satellite imagery, and dashboards into clear narratives.</p>
+                </li>
+                <li className="rounded-2xl border border-border/40 bg-background/60 p-4">
+                  <p className="font-semibold text-foreground">Inclusive collaboration</p>
+                  <p className="mt-1 text-xs">Working with multidisciplinary teams to balance precision with clarity.</p>
+                </li>
+              </ul>
             </div>
-            <div className="text-center p-6 bg-card border border-border rounded-lg">
-              <div className="text-2xl font-bold text-foreground mb-1">3+</div>
-              <div className="text-sm text-muted-foreground">Projects</div>
-            </div>
-            <div className="text-center p-6 bg-card border border-border rounded-lg">
-              <div className="text-2xl font-bold text-foreground mb-1">2025</div>
-              <div className="text-sm text-muted-foreground">Graduated</div>
+
+            <div className="rounded-3xl border border-primary/20 bg-card/80 p-7 backdrop-blur">
+              <h3 className="text-lg font-semibold text-foreground">Toolbelt</h3>
+              <p className="mt-2 text-sm text-muted-foreground">The platforms and libraries I lean on to deliver reliable spatial products.</p>
+              <div className="mt-6 flex flex-wrap gap-2">
+                {toolbelt.map((tool) => (
+                  <span
+                    key={tool}
+                    className="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-primary"
+                  >
+                    {tool}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </div>
