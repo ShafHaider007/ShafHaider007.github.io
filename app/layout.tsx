@@ -2,7 +2,9 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter, JetBrains_Mono, Playfair_Display } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import "lenis/dist/lenis.css"
 import "./globals.css"
+import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -44,7 +46,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`${inter.variable} ${jetbrainsMono.variable} ${playfair.variable} font-sans`}>
-        {children}
+        <SmoothScrollProvider>{children}</SmoothScrollProvider>
         <Analytics />
       </body>
     </html>

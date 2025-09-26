@@ -172,6 +172,26 @@
   transition: opacity 300ms ease;
 }
 
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
 .animate-glow {
   animation: glow 3s ease-in-out infinite;
 }

@@ -6,7 +6,7 @@ const PARTICLE_COUNT = 60
 
 export function ScrollCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const frameRef = useRef<number>()
+  const frameRef = useRef<number | undefined>(undefined)
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -44,6 +44,13 @@ export function ScrollCanvas() {
 
     handleScroll()
 
+    const handleLenisScroll = (event: Event) => {
+      const detail = (event as CustomEvent<{ progress?: number }>).detail
+      if (detail && typeof detail.progress === "number") {
+        scrollProgress = detail.progress
+      }
+    }
+
     const render = (time: number) => {
       const { innerWidth, innerHeight } = window
       context.clearRect(0, 0, innerWidth, innerHeight)
@@ -67,6 +74,7 @@ export function ScrollCanvas() {
     frameRef.current = requestAnimationFrame(render)
     window.addEventListener("resize", resize)
     window.addEventListener("scroll", handleScroll, { passive: true })
+    window.addEventListener("lenis-scroll", handleLenisScroll as EventListener)
 
     return () => {
       if (frameRef.current) {
@@ -74,6 +82,7 @@ export function ScrollCanvas() {
       }
       window.removeEventListener("resize", resize)
       window.removeEventListener("scroll", handleScroll)
+      window.removeEventListener("lenis-scroll", handleLenisScroll as EventListener)
     }
   }, [])
 
