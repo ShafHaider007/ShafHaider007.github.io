@@ -1,8 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import { Button } from "@/components/ui/Button"
-import { ArrowRight, Compass, Globe2, Layers, MapPin, Mail, Radar, Sparkles, Trophy } from "lucide-react"
+import { Compass, Globe2, Layers, MapPin, Mail, Radar, Sparkles } from "lucide-react"
 import Link from "next/link"
 
 const focusSignals = [
@@ -16,15 +15,6 @@ const deliveryMetrics = [
   { label: "Cities mapped", value: "18", helper: "Across 3 regions" },
   { label: "Toolset", value: "ArcGIS · deck.gl · Next.js", helper: "Primary stack" }
 ]
-
-const trustedPartners = ["UrbanFlow Lab", "CityWorks", "Geoverse", "MobilityX"]
-
-const featuredProject = {
-  name: "Transit Sense",
-  summary: "Adaptive ridership insights for multi-modal mobility planning",
-  highlights: ["Live GTFS integration", "Rider sentiment overlays", "Scenario forecasting"],
-  result: "Reduced corridor analysis time by 40%"
-}
 
 export function Hero() {
   const heroRef = useRef<HTMLElement>(null)
@@ -57,7 +47,7 @@ export function Hero() {
     <section
       ref={heroRef}
       id="home"
-      className="relative flex min-h-screen flex-col justify-start overflow-hidden bg-[radial-gradient(circle_at_top,_rgba(24,92,142,0.25)_0%,_rgba(5,28,44,0.92)_55%,_rgba(2,13,21,1)_100%)] px-4 pb-20 pt-24 sm:px-6 sm:pb-24 sm:pt-28 lg:flex-row lg:items-center lg:justify-center lg:pb-28 lg:pt-32"
+      className="relative flex min-h-screen flex-col justify-start overflow-hidden bg-[radial-gradient(circle_at_top,_rgba(24,92,142,0.25)_0%,_rgba(5,28,44,0.92)_55%,_rgba(2,13,21,1)_100%)] px-4 pb-16 pt-16 sm:px-6 sm:pb-20 sm:pt-20 lg:flex-row lg:items-start lg:justify-center lg:pb-24 lg:pt-24"
     >
       <div className="absolute inset-0 opacity-60">
         <div className="geo-grid" />
@@ -66,7 +56,7 @@ export function Hero() {
       <div className="pointer-events-none absolute bottom-0 left-1/4 h-64 w-64 rounded-full bg-accent/20 blur-3xl" />
       <div className="pointer-events-none absolute left-1/2 top-1/2 h-96 w-96 -translate-y-1/2 rounded-full border border-primary/10 bg-primary/5 blur-3xl" />
 
-      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-12 md:gap-16 lg:flex-row lg:items-center lg:gap-20">
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-10 md:gap-14 lg:flex-row lg:items-start lg:gap-16">
         <div className="space-y-8 md:space-y-10 lg:w-[58%] animate-on-scroll">
           <div className="inline-flex items-center gap-3 rounded-full border border-primary/40 bg-primary/15 px-4 py-2 text-sm font-medium text-primary backdrop-blur">
             <Radar className="h-4 w-4" /> Spatial product designer & GIS developer
@@ -97,19 +87,6 @@ export function Hero() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-4 sm:flex-row">
-            <Button
-              size="lg"
-              className="group flex items-center justify-center gap-2 rounded-xl bg-primary px-8 py-4 text-base font-semibold tracking-wide text-primary-foreground shadow-lg shadow-primary/20 transition hover:bg-primary/90"
-              asChild
-            >
-              <Link href="#projects">
-                View live case studies
-                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-              </Link>
-            </Button>
-          </div>
-
           <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
             <span className="inline-flex items-center gap-2 rounded-full border border-muted/40 bg-muted/30 px-3 py-1">
               <MapPin className="h-4 w-4 text-primary" /> Islamabad, Pakistan
@@ -122,49 +99,9 @@ export function Hero() {
             </Link>
           </div>
 
-          <div className="animate-on-scroll flex flex-wrap items-center gap-6 text-sm text-muted-foreground/80">
-            <span className="inline-flex items-center gap-2 rounded-full border border-muted/40 bg-muted/20 px-3 py-1 font-medium uppercase tracking-[0.35em] text-muted-foreground">
-              <Sparkles className="h-4 w-4 text-primary" /> Trusted by
-            </span>
-            {trustedPartners.map((partner) => (
-              <span
-                key={partner}
-                className="text-xs font-semibold uppercase tracking-[0.45em] text-muted-foreground/70 transition hover:text-primary"
-              >
-                {partner}
-              </span>
-            ))}
-          </div>
         </div>
 
-        <div className="flex w-full flex-col gap-6 lg:w-[42%]">
-          <div className="animate-on-scroll overflow-hidden rounded-3xl border border-primary/30 bg-gradient-to-br from-primary/25 via-background/80 to-background/90 p-8 shadow-2xl shadow-black/30 backdrop-blur">
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.35em] text-primary/80">Featured delivery</p>
-                <h3 className="mt-3 text-2xl font-semibold text-foreground">{featuredProject.name}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{featuredProject.summary}</p>
-              </div>
-              <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-primary/20 text-primary">
-                <Trophy className="h-6 w-6" />
-              </div>
-            </div>
-            <div className="mt-6 grid gap-3">
-              {featuredProject.highlights.map((highlight) => (
-                <div
-                  key={highlight}
-                  className="flex items-center gap-3 rounded-2xl border border-primary/30 bg-background/60 px-4 py-3 text-sm text-foreground"
-                >
-                  <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                  {highlight}
-                </div>
-              ))}
-            </div>
-            <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-primary">
-              {featuredProject.result}
-            </div>
-          </div>
-
+        <div className="flex w-full flex-col gap-6 lg:w-[42%] lg:pt-10">
           <div className="animate-on-scroll overflow-hidden rounded-3xl border border-primary/20 bg-card/80 p-8 shadow-2xl shadow-black/20 backdrop-blur">
             <p className="text-sm font-semibold uppercase tracking-[0.4em] text-muted-foreground">Focus areas</p>
             <div className="mt-6 space-y-5">
