@@ -4,26 +4,26 @@
 
 @layer base {
   :root {
-    --background: 233 45% 7%;
-    --foreground: 233 14% 85%;
-    --card: 233 45% 9%;
-    --card-foreground: 233 14% 85%;
-    --popover: 233 45% 9%;
-    --popover-foreground: 233 14% 85%;
-    --primary: 64 86% 67%;
-    --primary-foreground: 233 45% 7%;
-    --secondary: 233 45% 12%;
-    --secondary-foreground: 233 14% 85%;
-    --muted: 233 45% 12%;
-    --muted-foreground: 233 14% 55%;
-    --accent: 64 86% 67%;
-    --accent-foreground: 233 45% 7%;
+    --background: 210 62% 5%;
+    --foreground: 197 83% 96%;
+    --card: 210 45% 10%;
+    --card-foreground: 197 83% 96%;
+    --popover: 210 45% 8%;
+    --popover-foreground: 197 83% 96%;
+    --primary: 167 68% 52%;
+    --primary-foreground: 212 73% 8%;
+    --secondary: 203 48% 14%;
+    --secondary-foreground: 197 83% 96%;
+    --muted: 204 42% 16%;
+    --muted-foreground: 200 31% 70%;
+    --accent: 28 94% 60%;
+    --accent-foreground: 212 73% 8%;
     --destructive: 0 84% 60%;
-    --destructive-foreground: 233 14% 85%;
-    --border: 233 45% 15%;
-    --input: 233 45% 15%;
-    --ring: 64 86% 67%;
-    --radius: 0.5rem;
+    --destructive-foreground: 197 83% 96%;
+    --border: 207 41% 20%;
+    --input: 207 41% 20%;
+    --ring: 167 68% 52%;
+    --radius: 0.75rem;
   }
 }
 
@@ -32,7 +32,7 @@
     @apply border-border;
     box-sizing: border-box;
   }
-  
+
   *,
   *::before,
   *::after {
@@ -44,8 +44,13 @@
     text-rendering: optimizeLegibility;
     line-height: 1.6;
     overflow-x: hidden;
+    background-image:
+      radial-gradient(circle at 15% 10%, hsl(var(--primary) / 0.15), transparent 55%),
+      radial-gradient(circle at 85% 20%, hsl(var(--accent) / 0.12), transparent 60%),
+      linear-gradient(120deg, hsl(210 65% 4%), hsl(215 62% 6%));
+    background-attachment: fixed;
   }
-  
+
   html {
     scroll-behavior: smooth;
   }
@@ -116,10 +121,10 @@
 @keyframes glow {
   0%,
   100% {
-    box-shadow: 0 0 20px rgba(163, 230, 53, 0.2);
+    box-shadow: 0 0 24px rgba(64, 196, 173, 0.18);
   }
   50% {
-    box-shadow: 0 0 30px rgba(163, 230, 53, 0.4);
+    box-shadow: 0 0 36px rgba(64, 196, 173, 0.35);
   }
 }
 
@@ -134,10 +139,10 @@
 
 @keyframes pulse-glow {
   0%, 100% {
-    box-shadow: 0 0 5px rgba(163, 230, 53, 0.3);
+    box-shadow: 0 0 6px rgba(64, 196, 173, 0.35);
   }
   50% {
-    box-shadow: 0 0 20px rgba(163, 230, 53, 0.6);
+    box-shadow: 0 0 22px rgba(64, 196, 173, 0.65);
   }
 }
 
@@ -178,10 +183,27 @@
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #a3e635, #a3e635);
+  background: linear-gradient(120deg, hsl(var(--primary)), hsl(var(--accent)) 80%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+.geo-grid {
+  position: relative;
+}
+
+.geo-grid::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background-image:
+    linear-gradient(to right, hsl(var(--primary) / 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, hsl(var(--primary) / 0.1) 1px, transparent 1px);
+  background-size: 72px 72px;
+  opacity: 0.5;
+  mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.8), transparent 70%);
+  pointer-events: none;
 }
 
 .hover-lift {
@@ -189,29 +211,11 @@
 }
 
 .hover-lift:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(5, 22, 34, 0.35);
 }
 
 /* Performance optimizations */
 .animate-on-scroll {
   will-change: transform, opacity;
-}
-
-/* Smooth scrolling for anchor links */
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  
-  .animate-fade-in-up {
-    animation: none;
-    opacity: 1;
-  }
 }
