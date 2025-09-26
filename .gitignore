@@ -26,6 +26,9 @@ test-results/
 .stylelintcache
 .prettier-cache
 
+# TypeScript build cache
+tsconfig.tsbuildinfo
+
 # Env files (keep .env.example committed)
 .env
 .env.local
