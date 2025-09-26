@@ -126,9 +126,9 @@ export function Contact() {
           </p>
         </div>
 
-        <div className="mt-16 grid gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
+        <div className="mt-16 grid gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-14">
           <div className="space-y-8 animate-on-scroll">
-            <div className="rounded-3xl border border-primary/20 bg-card/80 p-8 backdrop-blur">
+            <div className="rounded-3xl border border-primary/20 bg-card/80 p-6 backdrop-blur sm:p-7 lg:p-8">
               <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-primary">
                 OPEN FOR PARTNERSHIPS
               </span>
@@ -149,7 +149,7 @@ export function Contact() {
               </div>
             </div>
 
-            <div className="rounded-3xl border border-border/60 bg-secondary/50 p-8 backdrop-blur">
+            <div className="rounded-3xl border border-border/60 bg-secondary/50 p-6 backdrop-blur sm:p-7 lg:p-8">
               <h3 className="text-lg font-semibold text-foreground">Preferred channels</h3>
               <p className="mt-2 text-sm text-muted-foreground">Reach out directly or schedule time to walk through your brief.</p>
               <div className="mt-6 space-y-4">
@@ -159,7 +159,7 @@ export function Contact() {
                     href={channel.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex items-start gap-4 rounded-2xl border border-border/40 bg-background/60 p-4 transition hover:border-primary/50 hover:bg-primary/5"
+                    className="group flex flex-col gap-4 rounded-2xl border border-border/40 bg-background/60 p-4 transition hover:border-primary/50 hover:bg-primary/5 sm:flex-row sm:items-start"
                   >
                     <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-primary/15 text-primary">
                       <channel.icon className="h-6 w-6" />
@@ -175,7 +175,7 @@ export function Contact() {
               </div>
             </div>
 
-            <div className="rounded-3xl border border-border/50 bg-card/80 p-8 backdrop-blur">
+            <div className="rounded-3xl border border-border/50 bg-card/80 p-6 backdrop-blur sm:p-7 lg:p-8">
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <h3 className="text-lg font-semibold text-foreground">Project dossier template</h3>
@@ -196,7 +196,7 @@ export function Contact() {
             </div>
           </div>
 
-          <div className="animate-on-scroll rounded-3xl border border-border/60 bg-card/80 p-8 backdrop-blur">
+          <div className="animate-on-scroll rounded-3xl border border-border/60 bg-card/80 p-6 backdrop-blur sm:p-7 lg:p-8">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <h3 className="text-2xl font-semibold text-foreground">Project inquiry</h3>

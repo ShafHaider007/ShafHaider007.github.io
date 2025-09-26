@@ -55,7 +55,7 @@ export function Navigation() {
             href="#home"
             className="text-2xl font-bold text-foreground hover:text-primary transition-all duration-300 hover:scale-105"
           >
-            <span className="font-mono">SH</span>
+            <span className="font-mono">Shaf Haider</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -75,15 +75,6 @@ export function Navigation() {
                 )}
               </Link>
             ))}
-
-            {/* Resume Button */}
-            <Link
-              href="/resume.pdf"
-              target="_blank"
-              className="ml-6 px-6 py-2 border border-primary/30 text-primary text-sm font-mono hover:bg-primary/10 hover:border-primary/60 transition-all duration-300 rounded-md hover:scale-105"
-            >
-              Resume
-            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -127,17 +118,6 @@ export function Navigation() {
               </Link>
             ))}
 
-            <Link
-              href="/resume.pdf"
-              target="_blank"
-              className={`inline-block mt-8 px-6 py-3 border border-primary/30 text-primary font-mono hover:bg-primary/10 transition-all duration-300 rounded-md transform ${
-                isOpen ? 'translate-x-0 opacity-100' : 'translate-x-4 opacity-0'
-              }`}
-              style={{ transitionDelay: '400ms' }}
-              onClick={() => setIsOpen(false)}
-            >
-              Resume
-            </Link>
           </div>
         </div>
       </div>

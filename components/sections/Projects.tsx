@@ -103,12 +103,12 @@ export function Projects() {
           </p>
         </div>
 
-        <div className="mt-16 grid gap-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+        <div className="mt-16 grid gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:gap-12">
           <div className="space-y-6 animate-on-scroll">
             {portfolio.map((project) => (
               <article
                 key={project.title}
-                className="group relative overflow-hidden rounded-3xl border border-border/60 bg-card/80 p-8 backdrop-blur transition hover:border-primary/60 hover:bg-primary/5"
+                className="group relative overflow-hidden rounded-3xl border border-border/60 bg-card/80 p-6 backdrop-blur transition hover:border-primary/60 hover:bg-primary/5 sm:p-7 lg:p-8"
               >
                 <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.35em] text-primary">
                   <project.icon className="h-5 w-5" /> {project.category}
@@ -120,7 +120,7 @@ export function Projects() {
                   {project.results.map((result) => (
                     <div
                       key={result}
-                      className="rounded-2xl border border-border/50 bg-background/50 p-4 text-sm text-muted-foreground"
+                      className="min-h-[92px] rounded-2xl border border-border/50 bg-background/50 p-4 text-sm text-muted-foreground"
                     >
                       <Sparkles className="mb-2 h-4 w-4 text-primary" />
                       <span className="text-foreground">{result}</span>
@@ -156,7 +156,7 @@ export function Projects() {
           </div>
 
           <aside className="space-y-6 animate-on-scroll">
-            <div className="rounded-3xl border border-primary/20 bg-card/80 p-8 backdrop-blur">
+            <div className="rounded-3xl border border-primary/20 bg-card/80 p-6 backdrop-blur sm:p-7 lg:p-8">
               <h3 className="text-lg font-semibold text-foreground">Rapid explorations</h3>
               <p className="mt-2 text-sm text-muted-foreground">
                 Short-form experiments and research probes that inform where I take client platforms next.
@@ -173,7 +173,7 @@ export function Projects() {
               </div>
             </div>
 
-            <div className="rounded-3xl border border-border/50 bg-secondary/50 p-8 backdrop-blur">
+            <div className="rounded-3xl border border-border/50 bg-secondary/50 p-6 backdrop-blur sm:p-7 lg:p-8">
               <h3 className="text-lg font-semibold text-foreground">What collaboration looks like</h3>
               <ul className="mt-4 space-y-4 text-sm text-muted-foreground">
                 <li className="rounded-2xl border border-border/40 bg-background/60 p-4">

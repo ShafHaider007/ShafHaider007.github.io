@@ -103,7 +103,7 @@ export function About() {
 
         <div className="mt-16 grid gap-14 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="space-y-8 animate-on-scroll">
-            <div className="rounded-3xl border border-primary/25 bg-card/80 p-8 backdrop-blur">
+            <div className="rounded-3xl border border-primary/25 bg-card/80 p-6 backdrop-blur sm:p-7 lg:p-8">
               <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
                 <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1 text-primary">
                   <MapPin className="h-4 w-4" /> Islamabad, Pakistan
@@ -119,7 +119,7 @@ export function About() {
                 territory clearly and act confidently.
               </p>
 
-              <div className="mt-8 grid gap-6 sm:grid-cols-3">
+              <div className="mt-8 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
                 {credentials.map((item) => (
                   <div
                     key={item.label}
@@ -133,11 +133,11 @@ export function About() {
               </div>
             </div>
 
-            <div className="grid gap-6 md:grid-cols-3">
+            <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
               {strengths.map((strength) => (
                 <div
                   key={strength.title}
-                  className="animate-on-scroll rounded-3xl border border-border/50 bg-background/50 p-6 backdrop-blur transition hover:border-primary/50 hover:bg-primary/5"
+                  className="animate-on-scroll rounded-3xl border border-border/50 bg-background/50 p-5 backdrop-blur transition hover:border-primary/50 hover:bg-primary/5 sm:p-6"
                 >
                   <strength.icon className="h-8 w-8 text-primary" />
                   <h3 className="mt-4 text-lg font-semibold text-foreground">{strength.title}</h3>
@@ -148,7 +148,7 @@ export function About() {
           </div>
 
           <div className="space-y-8 animate-on-scroll">
-            <div className="rounded-3xl border border-border/60 bg-secondary/50 p-7 backdrop-blur">
+            <div className="rounded-3xl border border-border/60 bg-secondary/50 p-6 backdrop-blur sm:p-7 lg:p-8">
               <div className="flex items-center gap-3">
                 <BadgeCheck className="h-6 w-6 text-primary" />
                 <div>
@@ -173,7 +173,7 @@ export function About() {
               </ul>
             </div>
 
-            <div className="rounded-3xl border border-primary/20 bg-card/80 p-7 backdrop-blur">
+            <div className="rounded-3xl border border-primary/20 bg-card/80 p-6 backdrop-blur sm:p-7 lg:p-8">
               <h3 className="text-lg font-semibold text-foreground">Toolbelt</h3>
               <p className="mt-2 text-sm text-muted-foreground">The platforms and libraries I lean on to deliver reliable spatial products.</p>
               <div className="mt-6 flex flex-wrap gap-2">

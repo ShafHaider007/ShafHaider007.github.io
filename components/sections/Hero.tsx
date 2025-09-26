@@ -2,18 +2,7 @@
 
 import { useEffect, useRef } from "react"
 import { Button } from "@/components/ui/Button"
-import {
-  ArrowRight,
-  Download,
-  Compass,
-  Globe2,
-  Layers,
-  MapPin,
-  Mail,
-  Radar,
-  Sparkles,
-  Trophy
-} from "lucide-react"
+import { ArrowRight, Compass, Globe2, Layers, MapPin, Mail, Radar, Sparkles, Trophy } from "lucide-react"
 import Link from "next/link"
 
 const focusSignals = [
@@ -68,7 +57,7 @@ export function Hero() {
     <section
       ref={heroRef}
       id="home"
-      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_top,_rgba(24,92,142,0.25)_0%,_rgba(5,28,44,0.92)_55%,_rgba(2,13,21,1)_100%)] px-6 pb-28 pt-32"
+      className="relative flex min-h-screen flex-col justify-start overflow-hidden bg-[radial-gradient(circle_at_top,_rgba(24,92,142,0.25)_0%,_rgba(5,28,44,0.92)_55%,_rgba(2,13,21,1)_100%)] px-4 pb-20 pt-24 sm:px-6 sm:pb-24 sm:pt-28 lg:flex-row lg:items-center lg:justify-center lg:pb-28 lg:pt-32"
     >
       <div className="absolute inset-0 opacity-60">
         <div className="geo-grid" />
@@ -77,8 +66,8 @@ export function Hero() {
       <div className="pointer-events-none absolute bottom-0 left-1/4 h-64 w-64 rounded-full bg-accent/20 blur-3xl" />
       <div className="pointer-events-none absolute left-1/2 top-1/2 h-96 w-96 -translate-y-1/2 rounded-full border border-primary/10 bg-primary/5 blur-3xl" />
 
-      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-20 lg:flex-row lg:items-center">
-        <div className="animate-on-scroll space-y-10 lg:w-[58%]">
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-12 md:gap-16 lg:flex-row lg:items-center lg:gap-20">
+        <div className="space-y-8 md:space-y-10 lg:w-[58%] animate-on-scroll">
           <div className="inline-flex items-center gap-3 rounded-full border border-primary/40 bg-primary/15 px-4 py-2 text-sm font-medium text-primary backdrop-blur">
             <Radar className="h-4 w-4" /> Spatial product designer & GIS developer
           </div>
@@ -108,7 +97,7 @@ export function Hero() {
             </div>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="flex flex-col gap-4 sm:flex-row">
             <Button
               size="lg"
               className="group flex items-center justify-center gap-2 rounded-xl bg-primary px-8 py-4 text-base font-semibold tracking-wide text-primary-foreground shadow-lg shadow-primary/20 transition hover:bg-primary/90"
@@ -119,19 +108,9 @@ export function Hero() {
                 <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="flex items-center justify-center gap-2 rounded-xl border-primary/40 bg-background/60 px-8 py-4 text-base font-semibold text-primary transition hover:border-primary/60 hover:bg-primary/5"
-              asChild
-            >
-              <Link href="/resume.pdf" target="_blank">
-                <Download className="h-5 w-5" /> Download resume
-              </Link>
-            </Button>
           </div>
 
-          <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+          <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
             <span className="inline-flex items-center gap-2 rounded-full border border-muted/40 bg-muted/30 px-3 py-1">
               <MapPin className="h-4 w-4 text-primary" /> Islamabad, Pakistan
             </span>
@@ -190,7 +169,10 @@ export function Hero() {
             <p className="text-sm font-semibold uppercase tracking-[0.4em] text-muted-foreground">Focus areas</p>
             <div className="mt-6 space-y-5">
               {focusSignals.map((signal, index) => (
-                <div key={signal.label} className="group flex items-start gap-4 rounded-2xl border border-transparent bg-background/40 p-4 transition hover:border-primary/50 hover:bg-primary/5">
+                <div
+                  key={signal.label}
+                  className="group flex flex-col gap-4 rounded-2xl border border-transparent bg-background/40 p-4 transition hover:border-primary/50 hover:bg-primary/5 sm:flex-row sm:items-start"
+                >
                   <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-primary/15 text-primary">
                     <signal.icon className="h-6 w-6" />
                   </div>
@@ -206,7 +188,7 @@ export function Hero() {
 
           <div className="animate-on-scroll grid gap-4 rounded-3xl border border-border/60 bg-secondary/40 p-6 backdrop-blur">
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-muted-foreground">Delivery snapshots</p>
-            <div className="grid gap-4 sm:grid-cols-3">
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {deliveryMetrics.map((metric) => (
                 <div key={metric.label} className="rounded-2xl border border-border/60 bg-background/60 p-4">
                   <p className="text-2xl font-semibold text-foreground">{metric.value}</p>

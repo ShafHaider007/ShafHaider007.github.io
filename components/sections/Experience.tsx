@@ -1,17 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import {
-  Award,
-  Calendar,
-  ExternalLink,
-  LineChart,
-  MapPin,
-  Server,
-  ShieldCheck,
-  Sparkles,
-  Workflow
-} from "lucide-react"
+import { Calendar, ExternalLink, LineChart, MapPin, Server, Sparkles, Workflow } from "lucide-react"
 
 const experiences = [
   {
@@ -130,14 +120,14 @@ export function Experience() {
           </p>
         </div>
 
-        <div className="mt-16 grid gap-10 lg:grid-cols-[minmax(0,1.8fr)_minmax(0,1fr)]">
+        <div className="mt-16 grid gap-10 lg:grid-cols-[minmax(0,1.8fr)_minmax(0,1fr)] lg:gap-12">
           <div className="relative space-y-10">
             <span className="absolute left-[17px] top-6 bottom-6 hidden w-px bg-gradient-to-b from-primary/60 via-primary/30 to-transparent lg:block" />
 
             {experiences.map((experience, index) => (
               <article
                 key={experience.company}
-                className="animate-on-scroll relative overflow-hidden rounded-3xl border border-border/50 bg-card/80 p-8 backdrop-blur transition hover:border-primary/50 hover:bg-primary/5"
+                className="animate-on-scroll relative overflow-hidden rounded-3xl border border-border/50 bg-card/80 p-6 backdrop-blur transition hover:border-primary/50 hover:bg-primary/5 sm:p-7 lg:p-8"
               >
                 <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                   <div>
@@ -170,7 +160,7 @@ export function Experience() {
                   {experience.highlights.map((highlight) => (
                     <div
                       key={highlight}
-                      className="rounded-2xl border border-border/50 bg-background/50 p-4 text-sm text-muted-foreground"
+                      className="min-h-[96px] rounded-2xl border border-border/50 bg-background/50 p-4 text-sm text-muted-foreground"
                     >
                       <Sparkles className="mb-2 h-4 w-4 text-primary" />
                       <span className="text-foreground">{highlight}</span>
@@ -197,7 +187,7 @@ export function Experience() {
           </div>
 
           <aside className="space-y-8 animate-on-scroll">
-            <div className="rounded-3xl border border-border/60 bg-secondary/50 p-7 backdrop-blur">
+            <div className="rounded-3xl border border-border/60 bg-secondary/50 p-6 backdrop-blur sm:p-7 lg:p-8">
               <h3 className="text-lg font-semibold text-foreground">Where I add the most value</h3>
               <p className="mt-2 text-sm text-muted-foreground">
                 Partnering with teams at the intersection of design, engineering, and policy to bring clarity to complex spatial
@@ -212,27 +202,6 @@ export function Experience() {
                   </div>
                 ))}
               </div>
-            </div>
-
-            <div className="rounded-3xl border border-primary/20 bg-card/80 p-7 backdrop-blur">
-              <h3 className="text-lg font-semibold text-foreground">Recognition</h3>
-              <div className="mt-4 space-y-4 text-sm text-muted-foreground">
-                <div className="flex items-start gap-3 rounded-2xl border border-border/40 bg-background/60 p-4">
-                  <Award className="mt-1 h-5 w-5 text-primary" />
-                  <p>
-                    Selected to co-lead <span className="text-foreground font-medium">GIS Day 2024</span>, orchestrating workshops, speaker programming, and sponsor
-                    partnerships for 400+ attendees.
-                  </p>
-                </div>
-                <div className="flex items-start gap-3 rounded-2xl border border-border/40 bg-background/60 p-4">
-                  <ShieldCheck className="mt-1 h-5 w-5 text-primary" />
-                  <p>
-                    Earned recognition for building <span className="text-foreground font-medium">risk-aware routing</span> pilots that improved commute safety metrics
-                    for urban planners.
-                  </p>
-                </div>
-              </div>
-              <p className="mt-5 text-xs uppercase tracking-[0.35em] text-muted-foreground">Always learning, always mapping.</p>
             </div>
           </aside>
         </div>
