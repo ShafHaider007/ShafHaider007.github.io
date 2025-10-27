@@ -1,52 +1,35 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { Inter, JetBrains_Mono, Playfair_Display } from "next/font/google"
-import { Analytics } from "@vercel/analytics/next"
-import "lenis/dist/lenis.css"
-import "./globals.css"
-import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider"
+import type { Metadata } from 'next'
+import type { ReactNode } from 'react'
+import { Inter, JetBrains_Mono, Playfair_Display } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next'
+import '@/styles/globals.css'
+import { siteMetadata } from '@/lib/seo'
 
 const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
 })
 
 const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
-  display: "swap",
+  subsets: ['latin'],
+  variable: '--font-jetbrains-mono',
+  display: 'swap',
 })
 
 const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-playfair",
-  display: "swap",
+  subsets: ['latin'],
+  variable: '--font-playfair',
+  display: 'swap',
 })
 
-export const metadata: Metadata = {
-  title: "Muhammad Shaf Haider - Developer & GIS Engineer",
-  description:
-    "Portfolio of Muhammad Shaf Haider - Geoinformatics Engineering Graduate & GIS Developer passionate about spatial analysis, web GIS, and machine learning.",
-  keywords: ["GIS", "Developer", "Geoinformatics", "Spatial Analysis", "Web Development"],
-  authors: [{ name: "Muhammad Shaf Haider" }],
-  openGraph: {
-    title: "Muhammad Shaf Haider - Developer & GIS Engineer",
-    description: "Geoinformatics Engineering Graduate & GIS Developer",
-    type: "website",
-  },
-    generator: 'v0.app'
-}
+export const metadata: Metadata = siteMetadata
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="light" suppressHydrationWarning>
       <body className={`${inter.variable} ${jetbrainsMono.variable} ${playfair.variable} font-sans`}>
-        <SmoothScrollProvider>{children}</SmoothScrollProvider>
+        {children}
         <Analytics />
       </body>
     </html>
