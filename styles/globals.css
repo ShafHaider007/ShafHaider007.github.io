@@ -56,11 +56,43 @@
 
   body {
     @apply bg-background text-foreground antialiased font-sans;
+    background-color: hsl(210 40% 98%);
     background-image:
-      radial-gradient(circle at 20% -10%, hsl(var(--primary) / 0.08) 0%, transparent 55%),
-      radial-gradient(circle at 80% 0%, hsl(var(--accent) / 0.06) 0%, transparent 50%),
-      radial-gradient(circle at 50% 100%, hsl(var(--primary) / 0.05) 0%, transparent 60%),
+      /* Topographic contour lines */
+      repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 80px,
+        hsl(var(--primary) / 0.03) 80px,
+        hsl(var(--primary) / 0.03) 81px
+      ),
+      repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 80px,
+        hsl(var(--primary) / 0.03) 80px,
+        hsl(var(--primary) / 0.03) 81px
+      ),
+      /* Grid pattern like map coordinates */
+      linear-gradient(90deg, hsl(var(--primary) / 0.02) 1px, transparent 1px),
+      linear-gradient(0deg, hsl(var(--primary) / 0.02) 1px, transparent 1px),
+      /* Subtle radial gradients for depth */
+      radial-gradient(circle at 15% 20%, hsl(var(--primary) / 0.06) 0%, transparent 40%),
+      radial-gradient(circle at 85% 10%, hsl(var(--accent) / 0.04) 0%, transparent 35%),
+      radial-gradient(circle at 50% 80%, hsl(var(--primary) / 0.05) 0%, transparent 45%),
+      radial-gradient(circle at 70% 60%, hsl(200 70% 60% / 0.03) 0%, transparent 30%),
+      /* Base gradient */
       linear-gradient(180deg, hsl(210 40% 98%), hsl(210 35% 96%));
+    background-size:
+      100% 100%,
+      100% 100%,
+      40px 40px,
+      40px 40px,
+      100% 100%,
+      100% 100%,
+      100% 100%,
+      100% 100%,
+      100% 100%;
     background-attachment: fixed;
   }
 
@@ -73,8 +105,20 @@
   .text-balance {
     text-wrap: balance;
   }
+}
 
+/* Subtle map-inspired animation */
+@keyframes mapShift {
+  0%, 100% {
+    background-position: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 15% 20%, 85% 10%, 50% 80%, 70% 60%, 0% 0%;
+  }
+  50% {
+    background-position: 2% 2%, -2% -2%, 0% 0%, 0% 0%, 18% 22%, 82% 12%, 52% 78%, 68% 62%, 0% 0%;
+  }
+}
 
+body {
+  animation: mapShift 60s ease-in-out infinite;
 }
 
 
