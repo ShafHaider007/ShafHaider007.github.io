@@ -4,48 +4,68 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 220 14% 12%;
-    --card: 0 0% 100%;
-    --card-foreground: 220 14% 12%;
-    --popover: 210 40% 98%;
-    --popover-foreground: 220 14% 12%;
-    --primary: 200 95% 45%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 32% 95%;
-    --secondary-foreground: 222 37% 20%;
-    --muted: 210 32% 92%;
-    --muted-foreground: 220 12% 40%;
-    --accent: 30 94% 54%;
-    --accent-foreground: 220 14% 15%;
-    --destructive: 0 88% 58%;
+    /* Swiss Map Palette */
+    --background: 40 20% 97%; /* Creamy off-white paper */
+    --foreground: 220 30% 15%; /* Deep Charcoal/Navy */
+    
+    --card: 40 20% 95%;
+    --card-foreground: 220 30% 15%;
+    
+    --popover: 40 20% 97%;
+    --popover-foreground: 220 30% 15%;
+    
+    --primary: 215 50% 25%; /* Official Navy */
+    --primary-foreground: 40 20% 97%;
+    
+    --secondary: 25 30% 90%; /* Subtle Warm Beige */
+    --secondary-foreground: 215 50% 25%;
+    
+    --muted: 220 20% 93%;
+    --muted-foreground: 215 20% 45%; /* Muted Slate */
+    
+    --accent: 15 70% 55%; /* Terracotta */
+    --accent-foreground: 40 20% 97%;
+    
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
-    --border: 210 32% 88%;
-    --input: 210 32% 88%;
-    --ring: 200 95% 45%;
-    --radius: 0.75rem;
+
+    --border: 215 20% 85%;
+    --input: 215 20% 85%;
+    --ring: 215 50% 25%;
+    
+    --radius: 0rem; /* Sharp corners for Swiss style */
   }
 
   .dark {
-    --background: 214 65% 4%;
-    --foreground: 204 45% 94%;
-    --card: 217 51% 7%;
-    --card-foreground: 204 45% 94%;
-    --popover: 217 40% 8%;
-    --popover-foreground: 204 45% 94%;
-    --primary: 170 66% 52%;
-    --primary-foreground: 211 94% 11%;
-    --secondary: 202 49% 18%;
-    --secondary-foreground: 204 45% 94%;
-    --muted: 216 32% 17%;
-    --muted-foreground: 203 24% 70%;
-    --accent: 30 92% 63%;
-    --accent-foreground: 218 55% 13%;
-    --destructive: 0 62% 50%;
-    --destructive-foreground: 210 40% 96%;
-    --border: 215 38% 20%;
-    --input: 215 38% 20%;
-    --ring: 170 66% 52%;
+    /* Optional inverted 'Night Map' mode if needed by system prefs, 
+       but primarily focusing on the light theme requested */
+    --background: 220 30% 12%; 
+    --foreground: 40 20% 90%;
+    
+    --card: 220 30% 15%;
+    --card-foreground: 40 20% 90%;
+    
+    --popover: 220 30% 12%;
+    --popover-foreground: 40 20% 90%;
+    
+    --primary: 40 20% 90%;
+    --primary-foreground: 220 30% 15%;
+    
+    --secondary: 215 30% 20%;
+    --secondary-foreground: 40 20% 90%;
+    
+    --muted: 215 30% 20%;
+    --muted-foreground: 215 20% 65%;
+    
+    --accent: 15 70% 65%;
+    --accent-foreground: 40 20% 97%;
+    
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 210 40% 98%;
+    
+    --border: 215 30% 25%;
+    --input: 215 30% 25%;
+    --ring: 215 30% 50%;
   }
 }
 
@@ -56,48 +76,12 @@
 
   body {
     @apply bg-background text-foreground antialiased font-sans;
-    background-color: hsl(210 40% 98%);
-    background-image:
-      /* Topographic contour lines */
-      repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 80px,
-        hsl(var(--primary) / 0.03) 80px,
-        hsl(var(--primary) / 0.03) 81px
-      ),
-      repeating-linear-gradient(
-        -45deg,
-        transparent,
-        transparent 80px,
-        hsl(var(--primary) / 0.03) 80px,
-        hsl(var(--primary) / 0.03) 81px
-      ),
-      /* Grid pattern like map coordinates */
-      linear-gradient(90deg, hsl(var(--primary) / 0.02) 1px, transparent 1px),
-      linear-gradient(0deg, hsl(var(--primary) / 0.02) 1px, transparent 1px),
-      /* Subtle radial gradients for depth */
-      radial-gradient(circle at 15% 20%, hsl(var(--primary) / 0.06) 0%, transparent 40%),
-      radial-gradient(circle at 85% 10%, hsl(var(--accent) / 0.04) 0%, transparent 35%),
-      radial-gradient(circle at 50% 80%, hsl(var(--primary) / 0.05) 0%, transparent 45%),
-      radial-gradient(circle at 70% 60%, hsl(200 70% 60% / 0.03) 0%, transparent 30%),
-      /* Base gradient */
-      linear-gradient(180deg, hsl(210 40% 98%), hsl(210 35% 96%));
-    background-size:
-      100% 100%,
-      100% 100%,
-      40px 40px,
-      40px 40px,
-      100% 100%,
-      100% 100%,
-      100% 100%,
-      100% 100%,
-      100% 100%;
-    background-attachment: fixed;
-  }
-
-  html {
-    color-scheme: light;
+    /* Subtle Grain/Paper Texture */
+    background-image: 
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E"),
+      linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0,0,0,0.03) 1px, transparent 1px);
+    background-size: 200px 200px, 4rem 4rem, 4rem 4rem;
   }
 }
 
@@ -105,37 +89,8 @@
   .text-balance {
     text-wrap: balance;
   }
-}
-
-/* Subtle map-inspired animation */
-@keyframes mapShift {
-  0%, 100% {
-    background-position: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 15% 20%, 85% 10%, 50% 80%, 70% 60%, 0% 0%;
+  
+  .font-serif-display {
+    font-family: var(--font-playfair), serif;
   }
-  50% {
-    background-position: 2% 2%, -2% -2%, 0% 0%, 0% 0%, 18% 22%, 82% 12%, 52% 78%, 68% 62%, 0% 0%;
-  }
-}
-
-body {
-  animation: mapShift 60s ease-in-out infinite;
-}
-
-
-
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: hsl(var(--background));
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, hsl(var(--primary) / 0.5), hsl(var(--accent) / 0.4));
-  border-radius: 9999px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, hsl(var(--primary) / 0.7), hsl(var(--accent) / 0.6));
 }

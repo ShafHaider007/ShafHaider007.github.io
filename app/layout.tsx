@@ -4,6 +4,7 @@ import { Inter, JetBrains_Mono, Playfair_Display } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import '@/styles/globals.css'
 import { siteMetadata } from '@/lib/seo'
+import { SmoothScroll } from '@/components/SmoothScroll'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -29,7 +30,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className="light" suppressHydrationWarning>
       <body className={`${inter.variable} ${jetbrainsMono.variable} ${playfair.variable} font-sans`}>
-        {children}
+        <SmoothScroll>{children}</SmoothScroll>
         <Analytics />
       </body>
     </html>

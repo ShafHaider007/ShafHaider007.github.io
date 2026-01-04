@@ -1,205 +1,70 @@
 "use client"
 
-import { useEffect, useRef } from "react"
-import { Calendar, ExternalLink, LineChart, MapPin, Server, Sparkles, Workflow } from "lucide-react"
+import { motion } from "motion/react"
 
-const experiences = [
+const history = [
   {
-    company: "GIS Plus Pvt Ltd",
     role: "GIS Business Developer",
-    duration: "Jun 2025 – Present",
-    location: "Islamabad, Pakistan",
-    website: "https://www.gisplus.com",
-    summary: "Deliver GIS products for public and enterprise clients, steering work from framing to launch.",
-    highlights: [
-      "Built reusable Next.js mapping shells to ship proofs in weeks",
-      "Set up spatial data QA loops so teams trust live layers"
-    ],
-    stack: ["Next.js", "deck.gl", "PostGIS"]
+    company: "GIS Plus Pvt Ltd",
+    period: "2025 — Present",
+    description: "Leading product strategy and shipping geospatial shells for enterprise clients. Bridging the gap between raw spatial data and actionable business insights."
   },
   {
-    company: "Jugrafiya",
     role: "Team Lead",
-    duration: "Jun – Aug 2024",
-    location: "Islamabad, Pakistan",
-    website: "https://www.jugrafiya.com",
-    summary: "Led Jugrafiya skunkworks to test large-scale spatial rendering for mobility pilots.",
-    highlights: [
-      "Benchmarked deck.gl and loaders.gl on heavy point clouds",
-      "Turned mobility datasets into concise demos for executives"
-    ],
-    stack: ["React", "deck.gl", "GeoJSON"]
+    company: "Jugrafiya",
+    period: "2024",
+    description: "Orchestrated large-scale spatial rendering pilots. Benchmarked deck.gl performance on heavy point clouds for mobility datasets."
   },
   {
-    company: "IGIS – NUST",
     role: "Research Intern",
-    duration: "Jul – Aug 2023",
-    location: "Islamabad, Pakistan",
-    website: "https://igis.nust.edu.pk",
-    summary: "Linked sensors and dashboards for an IoT-powered disease surveillance initiative.",
-    highlights: [
-      "Shipped web GIS views to monitor dengue hotspots",
-      "Automated OpenCV outputs into map-ready layers"
-    ],
-    stack: ["GeoServer", "Python", "Leaflet"]
-  }
-]
-
-const strengths = [
-  {
-    title: "Delivery Leadership",
-    description: "Facilitating product rituals, aligning multi-disciplinary squads, and keeping outcomes measurable.",
-    icon: Workflow
-  },
-  {
-    title: "Data Stewardship",
-    description: "Implementing governance for spatial data pipelines spanning sensors, imagery, and analytics.",
-    icon: Server
-  },
-  {
-    title: "Impact Mapping",
-    description: "Tracking KPIs and social outcomes to prove value for mobility, climate, and civic programs.",
-    icon: LineChart
+    company: "IGIS – NUST",
+    period: "2023",
+    description: "Developed IoT-driven disease surveillance systems. Integrated sensor streams with live mapping dashboards for dengue hotspot monitoring."
   }
 ]
 
 export function Experience() {
-  const sectionRef = useRef<HTMLElement>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate-fade-in-up")
-            observer.unobserve(entry.target)
-          }
-        })
-      },
-      {
-        threshold: 0.1,
-        rootMargin: "50px"
-      }
-    )
-
-    if (sectionRef.current) {
-      const elements = sectionRef.current.querySelectorAll(".animate-on-scroll")
-      elements.forEach((el) => observer.observe(el))
-    }
-
-    return () => observer.disconnect()
-  }, [])
-
   return (
-    <section
-      ref={sectionRef}
-      id="experience"
-      className="relative overflow-hidden bg-gradient-to-br from-[#020b13] via-[#041726] to-[#031521] px-6 py-28"
-    >
-      <div className="absolute inset-0 opacity-25">
-        <div className="geo-grid" />
-      </div>
-      <div className="pointer-events-none absolute left-16 top-10 h-44 w-44 rounded-full bg-primary/20 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-0 right-1/5 h-60 w-60 rounded-full bg-accent/10 blur-3xl" />
+    <section id="experience" className="py-24 lg:py-32 bg-secondary/30 relative">
+      <div className="mx-auto w-full max-w-5xl px-6 lg:px-12">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 lg:gap-24">
+          {/* Section Header */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl font-serif-display font-medium text-primary mb-6">Experience</h2>
+            <p className="text-muted-foreground text-sm uppercase tracking-widest font-medium">Career History</p>
+          </motion.div>
 
-      <div className="relative z-10 mx-auto max-w-6xl">
-        <div className="animate-on-scroll text-center">
-          <p className="font-mono text-xs uppercase tracking-[0.45em] text-primary/90">02 · Experience</p>
-          <h2 className="mt-6 text-balance text-4xl font-semibold text-foreground sm:text-5xl">
-            Connecting spatial insight with measurable outcomes
-          </h2>
-          <p className="mx-auto mt-4 max-w-3xl text-lg text-muted-foreground">
-            From research labs to production launches, I translate complex geodata into tools that empower teams to decide faster
-            and act smarter.
-          </p>
-        </div>
-
-        <div className="mt-16 grid gap-10 lg:grid-cols-[minmax(0,1.8fr)_minmax(0,1fr)] lg:gap-12">
-          <div className="relative space-y-10">
-            <span className="absolute left-[17px] top-6 bottom-6 hidden w-px bg-gradient-to-b from-primary/60 via-primary/30 to-transparent lg:block" />
-
-            {experiences.map((experience, index) => (
-              <article
-                key={experience.company}
-                className="animate-on-scroll relative overflow-hidden rounded-3xl border border-border/50 bg-card/80 p-6 backdrop-blur transition hover:border-primary/50 hover:bg-primary/5 sm:p-7 lg:p-8"
+          {/* Timeline */}
+          <div className="space-y-12">
+            {history.map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                viewport={{ once: true }}
+                className="relative group"
               >
-                <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-                  <div>
-                    <div className="inline-flex items-center gap-3 rounded-full border border-primary/30 bg-primary/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-primary">
-                      {String(index + 1).padStart(2, "0")} · {experience.role}
-                    </div>
-                    <h3 className="mt-4 text-2xl font-semibold text-foreground">{experience.company}</h3>
-                  </div>
-                  <div className="flex flex-col items-start gap-2 text-sm text-muted-foreground lg:items-end">
-                    <span className="inline-flex items-center gap-2">
-                      <Calendar className="h-4 w-4 text-primary" /> {experience.duration}
-                    </span>
-                    <span className="inline-flex items-center gap-2">
-                      <MapPin className="h-4 w-4 text-primary" /> {experience.location}
-                    </span>
-                    <a
-                      href={experience.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-primary transition hover:text-primary/80"
-                    >
-                      <ExternalLink className="h-4 w-4" /> Visit site
-                    </a>
-                  </div>
+                <div className="flex flex-col sm:flex-row sm:items-baseline justify-between mb-2">
+                  <h3 className="text-xl font-medium text-foreground group-hover:text-primary transition-colors">{item.company}</h3>
+                  <span className="font-mono text-sm text-muted-foreground/60">{item.period}</span>
                 </div>
+                <div className="mb-3 text-primary/80 font-medium">{item.role}</div>
+                <p className="text-muted-foreground leading-relaxed max-w-xl">{item.description}</p>
 
-                <p className="mt-6 text-base text-muted-foreground">{experience.summary}</p>
-
-                <div className="mt-6 grid gap-4 md:grid-cols-2">
-                  {experience.highlights.map((highlight) => (
-                    <div
-                      key={highlight}
-                      className="min-h-[96px] rounded-2xl border border-border/50 bg-background/50 p-4 text-sm text-muted-foreground"
-                    >
-                      <Sparkles className="mb-2 h-4 w-4 text-primary" />
-                      <span className="text-foreground">{highlight}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {experience.stack.map((tech) => (
-                    <span
-                      key={tech}
-                      className="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-primary"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                <span className="absolute -left-3 top-8 hidden h-12 w-12 items-center justify-center rounded-full border border-primary/30 bg-primary/10 text-lg font-semibold text-primary lg:flex">
-                  {index + 1}
-                </span>
-              </article>
+                {/* Divider */}
+                <div className="mt-8 h-px w-full bg-border/40 group-last:hidden" />
+              </motion.div>
             ))}
           </div>
-
-          <aside className="space-y-8 animate-on-scroll">
-            <div className="rounded-3xl border border-border/60 bg-secondary/50 p-6 backdrop-blur sm:p-7 lg:p-8">
-              <h3 className="text-lg font-semibold text-foreground">Where I add the most value</h3>
-              <p className="mt-2 text-sm text-muted-foreground">
-                Partnering with teams at the intersection of design, engineering, and policy to bring clarity to complex spatial
-                initiatives.
-              </p>
-              <div className="mt-6 space-y-4">
-                {strengths.map((strength) => (
-                  <div key={strength.title} className="rounded-3xl border border-border/40 bg-background/50 p-5">
-                    <strength.icon className="h-6 w-6 text-primary" />
-                    <p className="mt-3 text-base font-semibold text-foreground">{strength.title}</p>
-                    <p className="mt-1 text-sm text-muted-foreground">{strength.description}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </aside>
         </div>
       </div>
     </section>
   )
 }
+
