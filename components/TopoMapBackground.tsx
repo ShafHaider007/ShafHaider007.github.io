@@ -10,23 +10,33 @@ interface MapMarker {
 
 export function TopoMapBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const mouseRef = useRef({ x: 0, y: 0 })
   const animationFrameRef = useRef<number | undefined>(undefined)
 
   useEffect(() => {
     const canvas = canvasRef.current
-    if (!canvas) return
+    const container = containerRef.current
+    if (!canvas || !container) return
 
     const ctx = canvas.getContext('2d', { alpha: false })
     if (!ctx) return
 
-    // Set canvas size
+    const updateMouse = (e: MouseEvent) => {
+      const rect = container.getBoundingClientRect()
+      mouseRef.current = {
+        x: (e.clientX - rect.left) / rect.width,
+        y: (e.clientY - rect.top) / rect.height,
+      }
+    }
+
+    window.addEventListener('mousemove', updateMouse)
+
     const updateSize = () => {
-      if (!canvas || !ctx) return
       const dpr = window.devicePixelRatio || 1
-      const rect = canvas.getBoundingClientRect()
+      const rect = container.getBoundingClientRect()
       canvas.width = rect.width * dpr
       canvas.height = rect.height * dpr
-      ctx.setTransform(1, 0, 0, 1, 0, 0)
       ctx.scale(dpr, dpr)
       canvas.style.width = `${rect.width}px`
       canvas.style.height = `${rect.height}px`
@@ -35,21 +45,13 @@ export function TopoMapBackground() {
     updateSize()
     window.addEventListener('resize', updateSize)
 
-    // Colors from spec
-    const gradientStart = '#0a1d2f'
-    const gradientEnd = '#00384a'
-    const contourColor = '#1ca7e2'
-    const heatmapColor = '#f8b34c'
-    const gridColor = '#ffffff'
-    const markerColor = '#1ca7e2'
-
-    // Generate map markers
+    // Config
     const markers: MapMarker[] = []
-    const markerCount = 5
+    const markerCount = 6
     for (let i = 0; i < markerCount; i++) {
       markers.push({
-        x: (canvas.width / (markerCount + 1)) * (i + 1) + (Math.random() - 0.5) * 100,
-        y: canvas.height * (0.3 + Math.random() * 0.4),
+        x: Math.random() * window.innerWidth, // base positions
+        y: Math.random() * window.innerHeight,
         pulsePhase: Math.random() * Math.PI * 2,
       })
     }
@@ -57,200 +59,118 @@ export function TopoMapBackground() {
     let time = 0
 
     const render = () => {
-      const w = canvas.width
-      const h = canvas.height
-      time += 0.01
+      const w = canvas.width / (window.devicePixelRatio || 1)
+      const h = canvas.height / (window.devicePixelRatio || 1)
+      time += 0.005
 
-      // Background gradient
+      // Parallax Target
+      const targetX = (mouseRef.current.x - 0.5) * 40
+      const targetY = (mouseRef.current.y - 0.5) * 40
+
+      // Background
       const bgGradient = ctx.createLinearGradient(0, 0, w, h)
-      bgGradient.addColorStop(0, gradientStart)
-      bgGradient.addColorStop(1, gradientEnd)
+      bgGradient.addColorStop(0, '#0a1d2f')
+      bgGradient.addColorStop(1, '#00384a')
       ctx.fillStyle = bgGradient
       ctx.fillRect(0, 0, w, h)
 
-      // Paper grain texture
-      ctx.globalAlpha = 0.05
-      for (let i = 0; i < 2000; i++) {
-        ctx.fillStyle = Math.random() > 0.5 ? '#ffffff' : '#000000'
-        ctx.fillRect(Math.random() * w, Math.random() * h, 1, 1)
-      }
-      ctx.globalAlpha = 1
-
-      // Grid lines
-      ctx.strokeStyle = gridColor
-      ctx.globalAlpha = 0.15
-      ctx.lineWidth = 0.5
-      const gridSpacing = 80
-      for (let x = 0; x < w; x += gridSpacing) {
-        ctx.beginPath()
-        ctx.moveTo(x, 0)
-        ctx.lineTo(x, h)
-        ctx.stroke()
-      }
-      for (let y = 0; y < h; y += gridSpacing) {
-        ctx.beginPath()
-        ctx.moveTo(0, y)
-        ctx.lineTo(w, y)
-        ctx.stroke()
-      }
-      ctx.globalAlpha = 1
-
-      // Contour lines (topographic)
-      ctx.strokeStyle = contourColor
-      ctx.globalAlpha = 0.6
+      // Grid (Back Layer) - Slow Parallax
+      ctx.save()
+      ctx.translate(targetX * 0.2, targetY * 0.2)
+      ctx.strokeStyle = 'rgba(255,255,255,0.08)'
       ctx.lineWidth = 1
-      const contourSpacing = 40
-      const waveCount = Math.floor(h / contourSpacing)
+      const gridSize = 100
+      for (let x = 0; x < w + 200; x += gridSize) {
+        ctx.beginPath()
+        ctx.moveTo(x - 100, -100)
+        ctx.lineTo(x - 100, h + 100)
+        ctx.stroke()
+      }
+      for (let y = 0; y < h + 200; y += gridSize) {
+        ctx.beginPath()
+        ctx.moveTo(-100, y - 100)
+        ctx.lineTo(w + 100, y - 100)
+        ctx.stroke()
+      }
+      ctx.restore()
 
+      // Contours (Middle Layer) - Medium Parallax
+      ctx.save()
+      ctx.translate(targetX * 0.5, targetY * 0.5)
+      ctx.strokeStyle = '#1ca7e2'
+      ctx.lineWidth = 1.5
+      ctx.lineJoin = 'round'
+      ctx.globalAlpha = 0.4
+
+      const waveCount = 8
       for (let i = 0; i < waveCount; i++) {
         ctx.beginPath()
-        const baseY = (i * contourSpacing) + (contourSpacing / 2)
-        
-        for (let x = 0; x <= w; x += 5) {
-          const wave1 = Math.sin((x * 0.005) + (i * 0.3) + time) * 15
-          const wave2 = Math.sin((x * 0.003) + (i * 0.5) - time * 0.5) * 10
-          const y = baseY + wave1 + wave2
-          
-          if (x === 0) {
-            ctx.moveTo(x, y)
-          } else {
-            ctx.lineTo(x, y)
-          }
+        const yBase = (h / waveCount) * i + (h / waveCount) / 2
+        for (let x = -50; x < w + 50; x += 10) {
+          const n = Math.sin(x * 0.002 + time + i) * 60
+            + Math.sin(x * 0.005 - time * 2 + i) * 30
+          ctx.lineTo(x, yBase + n)
         }
         ctx.stroke()
       }
-      ctx.globalAlpha = 1
+      ctx.restore()
 
-      // Heatmap overlay (warm gradient blobs)
-      ctx.globalCompositeOperation = 'overlay'
-      ctx.globalAlpha = 0.3
-      
-      const heatmapCenters = [
-        { x: w * 0.3, y: h * 0.4 },
-        { x: w * 0.7, y: h * 0.6 },
-        { x: w * 0.5, y: h * 0.3 },
-      ]
+      // Markers (Front Layer) - Fast Parallax
+      ctx.save()
+      ctx.translate(targetX, targetY)
+      markers.forEach((m, i) => {
+        // Recalculate positions based on simple relative coords for responsiveness
+        const mx = (m.x % w + w) % w
+        const my = (m.y % h + h) % h
 
-      heatmapCenters.forEach((center, idx) => {
-        const gradient = ctx.createRadialGradient(
-          center.x + Math.sin(time + idx) * 50,
-          center.y + Math.cos(time + idx) * 30,
-          0,
-          center.x,
-          center.y,
-          300
-        )
-        gradient.addColorStop(0, heatmapColor)
-        gradient.addColorStop(1, 'transparent')
-        ctx.fillStyle = gradient
-        ctx.fillRect(0, 0, w, h)
-      })
+        const pulse = Math.sin(time * 3 + m.pulsePhase) * 0.5 + 1
 
-      ctx.globalCompositeOperation = 'source-over'
-      ctx.globalAlpha = 1
-
-      // Geodata wave pattern
-      ctx.strokeStyle = '#ffffff'
-      ctx.globalAlpha = 0.1
-      ctx.lineWidth = 2
-      
-      for (let i = 0; i < 3; i++) {
+        // Glow
+        const grad = ctx.createRadialGradient(mx, my, 0, mx, my, 40)
+        grad.addColorStop(0, 'rgba(28, 167, 226, 0.4)')
+        grad.addColorStop(1, 'rgba(28, 167, 226, 0)')
+        ctx.fillStyle = grad
         ctx.beginPath()
-        const offset = i * 200
-        for (let x = 0; x <= w; x += 10) {
-          const y = h * 0.5 + Math.sin((x * 0.002) + (i * 0.5)) * 100 + offset
-          if (x === 0) {
-            ctx.moveTo(x, y)
-          } else {
-            ctx.lineTo(x, y)
-          }
-        }
-        ctx.stroke()
-      }
-      ctx.globalAlpha = 1
-
-      // Map markers (pins)
-      markers.forEach((marker) => {
-        const pulse = Math.sin(time * 2 + marker.pulsePhase) * 0.3 + 1
-        const size = 12 * pulse
-
-        // Pin shadow
-        ctx.globalAlpha = 0.3
-        ctx.fillStyle = '#000000'
-        ctx.beginPath()
-        ctx.ellipse(marker.x, marker.y + 20, size * 0.8, size * 0.3, 0, 0, Math.PI * 2)
+        ctx.arc(mx, my, 40, 0, Math.PI * 2)
         ctx.fill()
 
-        // Pin body
-        ctx.globalAlpha = 1
-        const pinGradient = ctx.createRadialGradient(
-          marker.x - size * 0.3,
-          marker.y - size * 0.3,
-          0,
-          marker.x,
-          marker.y,
-          size
-        )
-        pinGradient.addColorStop(0, '#ffffff')
-        pinGradient.addColorStop(0.3, markerColor)
-        pinGradient.addColorStop(1, '#0a5f8a')
-        
-        ctx.fillStyle = pinGradient
+        // Point
+        ctx.fillStyle = '#fff'
         ctx.beginPath()
-        ctx.arc(marker.x, marker.y, size, 0, Math.PI * 2)
+        ctx.arc(mx, my, 3, 0, Math.PI * 2)
         ctx.fill()
 
-        // Pin highlight
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.6)'
-        ctx.beginPath()
-        ctx.arc(marker.x - size * 0.3, marker.y - size * 0.3, size * 0.3, 0, Math.PI * 2)
-        ctx.fill()
-
-        // Pin pointer
-        ctx.fillStyle = markerColor
-        ctx.beginPath()
-        ctx.moveTo(marker.x, marker.y + size)
-        ctx.lineTo(marker.x - size * 0.4, marker.y + size * 1.5)
-        ctx.lineTo(marker.x + size * 0.4, marker.y + size * 1.5)
-        ctx.closePath()
-        ctx.fill()
-
-        // Pulse ring
-        ctx.strokeStyle = markerColor
-        ctx.globalAlpha = 1 - (pulse - 1) / 0.3
+        // Ring
+        ctx.strokeStyle = '#1ca7e2'
         ctx.lineWidth = 2
         ctx.beginPath()
-        ctx.arc(marker.x, marker.y, size * pulse * 1.5, 0, Math.PI * 2)
+        ctx.arc(mx, my, 10 * pulse, 0, Math.PI * 2)
         ctx.stroke()
-        ctx.globalAlpha = 1
       })
+      ctx.restore()
 
-      // Fine noise overlay
-      ctx.globalAlpha = 0.02
-      for (let i = 0; i < 1000; i++) {
-        ctx.fillStyle = Math.random() > 0.5 ? '#ffffff' : '#000000'
-        ctx.fillRect(Math.random() * w, Math.random() * h, 1, 1)
-      }
-      ctx.globalAlpha = 1
+      // Noise Overlay
+      ctx.globalCompositeOperation = 'overlay'
+      ctx.fillStyle = `rgba(255,255,255,0.03)`
+      ctx.fillRect(0, 0, w, h)
+      ctx.globalCompositeOperation = 'source-over'
 
       animationFrameRef.current = requestAnimationFrame(render)
     }
-
     render()
 
     return () => {
+      window.removeEventListener('mousemove', updateMouse)
       window.removeEventListener('resize', updateSize)
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current)
-      }
+      if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current)
     }
   }, [])
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 -z-10 h-full w-full"
-      style={{ imageRendering: 'crisp-edges' }}
-    />
+    <div ref={containerRef} className="fixed inset-0 -z-10 h-full w-full bg-[#0a1d2f]">
+      <canvas ref={canvasRef} className="block w-full h-full" />
+      {/* Glass overlay gradient for depth */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0a1d2f] via-transparent to-transparent opacity-80 pointer-events-none" />
+    </div>
   )
 }

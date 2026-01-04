@@ -5,12 +5,17 @@ import { Contact } from '@/components/sections/Contact'
 
 import { AnimatedBackground } from '@/components/AnimatedBackground'
 
+import { Methodology } from '@/components/sections/Methodology'
+import { WhyHireMe } from '@/components/sections/WhyHireMe'
+
 export default function HomePage() {
   return (
     <div className="relative min-h-screen">
       <AnimatedBackground />
       <main className="relative z-10">
         <Hero />
+        <WhyHireMe />
+        <Methodology />
         <Expertise />
         <ProjectsSection />
         <Contact />

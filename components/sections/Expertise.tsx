@@ -42,12 +42,19 @@ export function Expertise() {
                         </h3>
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
                             {stack.map((tech, i) => (
-                                <div key={tech.name} className="flex flex-col items-center gap-3 p-4 rounded-xl hover:bg-secondary/40 transition-colors cursor-default">
+                                <motion.div
+                                    key={tech.name}
+                                    className="flex flex-col items-center gap-3 p-4 rounded-xl hover:bg-secondary/40 transition-colors cursor-default"
+                                    initial={{ opacity: 0, rotateY: 30, x: -10 }}
+                                    whileInView={{ opacity: 1, rotateY: 0, x: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.5, delay: i * 0.05 }}
+                                >
                                     <div className="w-8 h-8 opacity-80 grayscale hover:grayscale-0 transition-all duration-300">
                                         <StackIcon name={tech.icon} />
                                     </div>
                                     <span className="text-sm text-muted-foreground font-medium">{tech.name}</span>
-                                </div>
+                                </motion.div>
                             ))}
                         </div>
                     </motion.div>

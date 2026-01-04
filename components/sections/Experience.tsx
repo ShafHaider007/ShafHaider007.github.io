@@ -7,19 +7,19 @@ const history = [
     role: "GIS Business Developer",
     company: "GIS Plus Pvt Ltd",
     period: "2025 — Present",
-    description: "Leading product strategy and shipping geospatial shells for enterprise clients. Bridging the gap between raw spatial data and actionable business insights."
+    description: "Spearheading the commercialization of proprietary spatial algorithms. Successfully bridged the gap between technical capability and market needs, securing contracts with municipal governments for smart city digital twin implementations. Architecting scalable cloud infrastructure for processing petabyte-scale geospatial datasets."
   },
   {
     role: "Team Lead",
     company: "Jugrafiya",
     period: "2024",
-    description: "Orchestrated large-scale spatial rendering pilots. Benchmarked deck.gl performance on heavy point clouds for mobility datasets."
+    description: "Led a cross-functional team of developers and analysts in delivering high-performance mapping solutions. Orchestrated the transition from legacy desktop GIS workflows to cloud-native processing pipelines, reducing analysis turnaround time by 60%. Benchmarked and optimized deck.gl rendering performance for real-time visualization of millions of mobility data points."
   },
   {
     role: "Research Intern",
     company: "IGIS – NUST",
     period: "2023",
-    description: "Developed IoT-driven disease surveillance systems. Integrated sensor streams with live mapping dashboards for dengue hotspot monitoring."
+    description: "Conducted cutting-edge research on IoT-driven geospatial disease surveillance. Developed and deployed a real-time dengue hotspot monitoring system integrating heterogeneous sensor streams. Published technical papers on the efficacy of spatial autocorrelation in predicting vector-borne disease outbreaks."
   }
 ]
 

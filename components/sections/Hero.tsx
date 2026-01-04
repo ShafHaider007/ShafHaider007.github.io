@@ -22,12 +22,13 @@ export function Hero() {
 
         <motion.h1
           className="font-serif-display text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.1] tracking-tight text-primary mb-8"
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0, y: 40, rotateX: 20 }}
+          animate={{ opacity: 1, y: 0, rotateX: 0 }}
+          transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          style={{ perspective: "1000px" }}
         >
           Spatial Data Engineer <br />
-          <span className="text-foreground/80 font-normal italic">& GIS Specialist</span>
+          <span className="text-foreground/80 font-normal italic"> & GIS Specialist</span>
         </motion.h1>
 
         <motion.p
@@ -36,7 +37,7 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
         >
-          Crafting digital cartography and spatial analysis tools that transform complex geographic data into clarity.
+          Architecting high-performance geospatial pipelines and digital cartography that transforms complex location data into actionable intelligence.
         </motion.p>
 
         <motion.div
