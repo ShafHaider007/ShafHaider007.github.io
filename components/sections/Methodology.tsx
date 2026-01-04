@@ -6,30 +6,37 @@ import { useRef } from 'react'
 const steps = [
     {
         id: '01',
-        title: 'Ingest',
-        subtitle: 'Raw Data Streams',
-        desc: 'Aggregating heterogeneous telemetry: Satellite, LiDAR, and IoT.',
+        title: 'Requirements',
+        subtitle: 'Client Consultation',
+        desc: 'In-depth analysis of project scope, technical feasibility, and business objectives.',
         color: '#3b82f6', // Premium Blue
     },
     {
         id: '02',
-        title: 'Processing',
-        subtitle: 'Spatial ETL',
-        desc: 'Normalization, topology checks, and vectorization at scale.',
+        title: 'Planning',
+        subtitle: 'Solution Architecture',
+        desc: 'Designing scalable geospatial schemas, API workflows, and system architecture.',
         color: '#a855f7', // Vivid Purple
     },
     {
         id: '03',
-        title: 'Analysis',
-        subtitle: 'Geo-Computation',
-        desc: 'Clustering, network analysis, and predictive ML models.',
+        title: 'Implementation',
+        subtitle: 'Agile Development',
+        desc: 'Full-stack engineering of the solution, from database optimization to frontend visualization.',
         color: '#f43f5e', // Hot Pink
     },
     {
         id: '04',
-        title: 'Deploy',
-        subtitle: 'Visualization',
-        desc: 'WebGL maps, real-time dashboards, and low-latency APIs.',
+        title: 'Testing',
+        subtitle: 'QA & Validation',
+        desc: 'Rigorous validation of spatial accuracy, performance checks, and system reliability assurance.',
+        color: '#f97316', // Bright Orange
+    },
+    {
+        id: '05',
+        title: 'Delivery',
+        subtitle: 'Final Deployment',
+        desc: 'Production launch, documentation handover, and seamless client onboarding.',
         color: '#10b981', // Emerald Green
     }
 ]
@@ -53,6 +60,7 @@ function TunnelStep({ i, step, progress, total }: { i: number, step: typeof step
     // Simpler cleaner logic:
     // It appears from "darkness" (z-depth) and stays, then flies past.
 
+    // Slight overlap adjustment for smoother transitions
     const zInput = [start, start + 0.1, end - 0.1, end]
 
     const opacity = useTransform(progress, zInput, [0, 1, 1, 0])
@@ -118,7 +126,7 @@ export function Methodology() {
     const bgOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
 
     return (
-        <section ref={containerRef} className="relative h-[400vh] bg-black">
+        <section ref={containerRef} className="relative h-[500vh] bg-black">
 
             <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-center items-center">
 

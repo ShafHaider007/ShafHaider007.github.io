@@ -27,7 +27,7 @@ export function Hero() {
           transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           style={{ perspective: "1000px" }}
         >
-          Spatial Data Engineer <br />
+          Senior Full Stack Web Developer <br />
           <span className="text-foreground/80 font-normal italic"> & GIS Specialist</span>
         </motion.h1>
 
@@ -37,7 +37,7 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
         >
-          Architecting high-performance geospatial pipelines and digital cartography that transforms complex location data into actionable intelligence.
+          8+ years delivering scalable web, mobile, and GIS solutions. I transform complex geospatial data into high-performance platforms for global enterprises.
         </motion.p>
 
         <motion.div

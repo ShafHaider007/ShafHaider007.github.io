@@ -1,99 +1,99 @@
 'use client'
 
 import { motion } from 'motion/react'
-import { Check } from 'lucide-react'
+import { Layers, Database, Palette, Rocket } from 'lucide-react'
 
 const benefits = [
     {
-        title: "Bridge Between Code & Cartography",
-        desc: "Most developers don't understand projections. Most GIS analysts can't scale infrastructure. I do both perfectly."
+        icon: Layers,
+        title: "Modernizing Spatial Infrastructure",
+        desc: "The GIS world is evolving. I migrate legacy desktop workflows into powerful, cloud-native web applications that scale with your business."
     },
     {
-        title: "Enterprise-Grade Scalability",
-        desc: "I don't just make maps. I build pipelined systems processing terabytes of movement data without lag."
+        icon: Database,
+        title: "Performance-Driven Intelligence",
+        desc: "Location data is heavy. I optimize every layer of the stack—from database spatial indices to WebGL rendering—to ensure instant insights."
     },
     {
-        title: "Design-First Geocomputation",
-        desc: "Complex data doesn't have to look boring. I bring a Swiss design ethos to technical spatial problems."
+        icon: Palette,
+        title: "Solving Complex Spatial Problems",
+        desc: "Beyond simple mapping, I implement advanced geoprocessing logic to solve distinct industry challenges in logistics, environment, and planning."
     },
     {
-        title: "Day 1 Deployment Ready",
-        desc: "Full-stack proficiency (database to frontend) means I ship complete products, not just components."
+        icon: Rocket,
+        title: "Full-Stack Turnkey Solutions",
+        desc: "I deliver more than analysis. I architect and build complete, production-ready software ecosystems that integrate seamlessly with enterprise tools."
     }
 ]
 
 export function WhyHireMe() {
     return (
-        <section className="py-32 bg-background relative overflow-hidden">
-            <div className="mx-auto w-full max-w-7xl px-6 lg:px-12">
+        <section className="py-32 md:py-48 bg-background relative overflow-hidden">
+            {/* Minimal Grid Background */}
+            <div className="absolute inset-0 pointer-events-none opacity-[0.03]"
+                style={{
+                    backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
+                    backgroundSize: '100px 100px'
+                }}
+            />
 
-                <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="mx-auto w-full max-w-7xl px-6 lg:px-12 relative z-10">
 
-                    <motion.div
-                        initial={{ opacity: 0, x: -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                    >
-                        <h2 className="text-5xl md:text-7xl font-sans font-bold tracking-tight text-primary mb-8">
-                            Why Hire Me?
-                        </h2>
-                        <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">
-                            Because you need more than just a developer. You need a <span className="text-foreground font-semibold">Geo-Spatial Architect</span> who can translate business goals into high-performance reality.
-                        </p>
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                    className="max-w-4xl mx-auto text-center mb-24"
+                >
+                    <span className="inline-block py-1 px-3 border border-primary/20 rounded-full bg-primary/5 text-primary text-xs font-mono uppercase tracking-widest mb-8">
+                        The Difference
+                    </span>
 
-                        <div className="mt-12 space-y-8">
-                            {benefits.map((benefit, i) => (
-                                <div key={i} className="flex gap-4">
-                                    <div className="mt-1 w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
-                                        <Check className="w-4 h-4 text-primary" />
-                                    </div>
-                                    <div>
-                                        <h3 className="text-lg font-bold text-foreground mb-1">{benefit.title}</h3>
-                                        <p className="text-muted-foreground">{benefit.desc}</p>
-                                    </div>
+                    <h2 className="text-5xl md:text-7xl lg:text-8xl font-serif-display font-medium tracking-tight text-primary mb-12 leading-[0.9]">
+                        Why Hire Me?
+                    </h2>
+
+                    <p className="text-xl md:text-3xl text-muted-foreground leading-relaxed font-light text-balance">
+                        Because you need more than just a developer. You need a <span className="text-foreground font-medium underline decoration-primary/30 underline-offset-4">Geo-Spatial Architect</span> who can translate business goals into high-performance reality.
+                    </p>
+                </motion.div>
+
+                <div className="grid md:grid-cols-2 gap-px bg-border/20 border border-border/20 overflow-hidden rounded-3xl">
+                    {benefits.map((benefit, i) => (
+                        <motion.div
+                            key={i}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: i * 0.1 }}
+                            className="group relative bg-background p-12 hover:bg-white/[0.02] transition-colors"
+                        >
+                            <div className="absolute top-8 right-8 text-primary/10 group-hover:text-primary/20 group-hover:scale-110 transition-all duration-500">
+                                <benefit.icon className="w-24 h-24 stroke-[1px]" />
+                            </div>
+
+                            <div className="relative z-10">
+                                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-8 group-hover:bg-primary group-hover:text-background transition-colors duration-300">
+                                    <benefit.icon className="w-6 h-6" />
                                 </div>
-                            ))}
-                        </div>
-                    </motion.div>
 
-                    {/* Visual Side */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                        className="relative h-[600px] w-full rounded-3xl overflow-hidden bg-[#0a0a0a] border border-white/10"
-                    >
-                        {/* Abstract holographic data visualization representation */}
-                        <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(68,68,68,.2)_50%,transparent_75%,transparent_100%)] bg-[length:20px_20px]" />
+                                <h3 className="text-2xl font-serif-display font-bold text-foreground mb-4">
+                                    {benefit.title}
+                                </h3>
 
-                        <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="relative w-64 h-64">
-                                <div className="absolute inset-0 border-2 border-primary/30 rounded-full animate-[spin_10s_linear_infinite]" />
-                                <div className="absolute inset-4 border-2 border-accent/30 rounded-full animate-[spin_15s_linear_infinite_reverse]" />
-                                <div className="absolute inset-8 border border-white/10 rounded-full backdrop-blur-sm" />
-
-                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
-                                    <div className="text-5xl font-mono font-bold text-white">100%</div>
-                                    <div className="text-sm text-primary uppercase tracking-widest mt-2">Delivery Rate</div>
-                                </div>
+                                <p className="text-lg text-muted-foreground leading-relaxed">
+                                    {benefit.desc}
+                                </p>
                             </div>
-                        </div>
+                        </motion.div>
+                    ))}
+                </div>
 
-                        {/* Floating cards */}
-                        <div className="absolute bottom-8 left-8 right-8 bg-white/5 backdrop-blur-md p-6 rounded-xl border border-white/10">
-                            <div className="flex justify-between items-center text-sm font-mono text-white/80">
-                                <span>System Status</span>
-                                <span className="text-emerald-400">● Operational</span>
-                            </div>
-                            <div className="w-full bg-white/10 h-1 mt-4 rounded-full overflow-hidden">
-                                <div className="bg-primary h-full w-[85%] animate-pulse" />
-                            </div>
-                        </div>
-
-                    </motion.div>
-
+                <div className="mt-16 text-center">
+                    <p className="font-mono text-xs text-muted-foreground/50 uppercase tracking-[0.3em]">
+                        Based in Islamabad • Available Worldwide
+                    </p>
                 </div>
 
             </div>

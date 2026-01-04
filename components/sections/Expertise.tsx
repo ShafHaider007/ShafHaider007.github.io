@@ -50,8 +50,12 @@ export function Expertise() {
                                     viewport={{ once: true }}
                                     transition={{ duration: 0.5, delay: i * 0.05 }}
                                 >
-                                    <div className="w-8 h-8 opacity-80 grayscale hover:grayscale-0 transition-all duration-300">
-                                        <StackIcon name={tech.icon} />
+                                    <div className="w-8 h-8 opacity-80 grayscale hover:grayscale-0 transition-all duration-300 flex items-center justify-center">
+                                        {tech.name === 'Mapbox' ? (
+                                            <img src="/Mapbox.png" alt="Mapbox" className="w-full h-full object-contain" />
+                                        ) : (
+                                            <StackIcon name={tech.icon} />
+                                        )}
                                     </div>
                                     <span className="text-sm text-muted-foreground font-medium">{tech.name}</span>
                                 </motion.div>
