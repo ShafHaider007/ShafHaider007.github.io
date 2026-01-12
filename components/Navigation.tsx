@@ -53,9 +53,7 @@ export function Navigation() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-40 transition-all duration-300 ${
-        scrolled ? 'backdrop-blur-md border-b border-border/30 bg-background/80' : 'bg-transparent'
-      }`}
+      className="fixed inset-x-0 top-0 z-40 transition-all duration-300 backdrop-blur-md border-b border-white/10 bg-white/5"
     >
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-6">
         <Link href="/" className="text-sm font-semibold uppercase tracking-[0.4em] text-muted-foreground">

@@ -1,26 +1,24 @@
 'use client'
 
-import { ComponentPropsWithoutRef, ElementType, ReactNode, useEffect, useRef } from 'react'
+import { ComponentPropsWithoutRef, ReactNode, useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import clsx from 'clsx'
 
 gsap.registerPlugin(ScrollTrigger)
 
-type ScrollRevealProps<T extends ElementType> = {
+type ScrollRevealProps = {
   children: ReactNode
-  as?: T
   enableBlur?: boolean
   baseOpacity?: number
   stagger?: number
   once?: boolean
   scrollContainerRef?: React.RefObject<HTMLElement | null>
-} & Omit<ComponentPropsWithoutRef<T>, 'as' | 'children'>
+} & Omit<ComponentPropsWithoutRef<'div'>, 'children'>
 
-export default function ScrollReveal<T extends ElementType = 'p'>(props: ScrollRevealProps<T>) {
+export default function ScrollReveal(props: ScrollRevealProps) {
   const {
     children,
-    as,
     className,
     enableBlur = false,
     baseOpacity = 0,
@@ -29,8 +27,7 @@ export default function ScrollReveal<T extends ElementType = 'p'>(props: ScrollR
     scrollContainerRef,
     ...rest
   } = props
-  const Wrapper = (as ?? 'p') as ElementType
-  const rootRef = useRef<HTMLElement | null>(null)
+  const rootRef = useRef<HTMLDivElement | null>(null)
   const spansRef = useRef<HTMLSpanElement[]>([])
 
   useEffect(() => {
@@ -83,9 +80,9 @@ export default function ScrollReveal<T extends ElementType = 'p'>(props: ScrollR
 
   if (!textContent.trim()) {
     return (
-      <Wrapper ref={rootRef as any} className={clsx('inline-block', className)} {...rest}>
+      <div ref={rootRef} className={clsx('inline-block', className)} {...rest}>
         {children}
-      </Wrapper>
+      </div>
     )
   }
 
@@ -94,7 +91,7 @@ export default function ScrollReveal<T extends ElementType = 'p'>(props: ScrollR
   spansRef.current = []
 
   return (
-    <Wrapper ref={rootRef as any} className={clsx('inline-block', className)} {...rest}>
+    <div ref={rootRef} className={clsx('inline-block', className)} {...rest}>
       {words.map((word, index) => {
         const refCallback = (node: HTMLSpanElement | null) => {
           if (node) spansRef.current[index] = node
@@ -114,6 +111,6 @@ export default function ScrollReveal<T extends ElementType = 'p'>(props: ScrollR
           </span>
         )
       })}
-    </Wrapper>
+    </div>
   )
 }

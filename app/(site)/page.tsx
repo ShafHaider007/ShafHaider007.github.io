@@ -1,12 +1,9 @@
 import { Hero } from '@/components/sections/Hero'
-import { Expertise } from '@/components/sections/Expertise'
 import { ProjectsSection } from '@/components/sections/Projects'
 import { Contact } from '@/components/sections/Contact'
-
 import { Scene } from '@/components/Scene'
-
+import { BentoGrid } from '@/components/sections/BentoGrid'
 import { Methodology } from '@/components/sections/Methodology'
-import { WhyHireMe } from '@/components/sections/WhyHireMe'
 
 export default function HomePage() {
   return (
@@ -14,9 +11,8 @@ export default function HomePage() {
       <Scene />
       <main className="relative z-10">
         <Hero />
-        <WhyHireMe />
+        <BentoGrid />
         <Methodology />
-        <Expertise />
         <ProjectsSection />
         <Contact />
       </main>
