@@ -1,6 +1,6 @@
 'use client'
 
-import { ComponentPropsWithoutRef, ElementType, createElement, ReactNode } from 'react'
+import { ComponentPropsWithoutRef, ElementType, createElement } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
 import clsx from 'clsx'
 
