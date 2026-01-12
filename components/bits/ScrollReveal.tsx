@@ -7,16 +7,17 @@ import clsx from 'clsx'
 
 gsap.registerPlugin(ScrollTrigger)
 
-type ScrollRevealProps = {
+type ScrollRevealProps<T extends ElementType = 'div'> = {
   children: ReactNode
   enableBlur?: boolean
   baseOpacity?: number
   stagger?: number
   once?: boolean
   scrollContainerRef?: React.RefObject<HTMLElement | null>
-} & Omit<ComponentPropsWithoutRef<'div'>, 'children'>
+  as?: T
+} & Omit<ComponentPropsWithoutRef<T>, 'children'>
 
-export default function ScrollReveal(props: ScrollRevealProps) {
+export default function ScrollReveal<T extends ElementType = 'div'>(props: ScrollRevealProps<T>) {
   const {
     children,
     className,
@@ -25,9 +26,10 @@ export default function ScrollReveal(props: ScrollRevealProps) {
     stagger = 0.08,
     once = true,
     scrollContainerRef,
+    as,
     ...rest
   } = props
-  const Wrapper = (as ?? 'p') as T
+  const Wrapper = (as ?? 'div') as ElementType
   const rootRef = useRef<HTMLElement | null>(null)
   const spansRef = useRef<HTMLSpanElement[]>([])
 
@@ -82,7 +84,7 @@ export default function ScrollReveal(props: ScrollRevealProps) {
   if (!textContent.trim()) {
     return createElement(
       Wrapper,
-      { ref: rootRef as any, className: clsx('inline-block', className), ...rest } as ComponentPropsWithoutRef<T>,
+      { ref: rootRef as any, className: clsx('inline-block', className), ...rest },
       children
     )
   }
@@ -93,7 +95,7 @@ export default function ScrollReveal(props: ScrollRevealProps) {
 
   return createElement(
     Wrapper,
-    { ref: rootRef as any, className: clsx('inline-block', className), ...rest } as ComponentPropsWithoutRef<T>,
+    { ref: rootRef as any, className: clsx('inline-block', className), ...rest },
     words.map((word, index) => {
       const refCallback = (node: HTMLSpanElement | null) => {
         if (node) spansRef.current[index] = node
