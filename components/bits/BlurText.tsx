@@ -1,22 +1,21 @@
 'use client'
 
-import { ComponentPropsWithoutRef, ElementType } from 'react'
+import { ComponentPropsWithoutRef } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
 import clsx from 'clsx'
 
-type BlurTextProps<T extends ElementType> = {
+type BlurTextProps = {
   text: string
   animateBy?: 'words' | 'chars'
   delay?: number
-  as?: T
-} & Omit<ComponentPropsWithoutRef<T>, 'as' | 'children'>
+} & Omit<ComponentPropsWithoutRef<'p'>, 'children'>
 
 const defaultTransition = { duration: 0.6, ease: [0.33, 1, 0.68, 1] as [number, number, number, number] }
 
-export default function BlurText<T extends ElementType = 'p'>(props: BlurTextProps<T>) {
-  const { text, animateBy = 'words', delay = 0, as, className, ...rest } = props
+export default function BlurText(props: BlurTextProps) {
+  const { text, animateBy = 'words', delay = 0, className, ...rest } = props
   const shouldReduceMotion = useReducedMotion()
-  const Wrapper = (as ?? 'p') as ElementType
+  const Wrapper = 'p'
 
   if (shouldReduceMotion) {
     return (
