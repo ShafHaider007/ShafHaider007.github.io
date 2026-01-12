@@ -3,7 +3,7 @@ import { Expertise } from '@/components/sections/Expertise'
 import { ProjectsSection } from '@/components/sections/Projects'
 import { Contact } from '@/components/sections/Contact'
 
-import { AnimatedBackground } from '@/components/AnimatedBackground'
+import { Scene } from '@/components/Scene'
 
 import { Methodology } from '@/components/sections/Methodology'
 import { WhyHireMe } from '@/components/sections/WhyHireMe'
@@ -11,7 +11,7 @@ import { WhyHireMe } from '@/components/sections/WhyHireMe'
 export default function HomePage() {
   return (
     <div className="relative min-h-screen">
-      <AnimatedBackground />
+      <Scene />
       <main className="relative z-10">
         <Hero />
         <WhyHireMe />
