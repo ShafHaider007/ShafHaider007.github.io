@@ -15,44 +15,48 @@ export function ProjectGallery() {
                 <motion.article
                     key={project.slug}
                     className="group relative flex flex-col h-full"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    initial={{ opacity: 0, y: 50, rotateX: -10, scale: 0.9 }}
+                    whileInView={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.8, delay: index * 0.15, ease: "easeOut" }}
+                    style={{ perspective: "1000px" }}
                     onMouseEnter={() => setHoveredProject(project.slug)}
                     onMouseLeave={() => setHoveredProject(null)}
                 >
                     {/* Project Card Container */}
-                    <div className="relative aspect-[4/3] w-full overflow-hidden bg-muted/30 border border-border/50 mb-6 transition-all duration-500 group-hover:border-primary/20 group-hover:shadow-lg">
-                        {/* Placeholder for Project Image/Visual - Using a generative gradient for now */}
-                        <div className={`absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                    <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#020205] border border-white/10 mb-6 transition-all duration-500 group-hover:border-primary/50 group-hover:shadow-[0_0_30px_-10px_rgba(59,130,246,0.5)]">
 
+                        {/* Generative Tech Background */}
+                        <div className="absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity duration-500">
+                            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
+                            <div className="absolute left-0 top-0 w-full h-full bg-gradient-to-tr from-primary/20 via-transparent to-accent/20" />
+                        </div>
+
+                        {/* Central Tech Visual */}
                         <div className="absolute inset-0 flex items-center justify-center p-8">
-                            <div className="w-full h-full border border-dashed border-border/40 rounded-sm flex items-center justify-center relative overflow-hidden">
-                                {/* Abstract Map Nodes */}
-                                <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-primary/20 rounded-full" />
-                                <div className="absolute bottom-1/3 right-1/4 w-2 h-2 bg-primary/20 rounded-full" />
-                                <div className="absolute top-1/2 left-1/2 w-1 h-1 bg-accent/40 rounded-full" />
+                            <div className="relative w-full h-full border border-dashed border-white/20 flex items-center justify-center overflow-hidden">
 
-                                {/* Connecting lines SVG */}
-                                <svg className="absolute inset-0 w-full h-full opacity-20" stroke="currentColor">
-                                    <line x1="25%" y1="25%" x2="50%" y2="50%" className="text-primary" strokeWidth="0.5" />
-                                    <line x1="50%" y1="50%" x2="75%" y2="66%" className="text-primary" strokeWidth="0.5" />
-                                </svg>
+                                {/* Animated scan line */}
+                                <div className="absolute top-0 left-0 w-full h-1 bg-primary/50 blur-[2px] animate-[scan_3s_ease-in-out_infinite]" />
 
-                                <span className="font-serif-display italic text-3xl text-primary/10 group-hover:text-primary/20 transition-colors duration-500">
+                                {/* Data Nodes */}
+                                <div className="absolute top-1/4 left-1/4 w-3 h-3 bg-primary rounded-full animate-pulse" />
+                                <div className="absolute bottom-1/3 right-1/4 w-2 h-2 bg-accent rounded-full animate-pulse delay-75" />
+                                <div className="absolute top-1/2 left-1/2 w-32 h-32 border border-primary/30 rounded-full animate-[spin_10s_linear_infinite]" />
+
+                                <span className="relative z-10 font-serif-display italic text-4xl text-white/90 mix-blend-overlay group-hover:text-white transition-colors duration-500">
                                     {project.metrics[0]?.value || 'Map'}
                                 </span>
                             </div>
                         </div>
 
                         {/* Overlay Button */}
-                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
                             <Link
                                 href={`/projects/${project.slug}`}
-                                className="inline-flex items-center gap-2 px-6 py-3 bg-white/90 backdrop-blur-sm border border-primary/10 text-primary font-medium tracking-wide translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:bg-primary hover:text-white rounded-none"
+                                className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-white font-bold tracking-wide translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:bg-primary/90"
                             >
-                                View Case Study <ArrowUpRight className="h-4 w-4" />
+                                VIEW CASE STUDY <ArrowUpRight className="h-4 w-4" />
                             </Link>
                         </div>
                     </div>
