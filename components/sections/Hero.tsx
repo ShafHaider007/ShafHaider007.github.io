@@ -22,12 +22,31 @@ export function Hero() {
 
         <motion.h1
           className="font-serif-display text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.1] tracking-tight text-primary mb-8"
-          initial={{ opacity: 0, y: 40, rotateX: 20 }}
-          animate={{ opacity: 1, y: 0, rotateX: 0 }}
-          transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          style={{ perspective: "1000px" }}
+          initial="hidden"
+          animate="visible"
+          variants={{
+            visible: {
+              transition: {
+                staggerChildren: 0.05,
+              },
+            },
+          }}
+          style={{ perspective: '1000px' }}
         >
-          Senior Full Stack Web Developer <br />
+          {'Senior Full Stack Web Developer'.split(' ').map((word, i) => (
+            <motion.span
+              key={i}
+              className="inline-block"
+              variants={{
+                hidden: { opacity: 0, y: 40, rotateX: 20 },
+                visible: { opacity: 1, y: 0, rotateX: 0 },
+              }}
+              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {word}&nbsp;
+            </motion.span>
+          ))}
+          <br />
           <span className="text-foreground/80 font-normal italic"> & GIS Specialist</span>
         </motion.h1>
 

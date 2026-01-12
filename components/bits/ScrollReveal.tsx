@@ -7,20 +7,18 @@ import clsx from 'clsx'
 
 gsap.registerPlugin(ScrollTrigger)
 
-type ScrollRevealProps<T extends ElementType> = {
+type ScrollRevealProps = {
   children: ReactNode
-  as?: T
   enableBlur?: boolean
   baseOpacity?: number
   stagger?: number
   once?: boolean
   scrollContainerRef?: React.RefObject<HTMLElement | null>
-} & Omit<ComponentPropsWithoutRef<T>, 'as' | 'children'>
+} & Omit<ComponentPropsWithoutRef<'div'>, 'children'>
 
-export default function ScrollReveal<T extends ElementType = 'p'>(props: ScrollRevealProps<T>) {
+export default function ScrollReveal(props: ScrollRevealProps) {
   const {
     children,
-    as,
     className,
     enableBlur = false,
     baseOpacity = 0,
