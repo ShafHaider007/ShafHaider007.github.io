@@ -1,5 +1,6 @@
 "use client"
 import { useLoader, useFrame } from "@react-three/fiber";
+import { SVGLoader } from "three/examples/jsm/loaders/SVGLoader.js";
 import * as THREE from "three";
 import { useScroll } from "@react-three/drei";
 import { useRef } from "react";
