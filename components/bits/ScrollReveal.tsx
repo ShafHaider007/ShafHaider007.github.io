@@ -1,6 +1,6 @@
 'use client'
 
-import { ComponentPropsWithoutRef, ReactNode, useEffect, useRef } from 'react'
+import { ComponentPropsWithoutRef, ReactNode, useEffect, useRef, ElementType } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import clsx from 'clsx'

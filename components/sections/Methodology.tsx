@@ -126,17 +126,18 @@ export function Methodology() {
     const bgOpacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
 
     return (
-        <section ref={containerRef} className="relative h-[500vh] bg-black">
+        <section ref={containerRef} className="relative h-[500vh] bg-background">
 
             <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-center items-center">
 
                 {/* Ambient Background Grid */}
                 <div className="absolute inset-0">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_#111_0%,_#000_100%)]" />
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--background)_0%,_#000_100%)] opacity-80" />
                     <motion.div
                         className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:100px_100px]"
                         style={{ opacity: bgOpacity }}
                     />
+                    <div className="absolute inset-0 bg-noise opacity-[0.05] pointer-events-none mix-blend-overlay" />
                 </div>
 
                 {/* Steps Container */}

@@ -4,68 +4,74 @@
 
 @layer base {
   :root {
-    /* Swiss Map Palette */
-    --background: 40 20% 97%; /* Creamy off-white paper */
-    --foreground: 220 30% 15%; /* Deep Charcoal/Navy */
-    
-    --card: 40 20% 95%;
-    --card-foreground: 220 30% 15%;
-    
-    --popover: 40 20% 97%;
-    --popover-foreground: 220 30% 15%;
-    
-    --primary: 215 50% 25%; /* Official Navy */
-    --primary-foreground: 40 20% 97%;
-    
-    --secondary: 25 30% 90%; /* Subtle Warm Beige */
-    --secondary-foreground: 215 50% 25%;
-    
-    --muted: 220 20% 93%;
-    --muted-foreground: 215 20% 45%; /* Muted Slate */
-    
-    --accent: 15 70% 55%; /* Terracotta */
-    --accent-foreground: 40 20% 97%;
-    
+    /* GIS Professional Palette - Dark Default */
+    --background: 222 47% 11%;
+    /* Deep Slate Blue #0f172a */
+    --foreground: 210 40% 98%;
+    /* Ice White */
+
+    --card: 217 33% 17%;
+    /* Slate #1e293b */
+    --card-foreground: 210 40% 98%;
+
+    --popover: 217 33% 17%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 186 100% 50%;
+    /* Cyan Data Stream #00f2ff */
+    --primary-foreground: 222 47% 11%;
+
+    --secondary: 32 100% 55%;
+    /* Topo Orange #ff8c00 */
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 217 33% 25%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 150 100% 45%;
+    /* Emerald Vegetation */
+    --accent-foreground: 0 0% 100%;
+
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 215 20% 85%;
-    --input: 215 20% 85%;
-    --ring: 215 50% 25%;
-    
-    --radius: 0rem; /* Sharp corners for Swiss style */
+    --border: 217 33% 25%;
+    --input: 217 33% 25%;
+    --ring: 186 100% 50%;
+
+    --radius: 0.25rem;
+    /* Technical, slightly rounded */
   }
 
   .dark {
-    /* Optional inverted 'Night Map' mode if needed by system prefs, 
-       but primarily focusing on the light theme requested */
-    --background: 220 30% 12%; 
-    --foreground: 40 20% 90%;
-    
-    --card: 220 30% 15%;
-    --card-foreground: 40 20% 90%;
-    
-    --popover: 220 30% 12%;
-    --popover-foreground: 40 20% 90%;
-    
-    --primary: 40 20% 90%;
-    --primary-foreground: 220 30% 15%;
-    
-    --secondary: 215 30% 20%;
-    --secondary-foreground: 40 20% 90%;
-    
-    --muted: 215 30% 20%;
+    /* Same as root because default is dark */
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+
+    --card: 217 33% 17%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 217 33% 17%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 186 100% 50%;
+    --primary-foreground: 222 47% 11%;
+
+    --secondary: 32 100% 55%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 217 33% 25%;
     --muted-foreground: 215 20% 65%;
-    
-    --accent: 15 70% 65%;
-    --accent-foreground: 40 20% 97%;
-    
+
+    --accent: 150 100% 45%;
+    --accent-foreground: 0 0% 100%;
+
     --destructive: 0 62% 30%;
     --destructive-foreground: 210 40% 98%;
-    
-    --border: 215 30% 25%;
-    --input: 215 30% 25%;
-    --ring: 215 30% 50%;
+
+    --border: 217 33% 25%;
+    --input: 217 33% 25%;
+    --ring: 186 100% 50%;
   }
 }
 
@@ -77,10 +83,10 @@
   body {
     @apply bg-background text-foreground antialiased font-sans;
     /* Subtle Grain/Paper Texture */
-    background-image: 
+    background-image:
       url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E"),
-      linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(0,0,0,0.03) 1px, transparent 1px);
+      linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
     background-size: 200px 200px, 4rem 4rem, 4rem 4rem;
   }
 }
@@ -89,7 +95,7 @@
   .text-balance {
     text-wrap: balance;
   }
-  
+
   .font-serif-display {
     font-family: var(--font-playfair), serif;
   }
