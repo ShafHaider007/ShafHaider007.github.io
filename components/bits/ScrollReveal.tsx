@@ -1,6 +1,6 @@
 'use client'
 
-import { ComponentPropsWithoutRef, ElementType, ReactNode, useEffect, useRef } from 'react'
+import { ComponentPropsWithoutRef, ElementType, ReactNode, useEffect, useRef, createElement } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import clsx from 'clsx'
@@ -29,7 +29,7 @@ export default function ScrollReveal<T extends ElementType = 'p'>(props: ScrollR
     scrollContainerRef,
     ...rest
   } = props
-  const Wrapper = (as ?? 'p') as ElementType
+  const Wrapper = (as ?? 'p') as T
   const rootRef = useRef<HTMLElement | null>(null)
   const spansRef = useRef<HTMLSpanElement[]>([])
 
@@ -82,10 +82,10 @@ export default function ScrollReveal<T extends ElementType = 'p'>(props: ScrollR
       : ''
 
   if (!textContent.trim()) {
-    return (
-      <Wrapper ref={rootRef as any} className={clsx('inline-block', className)} {...rest}>
-        {children}
-      </Wrapper>
+    return createElement(
+      Wrapper,
+      { ref: rootRef as any, className: clsx('inline-block', className), ...rest } as ComponentPropsWithoutRef<T>,
+      children
     )
   }
 
@@ -93,27 +93,27 @@ export default function ScrollReveal<T extends ElementType = 'p'>(props: ScrollR
 
   spansRef.current = []
 
-  return (
-    <Wrapper ref={rootRef as any} className={clsx('inline-block', className)} {...rest}>
-      {words.map((word, index) => {
-        const refCallback = (node: HTMLSpanElement | null) => {
-          if (node) spansRef.current[index] = node
-        }
-        const spacer = index < words.length - 1 ? '\u00A0' : ''
+  return createElement(
+    Wrapper,
+    { ref: rootRef as any, className: clsx('inline-block', className), ...rest } as ComponentPropsWithoutRef<T>,
+    words.map((word, index) => {
+      const refCallback = (node: HTMLSpanElement | null) => {
+        if (node) spansRef.current[index] = node
+      }
+      const spacer = index < words.length - 1 ? '\u00A0' : ''
 
-        return (
-          <span key={`${word}-${index}`} className="inline-block">
-            <span
-              ref={refCallback}
-              className="inline-block will-change-[transform,filter,opacity]"
-              style={{ willChange: 'transform, filter, opacity' }}
-            >
-              {word}
-            </span>
-            {spacer}
+      return (
+        <span key={`${word}-${index}`} className="inline-block">
+          <span
+            ref={refCallback}
+            className="inline-block will-change-[transform,filter,opacity]"
+            style={{ willChange: 'transform, filter, opacity' }}
+          >
+            {word}
           </span>
-        )
-      })}
-    </Wrapper>
+          {spacer}
+        </span>
+      )
+    })
   )
 }
