@@ -5,6 +5,7 @@ import { Analytics } from '@vercel/analytics/next'
 import '@/styles/globals.css'
 import { siteMetadata } from '@/lib/seo'
 import { SmoothScroll } from '@/components/SmoothScroll'
+import { FluidBackground } from '@/components/ui/FluidBackground'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -29,7 +30,8 @@ export const metadata: Metadata = siteMetadata
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className="light" suppressHydrationWarning>
-      <body className={`${inter.variable} ${jetbrainsMono.variable} ${playfair.variable} font-sans`}>
+      <body className={`${inter.variable} ${jetbrainsMono.variable} ${playfair.variable} font-sans min-h-screen bg-background text-foreground antialiased selection:bg-cyan-500/30 selection:text-cyan-200`}>
+        <FluidBackground />
         <SmoothScroll>{children}</SmoothScroll>
         <Analytics />
       </body>

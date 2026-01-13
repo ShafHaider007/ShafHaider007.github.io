@@ -4,47 +4,52 @@
 
 @layer base {
   :root {
-    /* GIS Professional Palette - Dark Default */
-    --background: 222 47% 11%;
-    /* Deep Slate Blue #0f172a */
-    --foreground: 210 40% 98%;
-    /* Ice White */
+    /* 
+      Professional / Executive Light Palette
+      Clean White, Deep Navy, Corporate Blue
+    */
+    --background: 210 40% 98%;
+    /* #f8fafc - Very light slate white */
+    --foreground: 222 47% 11%;
+    /* #0f172a - Deep Navy (Text) */
 
-    --card: 217 33% 17%;
-    /* Slate #1e293b */
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 100%;
+    /* Pure White cards */
+    --card-foreground: 222 47% 11%;
 
-    --popover: 217 33% 17%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
 
-    --primary: 186 100% 50%;
-    /* Cyan Data Stream #00f2ff */
-    --primary-foreground: 222 47% 11%;
+    --primary: 221 83% 53%;
+    /* #2563ea - Corporate Blue (Trust/Tech) */
+    --primary-foreground: 210 40% 98%;
 
-    --secondary: 32 100% 55%;
-    /* Topo Orange #ff8c00 */
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 215 16% 47%;
+    /* #64748b - Slate Grey (Subtle UI elements) */
+    --secondary-foreground: 210 40% 98%;
 
-    --muted: 217 33% 25%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 210 40% 96%;
+    /* #f1f5f9 */
+    --muted-foreground: 215 16% 47%;
 
-    --accent: 150 100% 45%;
-    /* Emerald Vegetation */
-    --accent-foreground: 0 0% 100%;
+    --accent: 199 89% 48%;
+    /* #0ea5e9 - Sky Blue (Highlights) */
+    --accent-foreground: 210 40% 98%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217 33% 25%;
-    --input: 217 33% 25%;
-    --ring: 186 100% 50%;
+    --border: 214 32% 91%;
+    /* #e2e8f0 */
+    --input: 214 32% 91%;
+    --ring: 221 83% 53%;
 
     --radius: 0.25rem;
-    /* Technical, slightly rounded */
+    /* Sharper, more professional corners */
   }
 
   .dark {
-    /* Same as root because default is dark */
+    /* Keeping Dark Mode valid but unused for now, or mapped to deep navy */
     --background: 222 47% 11%;
     --foreground: 210 40% 98%;
 
@@ -54,24 +59,24 @@
     --popover: 217 33% 17%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 186 100% 50%;
+    --primary: 217 91% 60%;
     --primary-foreground: 222 47% 11%;
 
-    --secondary: 32 100% 55%;
-    --secondary-foreground: 0 0% 100%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
 
-    --muted: 217 33% 25%;
+    --muted: 217 33% 17%;
     --muted-foreground: 215 20% 65%;
 
-    --accent: 150 100% 45%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 199 89% 48%;
+    --accent-foreground: 210 40% 98%;
 
     --destructive: 0 62% 30%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217 33% 25%;
-    --input: 217 33% 25%;
-    --ring: 186 100% 50%;
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 224 76% 48%;
   }
 }
 
@@ -80,14 +85,16 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    @apply bg-background text-foreground antialiased font-sans;
-    /* Subtle Grain/Paper Texture */
+    @apply bg-background text-foreground antialiased font-sans overflow-x-hidden;
+    /* Clean, professional mesh gradient */
     background-image:
-      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E"),
-      linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
-    background-size: 200px 200px, 4rem 4rem, 4rem 4rem;
+      radial-gradient(at 0% 0%, rgba(37, 99, 234, 0.05) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(14, 165, 233, 0.05) 0px, transparent 50%);
   }
 }
 
@@ -96,7 +103,20 @@
     text-wrap: balance;
   }
 
-  .font-serif-display {
-    font-family: var(--font-playfair), serif;
+  /* Glassmorphism Utilities - Professional Light */
+  .glass {
+    @apply bg-white/60 backdrop-blur-lg border border-white/40 shadow-sm;
+  }
+
+  .glass-card {
+    @apply bg-white/70 backdrop-blur-md border border-slate-200/50 hover:border-primary/20 transition-all duration-500 shadow-sm hover:shadow-lg hover:shadow-primary/5;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-slate-700 to-slate-500;
+  }
+
+  .text-gradient-primary {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-blue-600 to-accent;
   }
 }

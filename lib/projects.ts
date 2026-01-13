@@ -24,7 +24,7 @@ export const projects: Project[] = [
     tech: ['Python', 'PDAL', 'PyTorch', 'PostGIS'],
     problem: 'Manual digitization of building footprints from aerial imagery was slow, error-prone, and couldn\'t keep up with rapid urban development.',
     approach: 'Implemented a PointNet++ deep learning model for semantic segmentation of point clouds, coupled with a custom voxelization and vectorization algorithm to generate GIS-ready polygons.',
-    outcome: 'Reduced map update cycles from months to days, providing municipal authorities with near real-time data for zoning and infrastructure monitoring.',
+    outcome: 'Deployed as a scalable microservice architecture handling terabytes of municipal data. Reduced map update cycles from months to days, creating a live digital twin for city planners.',
     metrics: [
       { label: 'Area Processed', value: '500 km²' },
       { label: 'Accuracy', value: '94%' },
