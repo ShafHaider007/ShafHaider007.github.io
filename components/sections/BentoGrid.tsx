@@ -32,7 +32,7 @@ const GridItem = ({ children, className, delay = 0 }: { children: React.ReactNod
     whileHover={{ borderColor: "var(--primary)" }}
     viewport={{ once: true }}
     transition={{ duration: 0.5, delay, type: "tween", ease: "circOut" }}
-    className={`relative rounded-sm border border-white/5 bg-slate-900/50 backdrop-blur-md p-6 overflow-hidden group hover:shadow-[0_0_20px_rgba(0,242,255,0.1)] transition-all ${className}`}
+    className={`relative rounded-lg border border-white/10 bg-white/10 backdrop-blur-xl p-6 overflow-hidden group hover:shadow-[0_0_20px_rgba(0,242,255,0.1)] transition-all ${className}`}
   >
     <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:20px_20px] opacity-20 pointer-events-none" />
     <div className="relative z-10 h-full">{children}</div>
