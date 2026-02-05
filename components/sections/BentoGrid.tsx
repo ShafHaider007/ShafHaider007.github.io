@@ -50,26 +50,26 @@ export function BentoGrid() {
           whileInView={{ opacity: 1, y: 0 }}
           className="mb-24 flex flex-col items-center text-center"
         >
-          <div className="w-px h-24 bg-gradient-to-b from-transparent to-primary mb-4" />
-          <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-tighter text-foreground">
-            System <span className="text-primary">Capabilities</span>
+          <div className="w-px h-24 bg-gradient-to-b from-transparent to-primary mb-6" />
+          <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-tighter text-slate-900">
+            System <span className="text-gradient-primary">Capabilities</span>
           </h2>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 auto-rows-[minmax(180px,auto)] gap-4">
 
           {/* Main Statement */}
-          <GridItem className="md:col-span-4 lg:col-span-3 md:row-span-2 flex flex-col justify-between border-l-4 border-l-primary/50">
+          <GridItem className="md:col-span-4 lg:col-span-3 md:row-span-2 flex flex-col justify-between border-l-4 border-l-primary glass-card">
             <div>
-              <Cpu className="w-10 h-10 text-primary mb-6" />
-              <h3 className="text-2xl text-muted-foreground uppercase tracking-widest mb-4">Mission Profile</h3>
-              <div className="text-3xl font-light leading-relaxed">
+              <Cpu className="w-10 h-10 text-primary mb-6 animate-pulse" />
+              <h3 className="text-sm font-bold text-primary uppercase tracking-[0.3em] mb-4">Mission Profile</h3>
+              <div className="text-3xl font-medium leading-relaxed text-slate-900">
                 <ScrollHighlightText>
                   Bridging the critical gap between complex Spatial Data infrastructure and intuitive User Experience design.
                 </ScrollHighlightText>
               </div>
             </div>
-            <p className="text-sm text-primary/60 mt-8 border-t border-white/5 pt-4">
+            <p className="text-xs font-bold text-primary/40 mt-8 border-t border-slate-200/50 pt-4 tracking-widest">
                // DEPLOYMENT READY
             </p>
           </GridItem>
@@ -77,31 +77,31 @@ export function BentoGrid() {
           {/* Stats Column */}
           <div className="md:col-span-2 lg:col-span-1 md:row-span-2 flex flex-col gap-4">
             {stats.map((stat, i) => (
-              <GridItem key={i} className="flex-1 flex flex-col justify-center items-center text-center bg-card/40" delay={i * 0.1}>
-                <span className="text-5xl font-black text-foreground mb-1">{stat.value}</span>
-                <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground">{stat.label}</span>
+              <GridItem key={i} className="flex-1 flex flex-col justify-center items-center text-center glass-card hover:bg-white/80" delay={i * 0.1}>
+                <span className="text-5xl font-black text-slate-900 mb-1">{stat.value}</span>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-primary/70">{stat.label}</span>
               </GridItem>
             ))}
           </div>
 
           {/* Map/Globe Placeholder or Graphic */}
-          <GridItem className="md:col-span-2 lg:col-span-2 md:row-span-2 bg-gradient-to-br from-accent/20 to-transparent flex items-center justify-center overflow-hidden">
-            <Globe className="w-64 h-64 text-accent opacity-20 absolute -right-12 -bottom-12 rotate-12" />
-            <div className="text-center relative z-10">
-              <h3 className="text-3xl font-bold mb-2">Global Reach</h3>
-              <p className="text-sm opacity-70 max-w-[200px] mx-auto">Delivering solutions for clients across 3 continents.</p>
+          <GridItem className="md:col-span-2 lg:col-span-2 md:row-span-2 glass-card bg-gradient-to-br from-primary/5 to-transparent flex items-center justify-center overflow-hidden">
+            <Globe className="w-64 h-64 text-primary/10 absolute -right-12 -bottom-12 rotate-12" />
+            <div className="text-center relative z-10 p-6">
+              <h3 className="text-3xl font-black text-slate-900 mb-3 uppercase tracking-tighter">Global Reach</h3>
+              <p className="text-sm text-slate-600 font-medium max-w-[200px] mx-auto leading-relaxed">Delivering solutions for clients across 3 continents.</p>
             </div>
           </GridItem>
 
 
           {/* Tech Stack - Dense Grid */}
-          <GridItem className="md:col-span-4 lg:col-span-3 md:row-span-2">
+          <GridItem className="md:col-span-4 lg:col-span-3 md:row-span-2 glass-card">
             <div className="flex items-center justify-between mb-8">
-              <h3 className="text-2xl font-bold flex items-center gap-2">
-                <Database className="w-6 h-6 text-secondary" />
+              <h3 className="text-xl font-bold flex items-center gap-2 text-slate-900">
+                <Database className="w-6 h-6 text-primary" />
                 Stack Arsenal
               </h3>
-              <span className="text-xs font-mono border border-white/10 px-2 py-1 rounded-full">Core Technologies</span>
+              <span className="text-[10px] font-bold uppercase tracking-widest text-primary/60 border border-primary/20 px-3 py-1 rounded-full">Core Technologies</span>
             </div>
             <div className="grid grid-cols-4 sm:grid-cols-6 gap-6">
               {stack.map((tech, i) => (
@@ -111,9 +111,9 @@ export function BentoGrid() {
                   whileHover={{ y: -5 }}
                   title={tech.name}
                 >
-                  <div className="w-10 h-10 p-2 rounded-lg bg-white/5 group-hover/icon:bg-white/10 transition-colors">
+                  <div className="w-12 h-12 p-2.5 rounded-xl bg-slate-50 border border-slate-100 group-hover/icon:border-primary/30 group-hover/icon:bg-white transition-all shadow-sm">
                     {tech.name === 'Mapbox' ? (
-                      <img src="/Mapbox.png" alt="Mapbox" className="w-full h-full object-contain invert opacity-80" />
+                      <img src="/Mapbox.png" alt="Mapbox" className="w-full h-full object-contain opacity-80 group-hover:opacity-100" />
                     ) : (
                       <StackIcon name={tech.icon} className="grayscale group-hover/icon:grayscale-0 transition-all duration-300" />
                     )}
@@ -124,9 +124,9 @@ export function BentoGrid() {
           </GridItem>
 
           {/* Capabilities List */}
-          <GridItem className="md:col-span-4 lg:col-span-3 md:row-span-2 bg-secondary/5 border-secondary/20">
-            <h3 className="text-2xl font-bold mb-6 flex items-center gap-2">
-              <Zap className="w-6 h-6 text-secondary" />
+          <GridItem className="md:col-span-4 lg:col-span-3 md:row-span-2 glass-card border-l-4 border-l-accent/50">
+            <h3 className="text-xl font-bold mb-8 flex items-center gap-2 text-slate-900">
+              <Zap className="w-6 h-6 text-accent" />
               Specialized Capabilities
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -138,9 +138,9 @@ export function BentoGrid() {
                 "Custom Mapping Engines",
                 "SaaS Product Development"
               ].map((cap, i) => (
-                <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-black/20 border border-white/5">
-                  <div className="w-1.5 h-1.5 rounded-full bg-secondary shadow-[0_0_10px_var(--secondary)]" />
-                  <span className="text-sm font-medium opacity-90">{cap}</span>
+                <div key={i} className="flex items-center gap-3 p-4 rounded-xl bg-slate-50/50 border border-slate-100 group hover:border-accent/30 hover:bg-white transition-all">
+                  <div className="w-2 h-2 rounded-full bg-accent shadow-[0_0_8px_rgba(14,165,233,0.5)]" />
+                  <span className="text-xs font-bold text-slate-700 uppercase tracking-tight">{cap}</span>
                 </div>
               ))}
             </div>

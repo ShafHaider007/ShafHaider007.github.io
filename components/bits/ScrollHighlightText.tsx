@@ -4,7 +4,7 @@ import { useRef } from 'react'
 import { motion, useScroll, useTransform, MotionValue } from 'motion/react'
 
 function SingleWord({ children, progress, range }: { children: string; progress: MotionValue<number>; range: [number, number] }) {
-    const opacity = useTransform(progress, range, [0.1, 1])
+    const opacity = useTransform(progress, range, [0.3, 1])
 
     return (
         <span className="relative inline-block mr-[0.2em] last:mr-0">
