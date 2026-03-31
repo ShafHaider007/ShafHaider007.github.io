@@ -3,52 +3,52 @@ import Link from 'next/link'
 import AnimatedContent from '@/components/bits/AnimatedContent'
 import ScrollReveal from '@/components/bits/ScrollReveal'
 import { projects } from '@/lib/projects'
+import { ArrowRight } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Projects — Muhammad Shaf Haider',
-  description: 'Case studies covering routing toolkits, civic reporting platforms, and analytics pipelines.',
+  title: 'Projects — Shaf Haider | GIS Engineer',
+  description: 'Case studies covering LiDAR processing, supply chain optimization, and urban heat island monitoring.',
 }
 
 export default function ProjectsPage() {
   return (
-    <main className="mx-auto w-full max-w-6xl px-6 py-32">
-      <div className="flex flex-col gap-4">
-        <ScrollReveal enableBlur baseOpacity={0.2} className="text-sm uppercase tracking-[0.4em] text-primary/80">
-          Project index
+    <main className="container-wide py-32">
+      <div className="flex flex-col gap-4 max-w-3xl mb-16">
+        <ScrollReveal enableBlur baseOpacity={0.2} className="text-sm font-semibold uppercase tracking-widest text-primary">
+          Project Index
         </ScrollReveal>
-        <h1 className="text-balance text-4xl font-semibold text-foreground md:text-5xl">
-          Mapping products engineered for clarity and momentum
+        <h1 className="text-balance font-display text-4xl font-bold text-foreground md:text-5xl tracking-tight">
+          Geospatial projects engineered for impact
         </h1>
-        <p data-reveal className="max-w-3xl text-lg text-muted-foreground">
-          Each case study pairs resilient data pipelines with crafted interaction so your teams can trust every spatial decision.
+        <p className="text-lg text-muted-foreground leading-relaxed">
+          Each case study pairs resilient data pipelines with crafted interaction so teams can trust every spatial decision.
         </p>
       </div>
 
-      <div className="mt-16 grid gap-10 md:grid-cols-2">
+      <div className="grid gap-8 md:grid-cols-2">
         {projects.map((project) => (
           <AnimatedContent key={project.slug} distance={120}>
-            <article className="flex h-full flex-col justify-between rounded-3xl border border-border/30 bg-card/70 p-8 shadow-lg shadow-black/25 backdrop-blur">
-              <div className="space-y-3">
-                <p className="text-xs uppercase tracking-[0.35em] text-muted-foreground">{project.category}</p>
-                <h2 className="text-2xl font-semibold text-foreground">{project.title}</h2>
-                <p className="text-sm text-muted-foreground">{project.blurb}</p>
-                <ScrollReveal enableBlur baseOpacity={0.2} className="text-sm text-muted-foreground">
-                  {project.summary}
-                </ScrollReveal>
+            <article className="group flex h-full flex-col justify-between rounded-2xl border border-border/50 bg-card p-8 hover:border-primary/20 hover:shadow-xl hover:shadow-primary/5 transition-all duration-500">
+              <div className="space-y-4">
+                <span className="text-xs font-semibold uppercase tracking-wider text-primary px-3 py-1 bg-primary/10 rounded-full">
+                  {project.category}
+                </span>
+                <h2 className="font-display text-2xl font-bold text-foreground">{project.title}</h2>
+                <p className="text-sm text-muted-foreground leading-relaxed">{project.blurb}</p>
               </div>
-              <div className="mt-6 flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-[0.3em] text-muted-foreground">
+              <div className="mt-6 flex flex-wrap gap-2">
                 {project.tech.map((tech) => (
-                  <span key={tech} className="rounded-full border border-border/40 bg-background/60 px-3 py-1">
+                  <span key={tech} className="text-xs font-medium px-2.5 py-1 rounded-md bg-muted text-muted-foreground">
                     {tech}
                   </span>
                 ))}
               </div>
               <Link
                 href={`/projects/${project.slug}`}
-                className="mt-8 inline-flex items-center gap-2 text-sm text-primary transition hover:text-primary/80"
+                className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
               >
-                View project
-                <span aria-hidden>→</span>
+                View case study
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </article>
           </AnimatedContent>

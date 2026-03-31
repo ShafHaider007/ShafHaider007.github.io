@@ -3,35 +3,34 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { motion, AnimatePresence } from 'motion/react'
 
 const navItems = [
-  { label: 'Expertise', href: '#expertise', number: '01' },
-  { label: 'Process', href: '#process', number: '02' },
-  { label: 'Projects', href: '#projects', number: '03' },
-  { label: 'Testimonials', href: '#testimonials', number: '04' },
-  { label: 'Contact', href: '/contact', number: '05' },
+  { label: 'Services', href: '#services' },
+  { label: 'Process', href: '#process' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Contact', href: '#contact' },
 ]
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [activeSection, setActiveSection] = useState('home')
+  const [activeSection, setActiveSection] = useState('')
   const pathname = usePathname()
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY
-      setScrolled(scrollPosition > 40)
+      setScrolled(window.scrollY > 50)
 
-      const sections = ['home', 'expertise', 'process', 'projects', 'testimonials', 'contact']
-      const offset = 120
+      const sections = ['services', 'process', 'projects', 'contact']
+      const offset = 200
 
       for (const section of sections) {
         const element = document.getElementById(section)
         if (!element) continue
         const top = element.offsetTop - offset
         const bottom = top + element.offsetHeight
-        if (scrollPosition >= top && scrollPosition < bottom) {
+        if (window.scrollY >= top && window.scrollY < bottom) {
           setActiveSection(section)
           break
         }
@@ -53,97 +52,114 @@ export function Navigation() {
 
   return (
     <header
-      className="fixed inset-x-0 top-0 z-40 transition-all duration-300 backdrop-blur-md border-b border-white/10 bg-white/5"
+      className={`fixed inset-x-0 top-0 z-40 transition-all duration-500 ${
+        scrolled
+          ? 'bg-background/80 backdrop-blur-xl border-b border-border/50 shadow-sm'
+          : 'bg-transparent'
+      }`}
     >
-      <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-6">
-        <Link href="/" className="text-sm font-semibold uppercase tracking-[0.4em] text-muted-foreground">
-          SHAF HAIDER
+      <div className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between px-6 lg:px-12">
+        <Link href="/" className="flex items-center gap-3 group">
+          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+            <span className="text-primary-foreground font-display font-bold text-sm">SH</span>
+          </div>
+          <span className="font-display font-semibold text-foreground text-sm tracking-wide">
+            Shaf Haider
+          </span>
         </Link>
-        <nav className="hidden items-center gap-6 md:flex">
+
+        <nav className="hidden items-center gap-1 md:flex">
           {navItems.map((item) => {
-            const isAnchor = item.href.startsWith('#')
-            const isActive = isAnchor ? activeSection === item.href.slice(1) : pathname === item.href
-
-            if (isAnchor) {
-              return (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className={`text-sm uppercase tracking-[0.25em] transition ${
-                    isActive ? 'text-primary' : 'text-muted-foreground hover:text-foreground'
-                  }`}
-                >
-                  <span className="mr-2 text-[0.65rem] text-primary/70">{item.number}</span>
-                  {item.label}
-                </a>
-              )
-            }
-
+            const isActive = activeSection === item.href.slice(1)
             return (
-              <Link
+              <a
                 key={item.label}
                 href={item.href}
-                className={`text-sm uppercase tracking-[0.25em] transition ${
-                  isActive ? 'text-primary' : 'text-muted-foreground hover:text-foreground'
+                className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
+                  isActive
+                    ? 'text-primary'
+                    : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
-                <span className="mr-2 text-[0.65rem] text-primary/70">{item.number}</span>
                 {item.label}
-              </Link>
+                {isActive && (
+                  <motion.div
+                    layoutId="nav-indicator"
+                    className="absolute inset-0 bg-primary/5 rounded-lg -z-10"
+                    transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+                  />
+                )}
+              </a>
             )
           })}
+          <div className="w-px h-6 bg-border mx-2" />
+          <a
+            href="mailto:shaf.shafheidar@gmail.com"
+            className="px-5 py-2 bg-primary text-primary-foreground text-sm font-medium rounded-lg hover:bg-primary/90 transition-colors"
+          >
+            Hire Me
+          </a>
         </nav>
+
         <button
           type="button"
-          className="md:hidden text-muted-foreground"
+          className="md:hidden relative w-10 h-10 flex items-center justify-center rounded-lg hover:bg-muted transition-colors"
           onClick={() => setIsOpen((prev) => !prev)}
           aria-label="Toggle navigation"
         >
-          <span className="relative block h-5 w-6">
+          <span className="relative block h-5 w-5">
             <span
-              className={`absolute left-0 h-0.5 w-full bg-current transition ${
-                isOpen ? 'top-2 rotate-45' : 'top-0'
+              className={`absolute left-0 h-0.5 w-full bg-foreground transition-all duration-300 ${
+                isOpen ? 'top-2.5 rotate-45' : 'top-0.5'
               }`}
             />
             <span
-              className={`absolute left-0 h-0.5 w-full bg-current transition ${
-                isOpen ? 'opacity-0' : 'top-2'
+              className={`absolute left-0 top-2.5 h-0.5 w-full bg-foreground transition-all duration-300 ${
+                isOpen ? 'opacity-0 scale-0' : 'opacity-100'
               }`}
             />
             <span
-              className={`absolute left-0 h-0.5 w-full bg-current transition ${
-                isOpen ? 'top-2 -rotate-45' : 'top-4'
+              className={`absolute left-0 h-0.5 w-full bg-foreground transition-all duration-300 ${
+                isOpen ? 'top-2.5 -rotate-45' : 'top-[18px]'
               }`}
             />
           </span>
         </button>
       </div>
-      <div
-        className={`md:hidden transition ${
-          isOpen ? 'max-h-[320px] opacity-100' : 'max-h-0 opacity-0'
-        } overflow-hidden border-t border-border/30 bg-background/95 backdrop-blur-md`}
-      >
-        <nav className="flex flex-col gap-4 px-6 py-6 text-sm uppercase tracking-[0.3em] text-muted-foreground">
-          {navItems.map((item) => {
-            const isAnchor = item.href.startsWith('#')
-            const isActive = isAnchor ? activeSection === item.href.slice(1) : pathname === item.href
 
-            if (isAnchor) {
-              return (
-                <a key={item.label} href={item.href} className={isActive ? 'text-primary' : ''}>
-                  {item.number} · {item.label}
-                </a>
-              )
-            }
-
-            return (
-              <Link key={item.label} href={item.href} className={isActive ? 'text-primary' : ''}>
-                {item.number} · {item.label}
-              </Link>
-            )
-          })}
-        </nav>
-      </div>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden overflow-hidden border-t border-border/30 bg-background/95 backdrop-blur-xl"
+          >
+            <nav className="flex flex-col gap-1 px-6 py-6">
+              {navItems.map((item, i) => (
+                <motion.a
+                  key={item.label}
+                  href={item.href}
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: i * 0.05 }}
+                  onClick={() => setIsOpen(false)}
+                  className="px-4 py-3 text-base font-medium text-foreground hover:bg-muted rounded-lg transition-colors"
+                >
+                  {item.label}
+                </motion.a>
+              ))}
+              <a
+                href="mailto:shaf.shafheidar@gmail.com"
+                className="mt-2 px-4 py-3 bg-primary text-primary-foreground text-base font-medium rounded-lg text-center"
+              >
+                Hire Me
+              </a>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   )
 }

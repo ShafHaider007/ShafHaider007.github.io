@@ -2,151 +2,151 @@
 
 import { motion } from 'motion/react'
 import StackIcon from 'tech-stack-icons'
-import { Layers, Database, Palette, Rocket, Globe, Code, Cpu, Zap } from 'lucide-react'
+import { Globe, Database, Layers, Cpu, Map, BarChart3, Satellite, Server } from 'lucide-react'
+
+const services = [
+  {
+    icon: Map,
+    title: 'Web GIS Development',
+    description: 'Custom interactive mapping platforms built with Mapbox, Leaflet, and deck.gl. From real-time dashboards to full-featured geoportals.',
+    accent: 'from-teal-500/10 to-emerald-500/10',
+    iconColor: 'text-teal-600',
+  },
+  {
+    icon: Database,
+    title: 'Spatial Data Engineering',
+    description: 'PostGIS databases, ETL pipelines, and spatial APIs. Turning raw geospatial data into clean, queryable, production-ready infrastructure.',
+    accent: 'from-blue-500/10 to-indigo-500/10',
+    iconColor: 'text-blue-600',
+  },
+  {
+    icon: Satellite,
+    title: 'Remote Sensing & Analysis',
+    description: 'Satellite imagery processing, change detection, and land classification using Google Earth Engine, Python, and deep learning.',
+    accent: 'from-amber-500/10 to-orange-500/10',
+    iconColor: 'text-amber-600',
+  },
+  {
+    icon: Layers,
+    title: 'Enterprise GIS Solutions',
+    description: 'End-to-end geospatial systems for national agencies and enterprises — from architecture design to deployment and training.',
+    accent: 'from-purple-500/10 to-violet-500/10',
+    iconColor: 'text-purple-600',
+  },
+  {
+    icon: BarChart3,
+    title: 'Geospatial Analytics',
+    description: 'Network analysis, spatial statistics, and location intelligence. Turning geographic patterns into actionable business insights.',
+    accent: 'from-rose-500/10 to-pink-500/10',
+    iconColor: 'text-rose-600',
+  },
+  {
+    icon: Server,
+    title: 'GIS Infrastructure & DevOps',
+    description: 'GeoServer, MapServer, tile caching, and cloud deployments. Scalable geospatial backends on AWS, Docker, and Kubernetes.',
+    accent: 'from-cyan-500/10 to-sky-500/10',
+    iconColor: 'text-cyan-600',
+  },
+]
 
 const stack = [
   { name: 'PostGIS', icon: 'postgresql' },
   { name: 'Python', icon: 'python' },
   { name: 'Next.js', icon: 'nextjs2' },
   { name: 'React', icon: 'react' },
-  { name: 'Mapbox', icon: 'mapbox' },
   { name: 'TypeScript', icon: 'typescript' },
   { name: 'AWS', icon: 'aws' },
   { name: 'Docker', icon: 'docker' },
-  { name: 'Supabase', icon: 'supabase' },
+  { name: 'Node.js', icon: 'nodejs' },
   { name: 'Tailwind', icon: 'tailwindcss' },
   { name: 'Three.js', icon: 'threejs' },
-  { name: 'Node.js', icon: 'nodejs' },
 ]
-
-const stats = [
-  { label: "Years Experience", value: "8+" },
-  { label: "Enterprise Projects", value: "30+" },
-  { label: "Global Clients", value: "12" },
-]
-
-const GridItem = ({ children, className, delay = 0 }: { children: React.ReactNode, className?: string, delay?: number }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    whileHover={{ borderColor: "var(--primary)" }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.5, delay, type: "tween", ease: "circOut" }}
-    className={`relative rounded-sm border border-white/5 bg-slate-900/50 backdrop-blur-md p-6 overflow-hidden group hover:shadow-[0_0_20px_rgba(0,242,255,0.1)] transition-all ${className}`}
-  >
-    <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:20px_20px] opacity-20 pointer-events-none" />
-    <div className="relative z-10 h-full">{children}</div>
-  </motion.div>
-)
-
-import { ScrollHighlightText } from '@/components/bits/ScrollHighlightText'
 
 export function BentoGrid() {
   return (
-    <section className="py-32 px-4 lg:px-8 relative z-10 font-mono">
-      <div className="max-w-[1600px] mx-auto">
+    <section id="services" className="section-padding relative">
+      <div className="container-wide">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          className="mb-24 flex flex-col items-center text-center"
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-2xl mb-16 md:mb-20"
         >
-          <div className="w-px h-24 bg-gradient-to-b from-transparent to-primary mb-6" />
-          <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-tighter text-slate-900">
-            System <span className="text-gradient-primary">Capabilities</span>
+          <span className="text-sm font-semibold text-primary uppercase tracking-widest mb-4 block">
+            What I Do
+          </span>
+          <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground tracking-tight mb-6">
+            Geospatial services from
+            <span className="text-gradient-primary"> concept to deployment</span>
           </h2>
+          <p className="text-lg text-muted-foreground leading-relaxed">
+            Full-spectrum GIS engineering covering everything from spatial database 
+            architecture to interactive web visualization and satellite image processing.
+          </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 auto-rows-[minmax(180px,auto)] gap-4">
-
-          {/* Main Statement */}
-          <GridItem className="md:col-span-4 lg:col-span-3 md:row-span-2 flex flex-col justify-between border-l-4 border-l-primary glass-card">
-            <div>
-              <Cpu className="w-10 h-10 text-primary mb-6 animate-pulse" />
-              <h3 className="text-sm font-bold text-primary uppercase tracking-[0.3em] mb-4">Mission Profile</h3>
-              <div className="text-3xl font-medium leading-relaxed text-slate-900">
-                <ScrollHighlightText>
-                  Bridging the critical gap between complex Spatial Data infrastructure and intuitive User Experience design.
-                </ScrollHighlightText>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
+          {services.map((service, i) => (
+            <motion.div
+              key={service.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
+              className="group relative p-8 rounded-2xl border border-border/50 bg-card hover:border-primary/20 hover:shadow-xl hover:shadow-primary/5 transition-all duration-500"
+            >
+              <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${service.accent} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+              <div className="relative z-10">
+                <div className={`w-12 h-12 rounded-xl bg-muted flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                  <service.icon className={`w-6 h-6 ${service.iconColor}`} />
+                </div>
+                <h3 className="font-display text-lg font-semibold text-foreground mb-3">
+                  {service.title}
+                </h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {service.description}
+                </p>
               </div>
-            </div>
-            <p className="text-xs font-bold text-primary/40 mt-8 border-t border-slate-200/50 pt-4 tracking-widest">
-               // DEPLOYMENT READY
-            </p>
-          </GridItem>
+            </motion.div>
+          ))}
+        </div>
 
-          {/* Stats Column */}
-          <div className="md:col-span-2 lg:col-span-1 md:row-span-2 flex flex-col gap-4">
-            {stats.map((stat, i) => (
-              <GridItem key={i} className="flex-1 flex flex-col justify-center items-center text-center glass-card hover:bg-white/80" delay={i * 0.1}>
-                <span className="text-5xl font-black text-slate-900 mb-1">{stat.value}</span>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-primary/70">{stat.label}</span>
-              </GridItem>
-            ))}
-          </div>
-
-          {/* Map/Globe Placeholder or Graphic */}
-          <GridItem className="md:col-span-2 lg:col-span-2 md:row-span-2 glass-card bg-gradient-to-br from-primary/5 to-transparent flex items-center justify-center overflow-hidden">
-            <Globe className="w-64 h-64 text-primary/10 absolute -right-12 -bottom-12 rotate-12" />
-            <div className="text-center relative z-10 p-6">
-              <h3 className="text-3xl font-black text-slate-900 mb-3 uppercase tracking-tighter">Global Reach</h3>
-              <p className="text-sm text-slate-600 font-medium max-w-[200px] mx-auto leading-relaxed">Delivering solutions for clients across 3 continents.</p>
-            </div>
-          </GridItem>
-
-
-          {/* Tech Stack - Dense Grid */}
-          <GridItem className="md:col-span-4 lg:col-span-3 md:row-span-2 glass-card">
-            <div className="flex items-center justify-between mb-8">
-              <h3 className="text-xl font-bold flex items-center gap-2 text-slate-900">
-                <Database className="w-6 h-6 text-primary" />
-                Stack Arsenal
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="relative p-8 md:p-12 rounded-2xl border border-border/50 bg-card"
+        >
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
+            <div>
+              <h3 className="font-display text-2xl font-bold text-foreground mb-2">
+                Technology Stack
               </h3>
-              <span className="text-[10px] font-bold uppercase tracking-widest text-primary/60 border border-primary/20 px-3 py-1 rounded-full">Core Technologies</span>
+              <p className="text-muted-foreground">
+                Modern tools for building production-grade geospatial applications.
+              </p>
             </div>
-            <div className="grid grid-cols-4 sm:grid-cols-6 gap-6">
-              {stack.map((tech, i) => (
+            <div className="flex flex-wrap gap-4">
+              {stack.map((tech) => (
                 <motion.div
                   key={tech.name}
-                  className="flex flex-col items-center gap-2 group/icon"
-                  whileHover={{ y: -5 }}
+                  className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-muted/50 border border-border/50 hover:border-primary/20 transition-all group/icon"
+                  whileHover={{ y: -2 }}
                   title={tech.name}
                 >
-                  <div className="w-12 h-12 p-2.5 rounded-xl bg-slate-50 border border-slate-100 group-hover/icon:border-primary/30 group-hover/icon:bg-white transition-all shadow-sm">
-                    {tech.name === 'Mapbox' ? (
-                      <img src="/Mapbox.png" alt="Mapbox" className="w-full h-full object-contain opacity-80 group-hover:opacity-100" />
-                    ) : (
-                      <StackIcon name={tech.icon} className="grayscale group-hover/icon:grayscale-0 transition-all duration-300" />
-                    )}
+                  <div className="w-6 h-6">
+                    <StackIcon name={tech.icon} className="w-full h-full grayscale group-hover/icon:grayscale-0 transition-all duration-300" />
                   </div>
+                  <span className="text-xs font-medium text-muted-foreground group-hover/icon:text-foreground transition-colors">
+                    {tech.name}
+                  </span>
                 </motion.div>
               ))}
             </div>
-          </GridItem>
-
-          {/* Capabilities List */}
-          <GridItem className="md:col-span-4 lg:col-span-3 md:row-span-2 glass-card border-l-4 border-l-accent/50">
-            <h3 className="text-xl font-bold mb-8 flex items-center gap-2 text-slate-900">
-              <Zap className="w-6 h-6 text-accent" />
-              Specialized Capabilities
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {[
-                "Advanced Geospatial Analytics",
-                "3D WebGL Visualization",
-                "Real-time Data Streaming",
-                "Serverless Architecture Design",
-                "Custom Mapping Engines",
-                "SaaS Product Development"
-              ].map((cap, i) => (
-                <div key={i} className="flex items-center gap-3 p-4 rounded-xl bg-slate-50/50 border border-slate-100 group hover:border-accent/30 hover:bg-white transition-all">
-                  <div className="w-2 h-2 rounded-full bg-accent shadow-[0_0_8px_rgba(14,165,233,0.5)]" />
-                  <span className="text-xs font-bold text-slate-700 uppercase tracking-tight">{cap}</span>
-                </div>
-              ))}
-            </div>
-          </GridItem>
-
-        </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   )

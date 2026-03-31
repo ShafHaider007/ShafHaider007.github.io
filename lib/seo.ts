@@ -1,23 +1,28 @@
 import type { Metadata } from 'next'
 
-const title = 'Muhammad Shaf Haider — GIS Engineer & Web Mapping Specialist'
+const title = 'Shaf Haider — GIS Engineer & Web GIS Developer'
 const description =
-  'Geospatial engineer partnering with teams to deliver performant web GIS products, resilient data pipelines, and crafted spatial storytelling.'
+  'Geospatial expert with 8+ years building spatial data infrastructure, interactive web mapping platforms, and enterprise GIS solutions for clients worldwide.'
 const url = new URL('https://shafhaider.dev')
 
 export const siteMetadata: Metadata = {
   title,
   description,
   metadataBase: url,
-  applicationName: 'Shaf Haider GIS Portfolio',
+  applicationName: 'Shaf Haider — Geospatial Portfolio',
   keywords: [
-    'GIS',
-    'Geospatial',
+    'GIS Engineer',
+    'Web GIS Developer',
+    'Geospatial Expert',
+    'Spatial Data',
     'Web Mapping',
-    'deck.gl',
     'Mapbox',
+    'PostGIS',
+    'Remote Sensing',
     'Next.js',
     'Spatial Analytics',
+    'Geoportal',
+    'deck.gl',
   ],
   authors: [{ name: 'Muhammad Shaf Haider' }],
   openGraph: {
@@ -25,7 +30,7 @@ export const siteMetadata: Metadata = {
     description,
     url: url.href,
     type: 'website',
-    siteName: 'Shaf Haider GIS Portfolio',
+    siteName: 'Shaf Haider — Geospatial Portfolio',
     locale: 'en_US',
   },
   twitter: {

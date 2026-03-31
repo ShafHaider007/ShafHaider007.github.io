@@ -4,79 +4,65 @@
 
 @layer base {
   :root {
-    /* 
-      Professional / Executive Light Palette
-      Clean White, Deep Navy, Corporate Blue
-    */
-    --background: 210 40% 98%;
-    /* #f8fafc - Very light slate white */
-    --foreground: 222 47% 11%;
-    /* #0f172a - Deep Navy (Text) */
+    --background: 40 20% 97%;
+    --foreground: 220 20% 10%;
 
     --card: 0 0% 100%;
-    /* Pure White cards */
-    --card-foreground: 222 47% 11%;
+    --card-foreground: 220 20% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
+    --popover-foreground: 220 20% 10%;
 
-    --primary: 221 83% 53%;
-    /* #2563ea - Corporate Blue (Trust/Tech) */
-    --primary-foreground: 210 40% 98%;
+    --primary: 168 80% 30%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 215 16% 47%;
-    /* #64748b - Slate Grey (Subtle UI elements) */
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 220 14% 46%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 40% 96%;
-    /* #f1f5f9 */
-    --muted-foreground: 215 16% 47%;
+    --muted: 40 20% 94%;
+    --muted-foreground: 220 10% 46%;
 
-    --accent: 199 89% 48%;
-    /* #0ea5e9 - Sky Blue (Highlights) */
-    --accent-foreground: 210 40% 98%;
+    --accent: 38 92% 50%;
+    --accent-foreground: 220 20% 10%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214 32% 91%;
-    /* #e2e8f0 */
-    --input: 214 32% 91%;
-    --ring: 221 83% 53%;
+    --border: 220 13% 90%;
+    --input: 220 13% 90%;
+    --ring: 168 80% 30%;
 
-    --radius: 0.25rem;
-    /* Sharper, more professional corners */
+    --radius: 0.5rem;
   }
 
   .dark {
-    /* Keeping Dark Mode valid but unused for now, or mapped to deep navy */
-    --background: 222 47% 11%;
-    --foreground: 210 40% 98%;
+    --background: 220 20% 7%;
+    --foreground: 40 20% 95%;
 
-    --card: 217 33% 17%;
-    --card-foreground: 210 40% 98%;
+    --card: 220 20% 10%;
+    --card-foreground: 40 20% 95%;
 
-    --popover: 217 33% 17%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 220 20% 10%;
+    --popover-foreground: 40 20% 95%;
 
-    --primary: 217 91% 60%;
-    --primary-foreground: 222 47% 11%;
+    --primary: 168 70% 42%;
+    --primary-foreground: 220 20% 7%;
 
-    --secondary: 217 33% 17%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 220 14% 30%;
+    --secondary-foreground: 40 20% 95%;
 
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 220 15% 15%;
+    --muted-foreground: 220 10% 55%;
 
-    --accent: 199 89% 48%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 38 92% 50%;
+    --accent-foreground: 220 20% 7%;
 
     --destructive: 0 62% 30%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 40 20% 95%;
 
-    --border: 217 33% 17%;
-    --input: 217 33% 17%;
-    --ring: 224 76% 48%;
+    --border: 220 15% 18%;
+    --input: 220 15% 18%;
+    --ring: 168 70% 42%;
   }
 }
 
@@ -91,10 +77,6 @@
 
   body {
     @apply bg-background text-foreground antialiased font-sans overflow-x-hidden;
-    /* Clean, professional mesh gradient */
-    background-image:
-      radial-gradient(at 0% 0%, rgba(37, 99, 234, 0.05) 0px, transparent 50%),
-      radial-gradient(at 100% 0%, rgba(14, 165, 233, 0.05) 0px, transparent 50%);
   }
 }
 
@@ -103,20 +85,27 @@
     text-wrap: balance;
   }
 
-  /* Glassmorphism Utilities - Professional Light */
   .glass {
-    @apply bg-white/60 backdrop-blur-lg border border-white/40 shadow-sm;
+    @apply bg-white/60 backdrop-blur-xl border border-white/30 shadow-sm;
   }
 
   .glass-card {
-    @apply bg-white/70 backdrop-blur-md border border-slate-200/50 hover:border-primary/20 transition-all duration-500 shadow-sm hover:shadow-lg hover:shadow-primary/5;
+    @apply bg-white/80 backdrop-blur-md border border-border/50 transition-all duration-500 shadow-sm hover:shadow-lg hover:shadow-primary/5;
   }
 
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-slate-700 to-slate-500;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-foreground via-foreground/80 to-foreground/60;
   }
 
   .text-gradient-primary {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-blue-600 to-accent;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-teal-500 to-emerald-400;
+  }
+
+  .section-padding {
+    @apply py-24 md:py-32 lg:py-40;
+  }
+
+  .container-wide {
+    @apply mx-auto w-full max-w-7xl px-6 lg:px-12;
   }
 }

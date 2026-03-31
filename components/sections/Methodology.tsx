@@ -1,179 +1,113 @@
 'use client'
 
-import { motion, useScroll, useTransform, MotionValue } from 'motion/react'
-import { useRef } from 'react'
+import { motion } from 'motion/react'
+import { MessageSquare, PenTool, Code2, TestTube, Rocket } from 'lucide-react'
 
 const steps = [
-    {
-        id: '01',
-        title: 'Requirements',
-        subtitle: 'Client Consultation',
-        desc: 'In-depth analysis of project scope, technical feasibility, and business objectives.',
-        color: '#2563ea', // Primary Blue
-    },
-    {
-        id: '02',
-        title: 'Planning',
-        subtitle: 'Solution Architecture',
-        desc: 'Designing scalable geospatial schemas, API workflows, and system architecture.',
-        color: '#7c3aed', // Soft Purple
-    },
-    {
-        id: '03',
-        title: 'Implementation',
-        subtitle: 'Agile Development',
-        desc: 'Full-stack engineering of the solution, from database optimization to frontend visualization.',
-        color: '#e11d48', // Rose
-    },
-    {
-        id: '04',
-        title: 'Testing',
-        subtitle: 'QA & Validation',
-        desc: 'Rigorous validation of spatial accuracy, performance checks, and system reliability assurance.',
-        color: '#ea580c', // Orange
-    },
-    {
-        id: '05',
-        title: 'Delivery',
-        subtitle: 'Final Deployment',
-        desc: 'Production launch, documentation handover, and seamless client onboarding.',
-        color: '#059669', // Emerald
-    }
+  {
+    id: '01',
+    icon: MessageSquare,
+    title: 'Discovery',
+    subtitle: 'Requirements & Analysis',
+    desc: 'Understanding your spatial data needs, existing infrastructure, and project objectives through in-depth consultation.',
+    color: 'bg-teal-500',
+  },
+  {
+    id: '02',
+    icon: PenTool,
+    title: 'Architecture',
+    subtitle: 'System Design',
+    desc: 'Designing scalable geospatial schemas, API workflows, data pipelines, and system architecture tailored to your requirements.',
+    color: 'bg-blue-500',
+  },
+  {
+    id: '03',
+    icon: Code2,
+    title: 'Development',
+    subtitle: 'Agile Engineering',
+    desc: 'Full-stack implementation from database optimization and spatial APIs to interactive frontend mapping visualization.',
+    color: 'bg-violet-500',
+  },
+  {
+    id: '04',
+    icon: TestTube,
+    title: 'Validation',
+    subtitle: 'QA & Testing',
+    desc: 'Rigorous validation of spatial accuracy, performance benchmarks, cross-browser testing, and security auditing.',
+    color: 'bg-amber-500',
+  },
+  {
+    id: '05',
+    icon: Rocket,
+    title: 'Delivery',
+    subtitle: 'Deploy & Support',
+    desc: 'Production launch, documentation handover, team training, and ongoing maintenance support.',
+    color: 'bg-emerald-500',
+  },
 ]
 
-function TunnelStep({ i, step, progress, total }: { i: number, step: typeof steps[0], progress: MotionValue<number>, total: number }) {
-    const slice = 1 / total
-    const start = i * slice
-    const end = start + slice
-
-    const zInput = [start, start + 0.1, end - 0.1, end]
-
-    const opacity = useTransform(progress, zInput, [0, 1, 1, 0])
-    const scale = useTransform(progress, zInput, [0.8, 1, 1, 1.2])
-    const blur = useTransform(progress, zInput, [4, 0, 0, 10])
-
-    return (
-        <motion.div
-            className="absolute inset-0 flex items-center justify-center pointer-events-none"
-            style={{
-                opacity,
-                scale,
-                filter: `blur(${blur}px)`
-            }}
-        >
-            {/* Full-screen subtle color wash */}
-            <div
-                className="absolute inset-0 pointer-events-none opacity-[0.03] -z-20"
-                style={{ backgroundColor: step.color }}
-            />
-
-            <div className="relative w-full max-w-5xl px-6 text-center">
-
-                {/* ID Number */}
-                <div
-                    className="font-bold text-sm tracking-[0.4em] mb-6"
-                    style={{ color: step.color }}
-                >
-                    STEP {step.id}
-                </div>
-
-                {/* Main Title */}
-                <h2 className="text-5xl md:text-8xl font-black text-slate-900 mb-8 tracking-tighter relative z-10">
-                    {step.title}
-                </h2>
-
-                {/* Divider */}
-                <div
-                    className="h-2 w-32 mx-auto mb-10 rounded-full"
-                    style={{ backgroundColor: step.color, opacity: 0.8, boxShadow: `0 0 20px ${step.color}40` }}
-                />
-
-                {/* Description */}
-                <div className="space-y-4 relative z-10">
-                    <h3 className="text-2xl md:text-3xl font-bold text-slate-800 tracking-tight">{step.subtitle}</h3>
-                    <p className="text-lg text-slate-600 max-w-xl mx-auto leading-relaxed font-medium">
-                        {step.desc}
-                    </p>
-                </div>
-
-                {/* Background Glow for Ambiance */}
-                <div
-                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full blur-[180px] opacity-[0.15] -z-10"
-                    style={{ backgroundColor: step.color }}
-                />
-            </div>
-        </motion.div>
-    )
-}
-
 export function Methodology() {
-    const containerRef = useRef<HTMLDivElement>(null)
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ['start start', 'end end']
-    })
+  return (
+    <section id="process" className="section-padding relative bg-muted/30">
+      <div className="container-wide">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-2xl mb-16 md:mb-20"
+        >
+          <span className="text-sm font-semibold text-primary uppercase tracking-widest mb-4 block">
+            How I Work
+          </span>
+          <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground tracking-tight mb-6">
+            A proven process for
+            <span className="text-gradient-primary"> geospatial delivery</span>
+          </h2>
+          <p className="text-lg text-muted-foreground leading-relaxed">
+            Every project follows a structured methodology refined over 8 years of 
+            delivering enterprise GIS solutions worldwide.
+          </p>
+        </motion.div>
 
-    const bgOpacity = useTransform(scrollYProgress, [0, 0.1, 0.9, 1], [0, 1, 1, 0])
-
-    return (
-        <section ref={containerRef} className="relative h-[500vh] bg-white text-slate-900">
-
-            <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-center items-center">
-
-                {/* Ambient Background Grid */}
-                <div className="absolute inset-0">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.7)_0%,_white_100%)] opacity-90" />
-                    <motion.div
-                        className="absolute inset-0 bg-[linear-gradient(rgba(0,100,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,100,255,0.03)_1px,transparent_1px)] bg-[size:80px_80px]"
-                        style={{ opacity: bgOpacity }}
-                    />
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+          {steps.map((step, i) => (
+            <motion.div
+              key={step.id}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className="group relative"
+            >
+              <div className="p-6 lg:p-8 rounded-2xl border border-border/50 bg-card hover:border-primary/20 hover:shadow-lg transition-all duration-500 h-full flex flex-col">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className={`w-10 h-10 rounded-xl ${step.color} flex items-center justify-center`}>
+                    <step.icon className="w-5 h-5 text-white" />
+                  </div>
+                  <span className="text-xs font-mono font-semibold text-muted-foreground">
+                    STEP {step.id}
+                  </span>
                 </div>
 
-                {/* Steps Container */}
-                <div className="relative w-full h-full max-w-7xl mx-auto flex items-center justify-center">
-                    {steps.map((step, i) => (
-                        <TunnelStep
-                            key={i}
-                            i={i}
-                            step={step}
-                            progress={scrollYProgress}
-                            total={steps.length}
-                        />
-                    ))}
-                </div>
+                <h3 className="font-display text-xl font-bold text-foreground mb-1">
+                  {step.title}
+                </h3>
+                <p className="text-sm font-medium text-primary mb-4">
+                  {step.subtitle}
+                </p>
+                <p className="text-sm text-muted-foreground leading-relaxed flex-1">
+                  {step.desc}
+                </p>
+              </div>
 
-                {/* Progress Indicator */}
-                <div className="absolute left-12 top-1/2 -translate-y-1/2 flex flex-col gap-8 z-20 hidden lg:flex">
-                    {steps.map((step, i) => {
-                        const slice = 1 / steps.length
-                        const start = i * slice
-                        const end = start + slice
-
-                        // Simple indicator of active step
-                        return (
-                            <div key={i} className="flex items-center gap-4 group">
-                                <motion.div
-                                    className="w-1.5 h-1.5 rounded-full bg-slate-200 transition-colors"
-                                    style={{
-                                        backgroundColor: step.color,
-                                        opacity: useTransform(scrollYProgress, [start, start + 0.05, end - 0.05, end], [0.1, 1, 1, 0.1])
-                                    }}
-                                />
-                                <motion.span
-                                    className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]"
-                                    style={{
-                                        opacity: useTransform(scrollYProgress, [start, start + 0.05, end - 0.05, end], [0.2, 1, 1, 0.2])
-                                    }}
-                                >
-                                    {step.id}
-                                </motion.span>
-                            </div>
-                        )
-                    })}
-                </div>
-
-            </div>
-
-        </section>
-    )
+              {i < steps.length - 1 && (
+                <div className="hidden md:block absolute top-1/2 -right-3 w-6 h-px bg-border z-10" />
+              )}
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
 }

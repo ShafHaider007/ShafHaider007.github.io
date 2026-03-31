@@ -9,19 +9,12 @@ module.exports = {
 	],
 	theme: {
 		extend: {
+			fontFamily: {
+				sans: ['var(--font-dm-sans)', 'system-ui', 'sans-serif'],
+				display: ['var(--font-sora)', 'system-ui', 'sans-serif'],
+			},
 			colors: {
-				// Extended palette for specific UI elements
-				cyan: {
-					500: '#00F0FF',
-				},
-				purple: {
-					500: '#9b4dca',
-				},
 				primary: {
-					'50': '#eff6ff',
-					'500': '#3b82f6',
-					'600': '#2563eb',
-					'700': '#1d4ed8',
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))'
 				},
@@ -54,13 +47,6 @@ module.exports = {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
-				chart: {
-					'1': 'hsl(var(--chart-1))',
-					'2': 'hsl(var(--chart-2))',
-					'3': 'hsl(var(--chart-3))',
-					'4': 'hsl(var(--chart-4))',
-					'5': 'hsl(var(--chart-5))'
-				}
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -70,7 +56,7 @@ module.exports = {
 			animation: {
 				'float': 'float 6s ease-in-out infinite',
 				'breathe': 'breathe 4s ease-in-out infinite',
-				'morph': 'morph 8s ease-in-out infinite',
+				'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
 			},
 			keyframes: {
 				float: {
@@ -81,11 +67,6 @@ module.exports = {
 					'0%, 100%': { opacity: '0.8', transform: 'scale(1)' },
 					'50%': { opacity: '1', transform: 'scale(1.05)' },
 				},
-				morph: {
-					'0%': { borderRadius: '60% 40% 30% 70%/60% 30% 70% 40%' },
-					'50%': { borderRadius: '30% 60% 70% 40%/50% 60% 30% 60%' },
-					'100%': { borderRadius: '60% 40% 30% 70%/60% 30% 70% 40%' },
-				}
 			}
 		}
 	},

@@ -11,8 +11,8 @@ const credentials = [
 
 const strengths = [
   {
-    title: 'Human-centred strategy',
-    description: 'Pairing stakeholder workshops with service blueprints to align spatial systems with daily decision-making.',
+    title: 'Spatial thinking',
+    description: 'Pairing stakeholder workshops with service blueprints to align spatial systems with real-world decision-making.',
   },
   {
     title: 'Analytical rigor',
@@ -34,24 +34,24 @@ const toolbelt = [
   'TypeScript',
   'Python',
   'GeoServer',
-  'Cloud Functions',
+  'Google Earth Engine',
 ]
 
 export default function AboutPage() {
   return (
-    <main className="mx-auto w-full max-w-6xl px-6 py-32">
+    <main className="container-wide py-32">
       <div className="grid gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
-        <div className="space-y-8">
-          <BlurText text="Building spatial products that marry clarity with context" animateBy="words" delay={120} className="text-balance text-4xl font-semibold text-foreground md:text-5xl" />
-          <ScrollReveal enableBlur baseOpacity={0.2} className="text-lg text-muted-foreground">
+        <div className="space-y-10">
+          <BlurText text="Building spatial products that marry clarity with context" animateBy="words" delay={120} className="text-balance font-display text-4xl font-bold text-foreground md:text-5xl tracking-tight" />
+          <ScrollReveal enableBlur baseOpacity={0.2} className="text-lg text-muted-foreground leading-relaxed">
             I combine geospatial engineering, UX strategy, and full-stack development to craft digital experiences that make maps feel intuitive, actionable, and trustworthy.
           </ScrollReveal>
 
           <div className="grid gap-4 sm:grid-cols-3">
             {credentials.map((credential) => (
               <AnimatedContent key={credential.label} distance={80}>
-                <div className="rounded-2xl border border-border/30 bg-card/70 p-4">
-                  <p className="text-xs uppercase tracking-[0.35em] text-muted-foreground">{credential.label}</p>
+                <div className="rounded-2xl border border-border/50 bg-card p-5">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-primary">{credential.label}</p>
                   <p className="mt-2 text-sm text-foreground">{credential.value}</p>
                 </div>
               </AnimatedContent>
@@ -59,25 +59,25 @@ export default function AboutPage() {
           </div>
 
           <section className="space-y-6">
-            <h2 className="text-xl font-semibold text-foreground">Ways I work</h2>
+            <h2 className="font-display text-2xl font-bold text-foreground">How I work</h2>
             <div className="grid gap-4 md:grid-cols-3">
               {strengths.map((strength) => (
                 <AnimatedContent key={strength.title} distance={80}>
-                  <div className="rounded-2xl border border-border/30 bg-background/60 p-5">
-                    <p className="text-base font-semibold text-foreground">{strength.title}</p>
-                    <p className="mt-2 text-sm text-muted-foreground">{strength.description}</p>
+                  <div className="rounded-2xl border border-border/50 bg-card p-6">
+                    <p className="font-display text-base font-semibold text-foreground">{strength.title}</p>
+                    <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{strength.description}</p>
                   </div>
                 </AnimatedContent>
               ))}
             </div>
           </section>
 
-          <section className="space-y-3">
-            <h2 className="text-xl font-semibold text-foreground">Toolbelt</h2>
+          <section className="space-y-4">
+            <h2 className="font-display text-2xl font-bold text-foreground">Toolbelt</h2>
             <p className="text-sm text-muted-foreground">The platforms and libraries I lean on to deliver reliable spatial products.</p>
-            <div className="flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-[0.3em] text-muted-foreground">
+            <div className="flex flex-wrap gap-2">
               {toolbelt.map((tool) => (
-                <span key={tool} className="rounded-full border border-border/40 bg-background/60 px-3 py-1">
+                <span key={tool} className="text-xs font-medium px-3 py-1.5 rounded-full border border-border/50 bg-muted text-muted-foreground">
                   {tool}
                 </span>
               ))}

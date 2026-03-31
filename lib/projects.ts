@@ -18,17 +18,17 @@ export const projects: Project[] = [
     slug: 'lidar-feature-extraction',
     title: 'Automated LiDAR Feature Extraction',
     category: 'Computer Vision',
-    blurb: 'A scalable pipeline for extracting building footprints and vegetation cover from airborne LiDAR point clouds.',
+    blurb: 'A scalable pipeline for extracting building footprints and vegetation cover from airborne LiDAR point clouds using deep learning.',
     summary: 'Developed a high-throughput processing pipeline to classify and vectorize urban features from raw point cloud data, enabling city planners to update basemaps automatically.',
     results: ['94% classification accuracy', 'Processed 500km² in <48 hours'],
-    tech: ['Python', 'PDAL', 'PyTorch', 'PostGIS'],
+    tech: ['Python', 'PDAL', 'PyTorch', 'PostGIS', 'Docker'],
     problem: 'Manual digitization of building footprints from aerial imagery was slow, error-prone, and couldn\'t keep up with rapid urban development.',
     approach: 'Implemented a PointNet++ deep learning model for semantic segmentation of point clouds, coupled with a custom voxelization and vectorization algorithm to generate GIS-ready polygons.',
     outcome: 'Deployed as a scalable microservice architecture handling terabytes of municipal data. Reduced map update cycles from months to days, creating a live digital twin for city planners.',
     metrics: [
       { label: 'Area Processed', value: '500 km²' },
       { label: 'Accuracy', value: '94%' },
-      { label: 'Speed', value: '10x Faster' }
+      { label: 'Speed Gain', value: '10x' }
     ],
     gallery: [
       { id: 'point-cloud', title: 'Raw Point Cloud', description: 'Original airborne LiDAR data centered on the central business district.' },
@@ -40,17 +40,17 @@ export const projects: Project[] = [
     slug: 'agri-supply-chain-opt',
     title: 'Agricultural Supply Chain Optimization',
     category: 'Network Analysis',
-    blurb: 'Optimizing "first-mile" logistics for perishable crops by modeling road network accessibility.',
+    blurb: 'Spatial decision support system optimizing "first-mile" logistics for perishable crops through road network accessibility modeling.',
     summary: 'A spatial decision support system that identifies optimal locations for cold storage facilities based on harvest yields and road network conditions.',
     results: ['18% reduction in transport costs', 'Serving 12,000+ farmers'],
-    tech: ['PostgreSQL', 'pgRouting', 'QGIS', 'FastAPI'],
+    tech: ['PostgreSQL', 'pgRouting', 'QGIS', 'FastAPI', 'React'],
     problem: 'Post-harvest losses were reaching 40% due to inefficient transport routes and lack of accessible cold storage in rural areas.',
     approach: 'Modeled the entire rural road network using pgRouting, integrating seasonal crop yield data to run multi-criteria location-allocation algorithms for storage siting.',
     outcome: 'Strategic facility placement reduced average travel time for farmers by 2 hours, significantly lowering spoilage rates and improving market access.',
     metrics: [
-      { label: 'Cost Reduction', value: '18%' },
-      { label: 'Nodes', value: '12k+' },
-      { label: 'Spoilage', value: '-25%' }
+      { label: 'Cost Savings', value: '18%' },
+      { label: 'Farmers Served', value: '12k+' },
+      { label: 'Spoilage Reduced', value: '25%' }
     ],
     gallery: [
       { id: 'network', title: 'Road Network', description: 'Topologically corrected road graph including unpaved farm tracks.' },
@@ -60,15 +60,15 @@ export const projects: Project[] = [
   },
   {
     slug: 'urban-heat-island-monitoring',
-    title: 'Urban Heat Island Monitoring',
+    title: 'Urban Heat Island Monitoring Platform',
     category: 'Remote Sensing',
-    blurb: 'Real-time dashboard processing thermal satellite imagery to identify micro-climate hotspots.',
-    summary: 'An automated pipeline ingesting Landsat 8 and Sentinel-2 data to compute Land Surface Temperature (LST) and visualize heat islands in dense urban cores.',
+    blurb: 'Real-time web dashboard processing Landsat 8 thermal satellite imagery to identify and track micro-climate hotspots in dense urban cores.',
+    summary: 'An automated pipeline ingesting Landsat 8 and Sentinel-2 data to compute Land Surface Temperature and visualize heat islands with temporal analysis.',
     results: ['Daily thermal updates', '30m spatial resolution'],
-    tech: ['Google Earth Engine', 'React', 'Mapbox GL JS', 'Docker'],
+    tech: ['Google Earth Engine', 'React', 'Mapbox GL JS', 'Docker', 'Node.js'],
     problem: 'City officials lacked granular, temporal data to understand the impact of urbanization on local microclimates and verify cooling initiatives.',
     approach: 'Built a serverless pipeline on Google Earth Engine to retrieve, cloud-mask, and compute LST from thermal bands, serving tiles to a performant React/Mapbox dashboard.',
-    outcome: 'Empowered urban planners to target tree-planting initiatives in the hottest neighborhoods, lowering peak summer temperatures by an estimated 2°C in pilot zones.',
+    outcome: 'Empowered urban planners to target tree-planting initiatives in the hottest neighborhoods, contributing to measurable temperature reduction in pilot zones.',
     metrics: [
       { label: 'Update Freq', value: 'Daily' },
       { label: 'Resolution', value: '30m' },
