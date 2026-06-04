@@ -86,5 +86,11 @@ export function ScrollCanvas() {
     }
   }, [])
 
-  return <canvas ref={canvasRef} className="scroll-canvas" aria-hidden="true" />
+  return (
+    <canvas
+      ref={canvasRef}
+      className="fixed inset-0 w-full h-full pointer-events-none"
+      aria-hidden="true"
+    />
+  )
 }

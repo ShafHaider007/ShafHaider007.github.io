@@ -20,8 +20,8 @@ export function AboutPortrait() {
       <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-background/80 to-transparent p-8">
         <p className="text-sm font-semibold uppercase tracking-[0.35em] text-muted-foreground">Field notes</p>
         <p className="mt-3 text-base text-muted-foreground">
-          During NUST studio projects I moved from remote sensing labs to smart-city hackathons, shaping the spatial toolkit I bring
-          to every build.
+          From remote-sensing labs at NUST to building data pipelines in code, I bring an earth-systems science mindset to
+          every dataset I ingest, model, and analyse.
         </p>
       </div>
     </motion.div>

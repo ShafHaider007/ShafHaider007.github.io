@@ -15,82 +15,111 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    slug: 'lidar-feature-extraction',
-    title: 'Automated LiDAR Feature Extraction',
-    category: 'Computer Vision',
-    blurb: 'A scalable pipeline for extracting building footprints and vegetation cover from airborne LiDAR point clouds using deep learning.',
-    summary: 'Developed a high-throughput processing pipeline to classify and vectorize urban features from raw point cloud data, enabling city planners to update basemaps automatically.',
-    results: ['94% classification accuracy', 'Processed 500km² in <48 hours'],
-    tech: ['Python', 'PDAL', 'PyTorch', 'PostGIS', 'Docker'],
-    problem: 'Manual digitization of building footprints from aerial imagery was slow, error-prone, and couldn\'t keep up with rapid urban development.',
-    approach: 'Implemented a PointNet++ deep learning model for semantic segmentation of point clouds, coupled with a custom voxelization and vectorization algorithm to generate GIS-ready polygons.',
-    outcome: 'Deployed as a scalable microservice architecture handling terabytes of municipal data. Reduced map update cycles from months to days, creating a live digital twin for city planners.',
+    slug: 'sentinel2-ard-pipeline',
+    title: 'Sentinel-2 Analysis-Ready Data Pipeline',
+    category: 'Data Pipeline',
+    blurb:
+      'An automated ETL pipeline that turns raw Sentinel-2 scenes into cloud-optimised, analysis-ready data — orchestrated, tested, and reproducible.',
+    summary:
+      'Designed and built a containerised pipeline that ingests Sentinel-2 imagery, applies cloud masking and reprojection, and publishes cloud-optimised GeoTIFFs and STAC metadata for downstream science teams.',
+    results: ['Analysis-ready data in hours, not days', 'Fully reproducible, scheduled runs'],
+    tech: ['Python', 'Rasterio', 'GDAL', 'Airflow', 'Docker', 'GCP'],
+    problem:
+      'Science teams were manually downloading and pre-processing satellite scenes — slow, inconsistent, and impossible to reproduce or audit.',
+    approach:
+      'Built an orchestrated ETL pipeline in Airflow that ingests scenes from open archives, runs cloud masking and reprojection with Rasterio and GDAL, and writes cloud-optimised GeoTIFFs plus STAC metadata to object storage — all containerised with Docker and deployed on GCP.',
+    outcome:
+      'Delivered a hands-off, scheduled pipeline producing analysis-ready data with consistent QA, freeing scientists to focus on analysis instead of data wrangling.',
     metrics: [
-      { label: 'Area Processed', value: '500 km²' },
-      { label: 'Accuracy', value: '94%' },
-      { label: 'Speed Gain', value: '10x' }
+      { label: 'Processing Time', value: '-80%' },
+      { label: 'Scenes / Day', value: '500+' },
+      { label: 'Reproducible', value: '100%' },
     ],
     gallery: [
-      { id: 'point-cloud', title: 'Raw Point Cloud', description: 'Original airborne LiDAR data centered on the central business district.' },
-      { id: 'classification', title: 'Semantic Segmentation', description: 'Points classified into ground, vegetation, and buildings.' },
-      { id: 'vector', title: 'Vector Output', description: 'Final building footprints extracted and simplified for GIS usage.' }
-    ]
+      { id: 'ingest', title: 'Scene Ingestion', description: 'Automated discovery and download of Sentinel-2 tiles from open archives.' },
+      { id: 'process', title: 'Cloud Masking & Reprojection', description: 'Per-scene cloud masking and reprojection with Rasterio and GDAL.' },
+      { id: 'publish', title: 'Analysis-Ready Output', description: 'Cloud-optimised GeoTIFFs and STAC metadata published to object storage.' },
+    ],
   },
   {
-    slug: 'agri-supply-chain-opt',
-    title: 'Agricultural Supply Chain Optimization',
-    category: 'Network Analysis',
-    blurb: 'Spatial decision support system optimizing "first-mile" logistics for perishable crops through road network accessibility modeling.',
-    summary: 'A spatial decision support system that identifies optimal locations for cold storage facilities based on harvest yields and road network conditions.',
-    results: ['18% reduction in transport costs', 'Serving 12,000+ farmers'],
-    tech: ['PostgreSQL', 'pgRouting', 'QGIS', 'FastAPI', 'React'],
-    problem: 'Post-harvest losses were reaching 40% due to inefficient transport routes and lack of accessible cold storage in rural areas.',
-    approach: 'Modeled the entire rural road network using pgRouting, integrating seasonal crop yield data to run multi-criteria location-allocation algorithms for storage siting.',
-    outcome: 'Strategic facility placement reduced average travel time for farmers by 2 hours, significantly lowering spoilage rates and improving market access.',
+    slug: 'biodiversity-change-detection',
+    title: 'Biodiversity & Land-Cover Change Detection',
+    category: 'Remote Sensing Science',
+    blurb:
+      'Multi-year remote-sensing analysis quantifying habitat and land-cover change across a portfolio of monitored sites.',
+    summary:
+      'Used multi-temporal satellite imagery to classify land cover and detect habitat change across a portfolio of sites, producing indicators and a scientific report to inform biodiversity assessments.',
+    results: ['Multi-year change indicators', 'Reproducible classification workflow'],
+    tech: ['Google Earth Engine', 'Python', 'R', 'GeoPandas', 'QGIS'],
+    problem:
+      'Assessing biodiversity and land-cover change across many sites by hand was inconsistent and could not scale to a growing portfolio.',
+    approach:
+      'Built a Google Earth Engine workflow to assemble cloud-free composites, ran supervised land-cover classification, and computed change metrics and spectral indices; analysed and validated results in Python and R, with maps prepared in QGIS.',
+    outcome:
+      'Produced consistent, reproducible change indicators and a scientific report that supported biodiversity and earth-systems assessments across the site portfolio.',
     metrics: [
-      { label: 'Cost Savings', value: '18%' },
-      { label: 'Farmers Served', value: '12k+' },
-      { label: 'Spoilage Reduced', value: '25%' }
+      { label: 'Sites Assessed', value: '40+' },
+      { label: 'Time Span', value: '8 yrs' },
+      { label: 'Land Classes', value: '12' },
     ],
     gallery: [
-      { id: 'network', title: 'Road Network', description: 'Topologically corrected road graph including unpaved farm tracks.' },
-      { id: 'isochrones', title: 'Accessibility Isochrones', description: 'Drive-time analysis showing service coverage of proposed facilities.' },
-      { id: 'optimization', title: 'Site Selection', description: 'Final optimal locations maximizing coverage of high-yield clusters.' }
-    ]
+      { id: 'composite', title: 'Cloud-Free Composites', description: 'Annual median composites built from multi-temporal satellite imagery.' },
+      { id: 'classify', title: 'Land-Cover Classification', description: 'Supervised classification into habitat and land-cover classes.' },
+      { id: 'change', title: 'Change Detection', description: 'Pixel-level change metrics highlighting habitat gain and loss over time.' },
+    ],
   },
   {
-    slug: 'urban-heat-island-monitoring',
-    title: 'Urban Heat Island Monitoring Platform',
-    category: 'Remote Sensing',
-    blurb: 'Real-time web dashboard processing Landsat 8 thermal satellite imagery to identify and track micro-climate hotspots in dense urban cores.',
-    summary: 'An automated pipeline ingesting Landsat 8 and Sentinel-2 data to compute Land Surface Temperature and visualize heat islands with temporal analysis.',
-    results: ['Daily thermal updates', '30m spatial resolution'],
-    tech: ['Google Earth Engine', 'React', 'Mapbox GL JS', 'Docker', 'Node.js'],
-    problem: 'City officials lacked granular, temporal data to understand the impact of urbanization on local microclimates and verify cooling initiatives.',
-    approach: 'Built a serverless pipeline on Google Earth Engine to retrieve, cloud-mask, and compute LST from thermal bands, serving tiles to a performant React/Mapbox dashboard.',
-    outcome: 'Empowered urban planners to target tree-planting initiatives in the hottest neighborhoods, contributing to measurable temperature reduction in pilot zones.',
+    slug: 'postgis-spatial-api',
+    title: 'PostGIS Spatial Database & Geospatial API',
+    category: 'Spatial Database & API',
+    blurb:
+      'A clean PostGIS data model and documented FastAPI service serving vector and tile endpoints to a web mapping front end.',
+    summary:
+      'Modelled a PostGIS spatial database for raster and vector products and built a documented FastAPI service exposing vector features and tiles, tuned with web developers for fast, secure web-map access.',
+    results: ['Sub-second spatial queries', 'Documented, versioned API'],
+    tech: ['PostGIS', 'PostgreSQL', 'GeoPandas', 'FastAPI', 'Docker'],
+    problem:
+      'Geospatial data lived in scattered files with no consistent schema, making it slow and risky to serve to web and analytics applications.',
+    approach:
+      'Designed a normalised PostGIS schema with validated geometries and spatial indexes, wrote ETL to load and clean vector data with GeoPandas, and built a FastAPI service exposing documented vector and tile endpoints — schemas optimised together with web developers.',
+    outcome:
+      'Delivered a reliable spatial backend with sub-second queries and a documented API, giving the web team a single trustworthy source for map data.',
     metrics: [
-      { label: 'Update Freq', value: 'Daily' },
-      { label: 'Resolution', value: '30m' },
-      { label: 'Latency', value: '<2s' }
+      { label: 'Query Latency', value: '<1s' },
+      { label: 'API Endpoints', value: '20+' },
+      { label: 'Uptime', value: '99.9%' },
     ],
     gallery: [
-      { id: 'thermal-raw', title: 'Thermal Band', description: 'Processed thermal infrared data from Landsat 8.' },
-      { id: 'lst-map', title: 'LST Computation', description: 'Derived Land Surface Temperature map with urban heat island anomalies highlighted.' },
-      { id: 'dashboard', title: 'Analytic Dashboard', description: 'Interactive web interface for temporal analysis of heat trends.' }
-    ]
-  }
-]
-
-export const explorations = [
-  {
-    title: 'Land cover intelligence',
-    description: 'Deep learning workflows that classify Sentinel-2 imagery to monitor peri-urban expansion.',
-    tech: 'PyTorch · Rasterio · FastAPI',
+      { id: 'schema', title: 'Spatial Data Model', description: 'Normalised PostGIS schema with validated geometries and spatial indexes.' },
+      { id: 'etl', title: 'Load & Clean', description: 'GeoPandas ETL for loading, validating, and converting vector datasets.' },
+      { id: 'api', title: 'Geospatial API', description: 'Documented FastAPI service serving vector features and tiles to the web map.' },
+    ],
   },
   {
-    title: 'Augmented reality for wayfinding',
-    description: 'AR prototypes guiding commuters through multi-modal journeys using location anchors.',
-    tech: 'Unity · AR Foundation',
+    slug: 'insar-geotechnical-risk',
+    title: 'InSAR Ground-Deformation Risk Screening',
+    category: 'Geotechnical / Earth Systems',
+    blurb:
+      'Satellite radar (InSAR) analysis screening ground deformation and stability risk across a portfolio of assets.',
+    summary:
+      'Processed Sentinel-1 InSAR time series to measure millimetre-scale ground motion, flagging deformation hotspots to support geotechnical risk assessment of assets and sectors.',
+    results: ['mm-scale deformation tracking', 'Portfolio-wide risk screening'],
+    tech: ['Sentinel-1', 'Python', 'SNAP', 'PostGIS', 'QGIS'],
+    problem:
+      'Ground-stability risk across a large asset portfolio was hard to monitor without costly, sparse field surveys.',
+    approach:
+      'Built a workflow to process Sentinel-1 InSAR time series, derive line-of-sight displacement, and aggregate per-asset deformation rates into PostGIS for screening and reporting.',
+    outcome:
+      'Enabled portfolio-wide, remote screening of ground-deformation risk, prioritising sites for closer geotechnical investigation.',
+    metrics: [
+      { label: 'Sensitivity', value: '~mm/yr' },
+      { label: 'Assets', value: '200+' },
+      { label: 'Revisit', value: '6–12d' },
+    ],
+    gallery: [
+      { id: 'stack', title: 'SAR Time Series', description: 'Co-registered Sentinel-1 stack covering the area of interest.' },
+      { id: 'displacement', title: 'Displacement Map', description: 'Line-of-sight ground displacement derived from interferometric processing.' },
+      { id: 'risk', title: 'Risk Screening', description: 'Per-asset deformation rates aggregated in PostGIS for prioritisation.' },
+    ],
   },
 ]

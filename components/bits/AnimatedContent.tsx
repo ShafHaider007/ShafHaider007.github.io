@@ -2,6 +2,7 @@
 
 import type { ReactNode } from 'react'
 import { useEffect, useRef } from 'react'
+import { useReducedMotion } from 'motion/react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -37,10 +38,17 @@ const AnimatedContent = ({
   onComplete,
 }: AnimatedContentProps) => {
   const ref = useRef<HTMLDivElement | null>(null)
+  const scrollTriggerRef = useRef<ScrollTrigger | null>(null)
+  const reduced = useReducedMotion()
 
   useEffect(() => {
     const el = ref.current
     if (!el) return
+
+    if (reduced) {
+      gsap.set(el, { opacity: 1, x: 0, y: 0, scale: 1 })
+      return
+    }
 
     const axis = direction === 'horizontal' ? 'x' : 'y'
     const offset = reverse ? -distance : distance
@@ -52,7 +60,7 @@ const AnimatedContent = ({
       opacity: animateOpacity ? initialOpacity : 1,
     })
 
-    gsap.to(el, {
+    const tween = gsap.to(el, {
       [axis]: 0,
       scale: 1,
       opacity: 1,
@@ -65,11 +73,17 @@ const AnimatedContent = ({
         start: `top ${startPct}%`,
         toggleActions: 'play none none none',
         once: true,
+        onRefresh: (self) => {
+          scrollTriggerRef.current = self
+        },
       },
     })
 
+    scrollTriggerRef.current = tween.scrollTrigger ?? null
+
     return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
+      scrollTriggerRef.current?.kill()
+      scrollTriggerRef.current = null
       gsap.killTweensOf(el)
     }
   }, [
@@ -84,6 +98,7 @@ const AnimatedContent = ({
     reverse,
     scale,
     threshold,
+    reduced,
   ])
 
   return <div ref={ref}>{children}</div>

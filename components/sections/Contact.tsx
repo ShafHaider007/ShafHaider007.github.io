@@ -3,30 +3,23 @@
 import { motion } from 'motion/react'
 import { Mail, ArrowUpRight, Linkedin, Github, MapPin } from 'lucide-react'
 import Link from 'next/link'
+import { ScrollHighlightText } from '@/components/bits/ScrollHighlightText'
 
 const socialLinks = [
-  {
-    label: 'LinkedIn',
-    href: 'https://linkedin.com/in/shaf-haider',
-    icon: Linkedin,
-  },
-  {
-    label: 'GitHub',
-    href: 'https://github.com',
-    icon: Github,
-  },
+  { label: 'LinkedIn', href: 'https://linkedin.com/in/shaf-haider', icon: Linkedin },
+  { label: 'GitHub', href: 'https://github.com', icon: Github },
 ]
 
 export function Contact() {
   return (
-    <section id="contact" className="section-padding relative">
-      <div className="container-wide">
-        <div className="relative rounded-3xl bg-foreground text-background overflow-hidden">
+    <section id="contact" className="relative min-h-screen flex items-center section-padding">
+      <div className="container-wide w-full">
+        <div className="relative rounded-3xl bg-foreground text-background overflow-hidden min-h-[70vh] flex items-center">
           <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:48px_48px]" />
           <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[150px]" />
           <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent/10 rounded-full blur-[120px]" />
 
-          <div className="relative z-10 p-10 md:p-16 lg:p-20">
+          <div className="relative z-10 p-10 md:p-16 lg:p-20 w-full">
             <div className="max-w-3xl">
               <motion.span
                 initial={{ opacity: 0, y: 20 }}
@@ -42,21 +35,16 @@ export function Contact() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
-                className="font-display text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6"
+                className="font-display text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-8"
               >
-                Have a geospatial project in mind?
+                Have an Earth Observation or spatial-data project?
               </motion.h2>
 
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-                className="text-lg text-background/60 max-w-xl mb-10 leading-relaxed"
-              >
-                Whether you need a web mapping platform, spatial data pipeline, or 
-                enterprise GIS solution — I&apos;d love to discuss how I can help.
-              </motion.p>
+              <div className="mb-10">
+                <ScrollHighlightText className="text-lg md:text-xl text-background/70 leading-relaxed">
+                  Whether you need a satellite-imagery data pipeline, a spatial database, or remote-sensing science and reporting — let&apos;s turn orbital data into answers.
+                </ScrollHighlightText>
+              </div>
 
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -106,9 +94,7 @@ export function Contact() {
 
         <footer className="mt-12 pt-8 border-t border-border/50 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
           <p>&copy; {new Date().getFullYear()} Shaf Haider. All rights reserved.</p>
-          <p className="text-xs">
-            GIS Engineer &middot; Web GIS Developer &middot; Geospatial Expert
-          </p>
+          <p className="text-xs">Geospatial Data Engineer · Earth Observation Scientist</p>
         </footer>
       </div>
     </section>

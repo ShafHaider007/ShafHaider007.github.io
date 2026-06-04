@@ -1,28 +1,31 @@
 import type { Metadata } from 'next'
 
-const title = 'Shaf Haider — GIS Engineer & Web GIS Developer'
+const title = 'Shaf Haider — Geospatial Data Engineer & Earth Observation Scientist'
 const description =
-  'Geospatial expert with 8+ years building spatial data infrastructure, interactive web mapping platforms, and enterprise GIS solutions for clients worldwide.'
+  'I design, build, and maintain satellite-imagery data pipelines and run remote-sensing science across biodiversity, geotechnical, and earth-systems work — from raw scenes to analysis-ready data, spatial databases, and geospatial APIs.'
 const url = new URL('https://shafhaider.dev')
 
 export const siteMetadata: Metadata = {
   title,
   description,
   metadataBase: url,
-  applicationName: 'Shaf Haider — Geospatial Portfolio',
+  applicationName: 'Shaf Haider — Earth Observation Portfolio',
   keywords: [
-    'GIS Engineer',
-    'Web GIS Developer',
-    'Geospatial Expert',
-    'Spatial Data',
-    'Web Mapping',
-    'Mapbox',
-    'PostGIS',
+    'Geospatial Data Engineer',
+    'Earth Observation',
     'Remote Sensing',
-    'Next.js',
-    'Spatial Analytics',
-    'Geoportal',
-    'deck.gl',
+    'Satellite Imagery',
+    'Data Pipelines',
+    'ETL',
+    'PostGIS',
+    'Rasterio',
+    'GDAL',
+    'GeoPandas',
+    'Google Earth Engine',
+    'Spatial Databases',
+    'FastAPI',
+    'Python',
+    'GIS',
   ],
   authors: [{ name: 'Muhammad Shaf Haider' }],
   openGraph: {
@@ -30,7 +33,7 @@ export const siteMetadata: Metadata = {
     description,
     url: url.href,
     type: 'website',
-    siteName: 'Shaf Haider — Geospatial Portfolio',
+    siteName: 'Shaf Haider — Earth Observation Portfolio',
     locale: 'en_US',
   },
   twitter: {

@@ -1,8 +1,9 @@
 'use client'
 
 import type { ReactNode } from 'react'
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { useReducedMotion } from 'motion/react'
+import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -17,21 +18,31 @@ export interface ProcessStep {
 interface PinnedProcessProps {
   steps: ProcessStep[]
   renderStep?: (step: ProcessStep, index: number) => ReactNode
+  pinMultiplier?: number
+  onActiveStepChange?: (index: number) => void
 }
 
-export function PinnedProcess({ steps, renderStep }: PinnedProcessProps) {
+export function PinnedProcess({
+  steps,
+  renderStep,
+  pinMultiplier = 900,
+  onActiveStepChange,
+}: PinnedProcessProps) {
   const rootRef = useRef<HTMLDivElement | null>(null)
   const reduced = useReducedMotion()
 
-  useEffect(() => {
-    if (reduced) return
-    const root = rootRef.current
-    if (!root) return
+  useGSAP(
+    () => {
+      if (reduced) return
+      const root = rootRef.current
+      if (!root) return
 
-    const panels = gsap.utils.toArray<HTMLElement>(root.querySelectorAll('.process-panel'))
-    if (!panels.length) return
+      const panels = gsap.utils.toArray<HTMLElement>(root.querySelectorAll('.process-panel'))
+      if (!panels.length) return
 
-    const ctx = gsap.context(() => {
+      const isMobile = window.matchMedia('(max-width: 768px)').matches
+      const stepDistance = isMobile ? pinMultiplier * 0.55 : pinMultiplier
+
       gsap.set(panels, { autoAlpha: 0, yPercent: 6 })
       gsap.set(panels[0], { autoAlpha: 1, yPercent: 0 })
 
@@ -40,7 +51,7 @@ export function PinnedProcess({ steps, renderStep }: PinnedProcessProps) {
         scrollTrigger: {
           trigger: root,
           start: 'top top',
-          end: `+=${(panels.length - 1) * 900}`,
+          end: `+=${(panels.length - 1) * stepDistance}`,
           scrub: true,
           pin: true,
           anticipatePin: 1,
@@ -54,16 +65,34 @@ export function PinnedProcess({ steps, renderStep }: PinnedProcessProps) {
           .to(previous, { autoAlpha: 0, yPercent: -6 })
           .fromTo(panel, { autoAlpha: 0, yPercent: 6 }, { autoAlpha: 1, yPercent: 0 }, '<')
       })
-    }, root)
 
-    return () => ctx.revert()
-  }, [reduced, steps.length])
+      if (onActiveStepChange) {
+        ScrollTrigger.create({
+          trigger: root,
+          start: 'top top',
+          end: `+=${(panels.length - 1) * stepDistance}`,
+          scrub: true,
+          onUpdate: (self) => {
+            const index = Math.min(
+              panels.length - 1,
+              Math.round(self.progress * (panels.length - 1))
+            )
+            onActiveStepChange(index)
+          },
+        })
+      }
+    },
+    { dependencies: [reduced, steps.length, pinMultiplier, onActiveStepChange], scope: rootRef }
+  )
 
   if (reduced) {
     return (
       <div className="grid gap-8">
         {steps.map((step, index) => (
-          <div key={step.title} className="rounded-3xl border border-border/40 bg-card/80 p-8 shadow-xl shadow-black/25">
+          <div
+            key={step.title}
+            className="rounded-3xl border border-border/40 bg-card/80 p-8 shadow-xl shadow-black/25"
+          >
             {renderStep ? renderStep(step, index) : <DefaultStep step={step} index={index} />}
           </div>
         ))}
@@ -73,9 +102,15 @@ export function PinnedProcess({ steps, renderStep }: PinnedProcessProps) {
 
   return (
     <div ref={rootRef} className="relative h-screen overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(34,211,238,0.12),transparent_55%),radial-gradient(circle_at_bottom,rgba(192,132,252,0.14),transparent_60%)]" aria-hidden />
+      <div
+        className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(34,211,238,0.12),transparent_55%),radial-gradient(circle_at_bottom,rgba(192,132,252,0.14),transparent_60%)]"
+        aria-hidden
+      />
       {steps.map((step, index) => (
-        <div key={step.title} className="process-panel absolute inset-0 flex items-center justify-center px-6">
+        <div
+          key={step.title}
+          className="process-panel absolute inset-0 flex items-center justify-center px-6"
+        >
           <div className="relative w-full max-w-4xl rounded-[32px] border border-border/30 bg-card/85 p-8 shadow-2xl shadow-black/30 backdrop-blur">
             <div className="absolute -left-3 top-6 hidden h-10 w-10 items-center justify-center rounded-full border border-primary/40 bg-primary/10 font-mono text-xs text-primary md:flex">
               {step.indexLabel}
