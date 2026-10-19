@@ -1,20 +1,15 @@
 import Link from 'next/link'
-import { Button } from '@/components/ui/Button'
 
 export default function NotFound() {
   return (
-    <main className="min-h-screen bg-background flex items-center justify-center px-6">
-      <div className="text-center max-w-md">
-        <p className="text-sm font-semibold text-primary uppercase tracking-widest mb-4">404</p>
-        <h1 className="font-display text-4xl font-bold text-foreground mb-4">
-          Page not found
-        </h1>
-        <p className="text-muted-foreground mb-8 leading-relaxed">
-          The page you&apos;re looking for doesn&apos;t exist or may have been moved.
-        </p>
-        <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl font-display font-semibold">
-          <Link href="/">Back to home</Link>
-        </Button>
+    <main className="grid min-h-screen place-items-center px-6">
+      <div className="max-w-md text-center">
+        <p className="eyebrow">404 · Off the map</p>
+        <h1 className="mt-4 font-serif text-4xl text-ink">This page isn’t on any sheet.</h1>
+        <p className="mt-4 leading-relaxed text-ink-2">The link may be old, or the page may have moved.</p>
+        <Link href="/" className="mt-8 inline-block bg-ink px-5 py-3 text-sm font-medium text-paper transition-colors hover:bg-accent-ink">
+          Back to home
+        </Link>
       </div>
     </main>
   )

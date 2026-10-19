@@ -1,36 +1,42 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import type { ReactNode } from 'react'
-import { DM_Sans, Sora, JetBrains_Mono } from 'next/font/google'
+import { IBM_Plex_Mono, IBM_Plex_Sans, Newsreader } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import '@/styles/globals.css'
 import { siteMetadata } from '@/lib/seo'
-import { SmoothScroll } from '@/components/SmoothScroll'
 
-const dmSans = DM_Sans({
+const sans = IBM_Plex_Sans({
   subsets: ['latin'],
-  variable: '--font-dm-sans',
+  weight: ['400', '500', '600'],
+  variable: '--font-sans',
   display: 'swap',
 })
 
-const sora = Sora({
+const serif = Newsreader({
   subsets: ['latin'],
-  variable: '--font-sora',
+  style: ['normal', 'italic'],
+  variable: '--font-serif',
   display: 'swap',
 })
 
-const jetbrainsMono = JetBrains_Mono({
+const mono = IBM_Plex_Mono({
   subsets: ['latin'],
-  variable: '--font-jetbrains-mono',
+  weight: ['400', '500'],
+  variable: '--font-mono',
   display: 'swap',
 })
 
 export const metadata: Metadata = siteMetadata
 
+export const viewport: Viewport = {
+  themeColor: '#f6f4ef',
+}
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className="light" suppressHydrationWarning>
-      <body className={`${dmSans.variable} ${sora.variable} ${jetbrainsMono.variable} font-sans min-h-screen bg-background text-foreground antialiased selection:bg-primary/20 selection:text-primary`}>
-        <SmoothScroll>{children}</SmoothScroll>
+    <html lang="en">
+      <body className={`${sans.variable} ${serif.variable} ${mono.variable} min-h-screen font-sans antialiased`}>
+        {children}
         <Analytics />
       </body>
     </html>

@@ -2,110 +2,77 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --background: 40 20% 97%;
-    --foreground: 220 20% 10%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 220 20% 10%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 20% 10%;
-
-    --primary: 168 80% 30%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 220 14% 46%;
-    --secondary-foreground: 0 0% 100%;
-
-    --muted: 40 20% 94%;
-    --muted-foreground: 220 10% 46%;
-
-    --accent: 38 92% 50%;
-    --accent-foreground: 220 20% 10%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 220 13% 90%;
-    --input: 220 13% 90%;
-    --ring: 168 80% 30%;
-
-    --radius: 0.5rem;
-  }
-
-  .dark {
-    --background: 220 20% 7%;
-    --foreground: 40 20% 95%;
-
-    --card: 220 20% 10%;
-    --card-foreground: 40 20% 95%;
-
-    --popover: 220 20% 10%;
-    --popover-foreground: 40 20% 95%;
-
-    --primary: 168 70% 42%;
-    --primary-foreground: 220 20% 7%;
-
-    --secondary: 220 14% 30%;
-    --secondary-foreground: 40 20% 95%;
-
-    --muted: 220 15% 15%;
-    --muted-foreground: 220 10% 55%;
-
-    --accent: 38 92% 50%;
-    --accent-foreground: 220 20% 7%;
-
-    --destructive: 0 62% 30%;
-    --destructive-foreground: 40 20% 95%;
-
-    --border: 220 15% 18%;
-    --input: 220 15% 18%;
-    --ring: 168 70% 42%;
-  }
+:root {
+  /* Survey-sheet palette: warm paper, graphite ink, one vermilion accent. */
+  --paper-rgb: 246 244 239;
+  --surface-rgb: 255 254 251;
+  --ink-rgb: 27 34 32;
+  --paper: rgb(var(--paper-rgb));
+  --surface: rgb(var(--surface-rgb));
+  --ink: rgb(var(--ink-rgb));
+  --ink-2: #4b5552;
+  --ink-3: #7c8481;
+  --line: #e1ddd3;
+  --accent: #b8452a;
+  --accent-ink: #933620;
+  --water: #c9dbe3;
+  --land: #ece7dc;
+  color-scheme: light;
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-
   html {
+    -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
   }
 
   body {
-    @apply bg-background text-foreground antialiased font-sans overflow-x-hidden;
+    background: var(--paper);
+    color: var(--ink);
+    font-feature-settings: 'ss01', 'ss02';
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: #f1d6cb;
+    color: var(--ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
   }
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+@layer components {
+  .page {
+    @apply mx-auto w-full max-w-page px-5 sm:px-8;
   }
 
-  .glass {
-    @apply bg-white/60 backdrop-blur-xl border border-white/30 shadow-sm;
+  /* Small mono label used for section numbers, metadata and plate captions. */
+  .eyebrow {
+    @apply font-mono text-[0.72rem] uppercase tracking-[0.14em] text-ink-3;
   }
 
-  .glass-card {
-    @apply bg-white/80 backdrop-blur-md border border-border/50 transition-all duration-500 shadow-sm hover:shadow-lg hover:shadow-primary/5;
+  .link {
+    @apply underline decoration-line decoration-1 underline-offset-[0.22em] transition-colors hover:text-accent-ink hover:decoration-accent;
   }
 
-  .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-foreground via-foreground/80 to-foreground/60;
+  .rule {
+    @apply border-t border-line;
   }
+}
 
-  .text-gradient-primary {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-teal-500 to-emerald-400;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
-
-  .section-padding {
-    @apply py-24 md:py-32 lg:py-40;
-  }
-
-  .container-wide {
-    @apply mx-auto w-full max-w-7xl px-6 lg:px-12;
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
   }
 }

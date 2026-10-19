@@ -1,66 +1,37 @@
-# Next.js Profile Project
+# Shaf Haider — portfolio
 
-A modern Next.js application built with TypeScript and Tailwind CSS.
+Personal site of Shaf Haider, GIS & remote-sensing specialist. Next.js 16 (App Router), React 19, TypeScript and Tailwind CSS.
 
-## Features
+## Develop
 
-- ⚡ **Next.js 14** with App Router
-- 🔷 **TypeScript** for type safety
-- 🎨 **Tailwind CSS** for styling
-- 📱 **Responsive design**
-- 🧩 **Reusable components**
-- 🔍 **ESLint** for code quality
-
-## Getting Started
-
-First, install the dependencies:
-
-\`\`\`bash
+```bash
 npm install
-# or
-yarn install
-# or
-pnpm install
-\`\`\`
+npm run dev        # http://localhost:3000
+npm run build      # production build
+npm run type-check
+```
 
-Then, run the development server:
+Deployed on AWS Amplify as an SSR app (see `amplify.yml`).
 
-\`\`\`bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-\`\`\`
+## Content
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- `lib/site.ts`: profile, experience, skills, education
+- `lib/projects.ts`: case studies (one page each under `/projects/[slug]`)
+- `lib/plates.ts`: satellite image metadata (bounds, acquisition date, scene id)
 
-## Project Structure
+## Satellite plates
 
-\`\`\`
-├── app/                    # App Router pages
-│   ├── layout.tsx         # Root layout
-│   ├── page.tsx           # Home page
-│   ├── about/             # About page
-│   └── globals.css        # Global styles
-├── components/            # Reusable components
-│   └── ui/                # UI components
-├── lib/                   # Utility functions
-├── public/                # Static assets
-└── ...config files
-\`\`\`
+Every image in `public/media` is a Sentinel-2 L2A crop rendered from the open
+[sentinel-cogs](https://registry.opendata.aws/sentinel-2-l2a-cogs/) archive on AWS
+with `scripts/render_s2.py`:
 
-## Available Scripts
+```bash
+pip install rasterio numpy pillow mgrs
+python scripts/render_s2.py galiyat 73.40 34.06 14 9 2024-10,2024-11 --ndvi
+```
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run start` - Start production server
-- `npm run lint` - Run ESLint
-- `npm run type-check` - Run TypeScript type checking
+It picks the least cloudy scene for the given months, reads B04/B03/B02 over the
+area of interest, applies a percentile stretch and writes a JPEG (plus an NDVI
+array with `--ndvi`). Contains modified Copernicus Sentinel data.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The locator map uses ADM1 boundaries from [geoBoundaries](https://www.geoboundaries.org/) (CC BY 4.0).
