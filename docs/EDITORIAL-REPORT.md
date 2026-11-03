@@ -34,6 +34,17 @@ That removal cut the home page's JavaScript from 240 kB to 175 kB (gzipped), and
 
 The animated version is still on `main` (commit `6f8024f`) if you want any of it back.
 
+**Update: the media are back.** After reading this report, you asked for the media back. These are restored on this branch, in the new design:
+
+- **Home hero:** the 3D Sentinel-2 band stack, which steps through bands, true colour, NDVI and land cover. It now has a Pause button, and with reduced motion it holds still.
+- **Project figures:** large again, each wiping from the input data to the analysis when it comes into view (pointing at a figure shows the input again).
+- **Home research section:** each question has its figure again:
+  - canopy density near Murree, wiping from 2018 to 2024
+  - the Cholistan desert edge, wiping from 2017 to 2024, with how a new field scores and the "Degraded" result
+  - the vegetation and surface-temperature scatter plot, coloured from cool to hot
+
+The figures move with CSS only, so GSAP and Lenis stay removed; the home page's JavaScript is 180 kB (gzipped), against 240 kB before the redesign. Every figure shows its final state without JavaScript, with reduced motion and in print. One earlier figure did not come back: the bar chart comparing Hansen loss (2.3 ha) with the demo map's 566 ha and 999 ha, for the reason in section 4, item 2. The canopy-density wipe takes its place.
+
 ## 2. Changes by page
 
 **All pages**
@@ -49,10 +60,10 @@ The animated version is still on `main` (commit `6f8024f`) if you want any of it
 **Home (`/`)**
 - **h1:** now the name. A plain line gives role, employer and degree, followed by a two-sentence statement of research focus.
 - **Actions:** "Read my research interests", "Download CV (PDF)" and "Email me".
-- **Figure 1:** a static Islamabad true-colour and NDVI pair with a full caption, replacing the autoplaying 3D band stack.
+- **Figure 1:** the 3D Sentinel-2 band stack (bands, true colour, NDVI, land cover), with a full caption and a Pause button.
 - **Removed:** the facts band with its counting numbers.
-- **Research interests:** three short entries, each linking to its full statement and to the project it came from.
-- **Projects:** one list with numbered, captioned thumbnail figures (Figures 2–8), replacing the card grid.
+- **Research interests:** each question has its figure (Figures 2–4), with links to its full statement and to the project it came from.
+- **Projects:** one list with large, numbered, captioned figures (Figures 5–11) that wipe from the input data to the analysis, replacing the card grid.
 - **New section:** "Reports and outputs" in brief.
 - **Experience:** a plain list instead of the animated timeline.
 - **Education:** dates, award date and CGPA from the transcript. The design project title is exact, and courses are listed as text.
@@ -196,7 +207,7 @@ Fill these in before merging, or tell me the facts and I will.
 | Keyboard | The first Tab reaches "Skip to content". All 22 focus stops checked show a 2 px blue outline. |
 | Print (Chromium, A4) | Outputs 3 pages, home 10, Move Smart 4. Navigation and interactive figures are hidden, and URLs are printed after external links. |
 | Live map | Renders with WebGL. With WebGL disabled it shows the fallback message. |
-| JavaScript, home page first load (gzipped) | 240 kB before, 175 kB after |
+| JavaScript, home page first load (gzipped) | 240 kB before; 175 kB after removing the animation libraries; 180 kB with the media restored |
 | Search for stock phrases (passionate, leverage, seamless, robust and about 40 more) and em dashes | 0 in site text |
 | Headings and alt text | No skipped heading levels. Every content image has alt text. The empty alt values left are 40 hidden time-lapse frames and one decorative water layer, all inside figures that the step text describes. |
 

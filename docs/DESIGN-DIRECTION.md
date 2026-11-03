@@ -67,9 +67,14 @@ The look follows from this. It is laid out like a well-made technical report: wh
 - No "read more" and no "click here".
 
 **Motion**
-- Nothing moves on page load or on scroll, apart from a walk-through figure changing when the reader reaches a new step. That change explains the analysis.
-- No smooth-scroll override, no counters, no parallax and no fade-ins.
-- With reduced motion turned on, state changes are instant.
+- Motion belongs to figures, and only where it shows the step from data to result:
+  - the hero stack fans out the Sentinel-2 bands, then combines them into true colour, NDVI and land cover
+  - each project figure wipes from the input data to the analysis when it comes into view
+  - the research figures wipe from the earlier year to the later one, and the scatter plot draws in
+  - a walk-through figure changes when the reader reaches a new step
+- Text never waits for an animation. There is no smooth-scroll override and there are no counters.
+- The hero stack plays on its own, so it has a visible Pause button.
+- With reduced motion turned on, every figure shows its final state at once.
 
 **Print**
 - Navigation, interactive maps and walk-through graphics are hidden.

@@ -64,7 +64,7 @@ Every image and number in the figures is computed from open data by the Python s
 
 | Script | Figure | Sources |
 | --- | --- | --- |
-| `hero.py` | Islamabad true colour and NDVI (home, Figure 1) | Sentinel-2 L2A |
+| `hero.py` | Spectral band stack, true colour, NDVI and land cover for Islamabad (home, Figure 1) | Sentinel-2 L2A, ESA WorldCover |
 | `jfrel.py` | Forest-carbon activity-data walk-through, canopy density | Sentinel-2 L2A, ESA WorldCover, Hansen GFC |
 | `unccd.py` | SDG 15.3.1 measures and the "one out, all out" rule | Sentinel-2 L2A (2017–2024), ESA WorldCover |
 | `nfms.py` | Tile pyramid and live map tiles | Copernicus GLO-90, ESA WorldCover |
