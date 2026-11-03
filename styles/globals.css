@@ -99,6 +99,16 @@
   display: none;
 }
 
+/* progress bar under the hero stack stages */
+@keyframes grow {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -171,5 +181,13 @@
     background: none;
     border-color: #000;
     color: #000;
+  }
+  /* figures print in their final state even if the reader never scrolled to them */
+  [data-animate],
+  [data-animate-children] * {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    stroke-dashoffset: 0 !important;
   }
 }

@@ -25,8 +25,11 @@ export type Project = {
   facts: { label: string; value: string }[]
   tools: string[]
   links?: { label: string; href: string }[]
-  /** Thumbnail used in lists: an image from public/viz/posters with alt text and a caption. */
-  thumb: { src: string; alt: string; caption: string }
+  /**
+   * Figure used in lists: the input image (`input`) wipes across to the analysis (`src`) when it comes into view.
+   * Images are in public/viz/posters; `labels` name the two layers.
+   */
+  thumb: { input: string; src: string; labels: [string, string]; alt: string; caption: string }
   /** One line on what the walk-through shows. */
   walkthrough: string
 }
@@ -59,9 +62,11 @@ export const projects: Project[] = [
     ],
     tools: ['Google Earth Engine', 'QGIS', 'Sentinel-2', 'Random forest', 'Spectral unmixing', 'IPCC methods'],
     thumb: {
+      input: 'posters/jfrel_a.webp',
       src: 'posters/jfrel_b.webp',
+      labels: ['Sentinel-2 composite', 'Classified land cover'],
       alt: 'Land-cover map of hills near Murree: dense forest in dark green, open forest in mid green, shrub and grass in olive, cropland in yellow and built-up land in red.',
-      caption: 'Land cover, 2024, open-data test area near Murree. Made for this site; not study results.',
+      caption: 'Sentinel-2 image and the land-cover map classified from it, 2024, open-data test area near Murree. Made for this site; not study results.',
     },
     walkthrough: 'The method step by step, repeated on an open-data test area near Murree.',
   },
@@ -89,9 +94,11 @@ export const projects: Project[] = [
     ],
     tools: ['SDG 15.3.1 methods', 'Trends.Earth', 'Quality checks'],
     thumb: {
+      input: 'posters/unccd_a.webp',
       src: 'posters/unccd_b.webp',
+      labels: ['Sentinel-2, 2024', 'SDG 15.3.1 status'],
       alt: 'Map of a desert-edge area in Cholistan with degraded land in red, improved land in teal and stable land in pale grey.',
-      caption: 'SDG 15.3.1 status, 2017–2024, open-data test area in Cholistan. Made for this site; not Pakistan’s reported figures.',
+      caption: 'Sentinel-2 image and the SDG 15.3.1 status for 2017–2024, open-data test area in Cholistan. Made for this site; not Pakistan’s reported figures.',
     },
     walkthrough: 'How the three SDG 15.3.1 measures combine, shown on an open-data test area in Cholistan.',
   },
@@ -119,9 +126,11 @@ export const projects: Project[] = [
     tools: ['Python', 'GDAL', 'MBTiles', 'Tile services', 'Next.js'],
     links: [{ label: 'nfmspak.org', href: 'https://www.nfmspak.org/' }],
     thumb: {
+      input: 'posters/nfms_a.webp',
       src: 'posters/nfms_b.webp',
+      labels: ['Relief tiles', 'Relief + forest tiles'],
       alt: 'Shaded relief of northern Pakistan with forest cover in green along the Himalayan foothills.',
-      caption: 'Relief and forest tiles built from open national layers for this site.',
+      caption: 'Relief tiles, then relief with forest tiles, built from open national layers for this site.',
     },
     walkthrough: 'The pipeline steps, a real tile pyramid and a live map built from open national layers.',
   },
@@ -149,9 +158,11 @@ export const projects: Project[] = [
     tools: ['Sentinel-2', 'STAC APIs', 'NDVI and NDWI', 'Machine learning', 'Interactive mapping'],
     links: [{ label: 'geofasal.com', href: 'https://www.geofasal.com/' }],
     thumb: {
+      input: 'posters/geofasal_a.webp',
       src: 'posters/geofasal_b.webp',
+      labels: ['True colour', 'NDVI + field boundaries'],
       alt: 'NDVI map of small farm fields near Sahiwal, from pale yellow for bare soil to dark green for dense crops, with field outlines.',
-      caption: 'NDVI and field outlines at the peak of the 2024–25 winter season near Sahiwal. Made for this site.',
+      caption: 'True colour, then NDVI with field outlines, at the peak of the 2024–25 winter season near Sahiwal. Made for this site.',
     },
     walkthrough: 'One winter season of fields near Sahiwal, with an NDVI curve for each field.',
   },
@@ -181,9 +192,11 @@ export const projects: Project[] = [
     ],
     tools: ['Google Earth Engine', 'Landsat', 'Sentinel-2', 'MODIS', 'AHP', 'PostGIS', 'GraphHopper', 'Next.js', 'Mapbox GL', 'FastAPI'],
     thumb: {
+      input: 'posters/movesmart_a.webp',
       src: 'posters/movesmart_b.webp',
+      labels: ['True colour', 'Surface temperature + routes'],
       alt: 'Land-surface temperature over part of Islamabad, from blue for cooler to orange for hotter, with the shortest walking route in black and a cooler alternative in green.',
-      caption: 'Surface temperature and two walking routes, Islamabad, recomputed for this site from Landsat 8 (27 June 2019).',
+      caption: 'True colour, then surface temperature with two walking routes, Islamabad, recomputed for this site from Landsat 8 (27 June 2019).',
     },
     walkthrough: 'Surface heat, its link with vegetation, comfort-weighted routes and walking areas, recomputed from open data.',
   },
@@ -216,9 +229,11 @@ export const projects: Project[] = [
       { label: 'Driver app (Google Play)', href: 'https://play.google.com/store/apps/details?id=com.mottainai.driver' },
     ],
     thumb: {
+      input: 'posters/mottainai_a.webp',
       src: 'posters/mottainai_b.webp',
+      labels: ['Street network', 'Optimised pickup route'],
       alt: 'Street map with a depot, fourteen example pickup stops and the shortest route linking them drawn in red.',
-      caption: 'Pickup route on a real Lagos street network with random example stops. Made for this site.',
+      caption: 'Street network, then the shortest pickup route through random example stops, Lagos. Made for this site.',
     },
     walkthrough: 'Ordering pickups on a real street network in Lagos, with random example stops.',
   },
@@ -249,9 +264,11 @@ export const projects: Project[] = [
       { label: 'DHA Lahore digital auction', href: 'https://digitalauction.dhalahore.org/' },
     ],
     thumb: {
+      input: 'posters/dha_a.webp',
       src: 'posters/dha_b.webp',
+      labels: ['Footprints', 'Extruded in 3D'],
       alt: 'Three-dimensional view of building footprints in a DHA Lahore neighbourhood, drawn as grey blocks along a street grid.',
-      caption: 'Open building footprints in DHA Lahore, extruded in 3D. Made for this site; not DHA’s records.',
+      caption: 'Open building footprints in DHA Lahore, then extruded in 3D. Made for this site; not DHA’s records.',
     },
     walkthrough: 'A distance search over open building footprints in DHA Lahore, in 3D.',
   },

@@ -1,30 +1,32 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { readHeat } from '@/components/HeatScatter'
 import { Education } from '@/components/home/Education'
 import { Experience } from '@/components/home/Experience'
 import { Methods } from '@/components/home/Methods'
+import { DrylandFigure, ForestFigure, HeatFigure } from '@/components/home/ResearchFigures'
 import { PersonJsonLd } from '@/components/JsonLd'
-import { Plate, PlateImage } from '@/components/Plate'
 import { ProjectList } from '@/components/ProjectList'
 import { SectionHead } from '@/components/SectionHead'
 import { Text } from '@/components/Text'
 import { projects } from '@/lib/projects'
 import { interests, outputs, profile, statement } from '@/lib/site'
-import { viz } from '@/lib/viz'
+import { HeroStack } from '@/components/viz/HeroStack'
 
 export const metadata: Metadata = {
   alternates: { canonical: '/' },
 }
 
 export default function HomePage() {
+  const heat = readHeat()
   return (
     <>
       <PersonJsonLd />
 
       {/* Who, where, what */}
       <section className="page pt-10 md:pt-16">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,29rem)] lg:gap-16">
-          <div>
+        <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-10">
+          <div className="lg:col-span-5">
             <h1 className="text-[34px] font-semibold leading-tight tracking-[-0.02em] text-ink md:text-[42px]">{profile.name}</h1>
             <p className="mt-2 text-[16px] leading-relaxed text-ink-2">
               {profile.role},{' '}
@@ -58,30 +60,14 @@ export default function HomePage() {
               </li>
             </ul>
           </div>
-          <Plate
-            n={1}
-            caption={
-              <>
-                Islamabad, 16 × 12 km, on 1 October 2024. Left: Sentinel-2 true colour. Right: NDVI from the same image; darker
-                green means denser vegetation. Made for this site from Copernicus Sentinel-2 data.
-              </>
-            }
-          >
-            <div className="grid grid-cols-2 gap-1">
-              <PlateImage
-                src={viz('hero/true.webp')}
-                width={1200}
-                height={900}
-                alt="Satellite image of Islamabad: the Margalla Hills forest at the top, the city grid in the middle and Rawal Lake on the right."
-              />
-              <PlateImage
-                src={viz('hero/ndvi.webp')}
-                width={1200}
-                height={900}
-                alt="Vegetation index map of the same area: dense green over the hills and green belts, pale yellow over built-up blocks and roads."
-              />
-            </div>
-          </Plate>
+          <figure className="lg:col-span-7">
+            <HeroStack />
+            <figcaption className="figure-caption mx-auto max-w-[640px]">
+              <span className="font-semibold text-ink">Figure 1.</span> Islamabad, 16 × 12 km, Sentinel-2, 1 October 2024: six spectral
+              bands, true colour, NDVI and a land-cover map, computed for this site. The land-cover map agrees with ESA WorldCover
+              labels for 69% of test pixels.
+            </figcaption>
+          </figure>
         </div>
       </section>
 
@@ -94,21 +80,29 @@ export default function HomePage() {
           </Link>{' '}
           sets out each one with a possible approach.
         </SectionHead>
-        <ol className="grid gap-8 md:grid-cols-3 md:gap-10">
+        <ol className="divide-y divide-line border-y border-line">
           {interests.map((q, i) => (
-            <li key={q.id} className="border-t border-line pt-4">
-              <p className="eyebrow">Question {i + 1}</p>
-              <h3 className="mt-1.5 text-[18px] font-semibold leading-snug text-ink">{q.question}</h3>
-              <p className="mt-2 text-[15px] leading-relaxed text-ink-2">{q.summary}</p>
-              <p className="mt-3 text-[14.5px]">
-                <Link href={`/research/#${q.id}`} className="link">
-                  Full statement
-                </Link>
-                <span className="text-ink-3"> · from </span>
-                <Link href={`/projects/${q.project}/`} className="link">
-                  {q.projectLabel}
-                </Link>
-              </p>
+            <li key={q.id} className="grid gap-8 py-10 lg:grid-cols-12 lg:items-center lg:gap-12 lg:py-14">
+              <div className="lg:col-span-7">
+                <p className="eyebrow">Question {i + 1}</p>
+                <h3 className="mt-2 max-w-[36rem] text-[22px] font-semibold leading-snug tracking-[-0.01em] text-ink md:text-[26px]">{q.question}</h3>
+                <p className="prose-text mt-4 max-w-prose">{q.summary}</p>
+                <p className="mt-3 max-w-prose text-[15px] leading-relaxed text-ink-2">{q.background}</p>
+                <p className="mt-4 text-[14.5px]">
+                  <Link href={`/research/#${q.id}`} className="link">
+                    Full statement
+                  </Link>
+                  <span className="text-ink-3"> · from </span>
+                  <Link href={`/projects/${q.project}/`} className="link">
+                    {q.projectLabel}
+                  </Link>
+                </p>
+              </div>
+              <div className={q.id === 'forest' ? 'mx-auto w-full max-w-[24rem] lg:col-span-5' : 'lg:col-span-5'}>
+                {q.id === 'forest' && <ForestFigure n={2} />}
+                {q.id === 'drylands' && <DrylandFigure n={3} />}
+                {q.id === 'heat' && <HeatFigure n={4} d={heat} />}
+              </div>
             </li>
           ))}
         </ol>
@@ -121,7 +115,7 @@ export default function HomePage() {
           Each project page sets out the question, my part in the work and how the analysis is done. The method figures were
           recomputed for this site from open data; they are not project results.
         </SectionHead>
-        <ProjectList items={projects} firstFigure={2} />
+        <ProjectList items={projects} firstFigure={5} />
       </section>
 
       {/* Outputs, short */}

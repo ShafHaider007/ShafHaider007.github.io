@@ -57,3 +57,11 @@ export function heatR() {
   const file = path.join(process.cwd(), 'public', 'viz', 'home.json')
   return (JSON.parse(fs.readFileSync(file, 'utf8')) as { heat: Heat }).heat.r
 }
+
+/** The sampled points behind the scatter, for client figures that animate them. */
+export function readHeat(): Heat {
+  const file = path.join(process.cwd(), 'public', 'viz', 'home.json')
+  return (JSON.parse(fs.readFileSync(file, 'utf8')) as { heat: Heat }).heat
+}
+
+export type { Heat }
