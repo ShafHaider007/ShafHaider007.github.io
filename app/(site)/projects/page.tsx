@@ -1,12 +1,16 @@
 import type { Metadata } from 'next'
+import { pageOpenGraph } from '@/lib/seo'
 import { ProjectList } from '@/components/ProjectList'
 import { projects } from '@/lib/projects'
 
+const description =
+  'Seven GIS and remote sensing projects by Shaf Haider: forest-change data for a forest-carbon study, land degradation for UNCCD reporting, a national forest monitoring pipeline, field-level crop monitoring, heat-aware routing, recycling logistics and property web GIS.'
+
 export const metadata: Metadata = {
   title: 'Projects',
-  description:
-    'Seven GIS and remote sensing projects by Shaf Haider: forest-change data for a forest-carbon study, land degradation for UNCCD reporting, a national forest monitoring pipeline, field-level crop monitoring, heat-aware routing, recycling logistics and property web GIS.',
+  description,
   alternates: { canonical: '/projects/' },
+  openGraph: pageOpenGraph('Projects', description, '/projects/'),
 }
 
 export default function ProjectsPage() {

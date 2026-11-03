@@ -21,11 +21,14 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   if (!project) return { title: 'Project not found' }
   return {
     title: project.short,
-    description: `${project.question} ${project.role}.`,
+    description: `${project.question} ${project.role.replace(/\.$/, '')}.`,
     alternates: { canonical: `/projects/${slug}/` },
     openGraph: {
       title: `${project.title} · Shaf Haider`,
       description: project.question,
+      url: `/projects/${slug}/`,
+      type: 'article',
+      siteName: 'Shaf Haider',
       images: [{ url: `${siteUrl}/viz/${project.thumb.src}`, width: 1200, height: 750, alt: project.thumb.alt }],
     },
   }

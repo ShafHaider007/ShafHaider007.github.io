@@ -1,14 +1,18 @@
 import type { Metadata } from 'next'
+import { pageOpenGraph } from '@/lib/seo'
 import Link from 'next/link'
 import { Text } from '@/components/Text'
 import { getProject } from '@/lib/projects'
 import { outputs, platforms, profile } from '@/lib/site'
 
+const description =
+  'Reports, national reporting work, workshops, the final-year design project and live platforms that Shaf Haider contributed to.'
+
 export const metadata: Metadata = {
   title: 'Reports and outputs',
-  description:
-    'Reports, national reporting work, workshops, the final-year design project and live platforms that Shaf Haider contributed to.',
+  description,
   alternates: { canonical: '/outputs/' },
+  openGraph: pageOpenGraph('Reports and outputs', description, '/outputs/'),
 }
 
 export default function OutputsPage() {

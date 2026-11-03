@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { pageOpenGraph } from '@/lib/seo'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
 import { HeatScatter, heatR } from '@/components/HeatScatter'
@@ -6,11 +7,14 @@ import { Plate, PlateImage } from '@/components/Plate'
 import { interests, profile, type Interest } from '@/lib/site'
 import { viz } from '@/lib/viz'
 
+const description =
+  'Three research questions from Shaf Haider’s work in GIS and remote sensing: undetected forest degradation, land degradation when deserts are irrigated, and how well satellite heat maps describe street-level heat.'
+
 export const metadata: Metadata = {
   title: 'Research interests',
-  description:
-    'Three research questions from Shaf Haider’s work in GIS and remote sensing: undetected forest degradation, land degradation when deserts are irrigated, and how well satellite heat maps describe street-level heat.',
+  description,
   alternates: { canonical: '/research/' },
+  openGraph: pageOpenGraph('Research interests', description, '/research/'),
 }
 
 export default function ResearchPage() {
