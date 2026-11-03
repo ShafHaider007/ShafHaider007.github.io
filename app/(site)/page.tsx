@@ -1,20 +1,18 @@
 import Link from 'next/link'
-import { LocatorMap } from '@/components/LocatorMap'
-import { Plate } from '@/components/Plate'
-import { ProjectCard, ProjectRow } from '@/components/ProjectRow'
+import { ProjectCard } from '@/components/ProjectCard'
 import { SectionHead } from '@/components/SectionHead'
+import { HeroStack } from '@/components/viz/HeroStack'
+import { ReliefMap } from '@/components/viz/ReliefMap'
 import { projects } from '@/lib/projects'
 import { education, experience, facts, profile, skills } from '@/lib/site'
-
-const FEATURED = 3
 
 export default function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section className="page pb-16 pt-12 md:pb-24 md:pt-20">
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-10">
-          <div className="lg:col-span-5 lg:pt-6">
+      <section className="page pb-14 pt-10 md:pb-20 md:pt-16">
+        <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-10">
+          <div className="lg:col-span-5">
             <p className="eyebrow">{profile.role} · {profile.location}</p>
             <h1 className="mt-6 font-serif text-[2.6rem] leading-[1.04] tracking-[-0.015em] text-ink sm:text-[3.4rem] lg:text-[3.6rem]">
               Mapping Pakistan’s forests, land and cities from <em className="italic text-accent-ink">satellite data</em>.
@@ -33,8 +31,12 @@ export default function HomePage() {
               GIS &amp; RS Expert at GISPLUS, leading the geospatial workstream for Pakistan’s UNCCD 2026 national reporting with IUCN Pakistan.
             </div>
           </div>
-          <div className="pt-5 lg:col-span-7">
-            <Plate id="skardu" number="Fig. 1" priority sizes="(min-width: 1024px) 58vw, 100vw" />
+          <div className="lg:col-span-7">
+            <HeroStack />
+            <p className="mx-auto mt-3 max-w-[640px] font-mono text-[10.5px] leading-snug text-ink-3">
+              Islamabad, 16 × 12 km · Sentinel-2 L2A, 1 October 2024 · bands, indices and classification computed for this
+              site
+            </p>
           </div>
         </div>
       </section>
@@ -58,16 +60,15 @@ export default function HomePage() {
       {/* Work */}
       <section id="work" className="page pt-20 md:pt-28">
         <SectionHead index="01" title="Selected work">
-          National reporting, forest monitoring, agriculture and field operations. Each plate is a Sentinel-2 scene of the landscape the work is about.
+          National reporting, forest monitoring, agriculture and field operations. Each case study walks through how the
+          work is done, with figures computed from open data.
         </SectionHead>
-        <div className="divide-y divide-line">
-          {projects.slice(0, FEATURED).map((p, i) => (
-            <ProjectRow key={p.slug} project={p} index={i} flip={i % 2 === 1} />
-          ))}
+        <div className="border-b border-line pb-16">
+          <ProjectCard project={projects[0]} index={0} large />
         </div>
-        <div className="grid gap-x-10 gap-y-16 border-t border-line pt-12 md:grid-cols-2 md:pt-16">
-          {projects.slice(FEATURED).map((p, i) => (
-            <ProjectCard key={p.slug} project={p} index={i + FEATURED} />
+        <div className="grid gap-x-10 gap-y-16 pt-14 md:grid-cols-2">
+          {projects.slice(1).map((p, i) => (
+            <ProjectCard key={p.slug} project={p} index={i + 1} />
           ))}
         </div>
       </section>
@@ -77,7 +78,7 @@ export default function HomePage() {
         <SectionHead index="02" title="Where the work sits">
           From the Margalla foothills to the Cholistan desert, and one fleet in Lagos.
         </SectionHead>
-        <LocatorMap />
+        <ReliefMap />
       </section>
 
       {/* Experience */}

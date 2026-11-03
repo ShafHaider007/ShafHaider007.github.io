@@ -33,7 +33,7 @@ export const siteMetadata: Metadata = {
     type: 'website',
     siteName: 'Shaf Haider',
     locale: 'en_US',
-    images: [{ url: `${siteUrl}/media/skardu.jpg`, width: 2400, height: 1256 }],
+    images: [{ url: `${siteUrl}/og.jpg`, width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { ProjectRow } from '@/components/ProjectRow'
+import { ProjectCard } from '@/components/ProjectCard'
 import { SectionHead } from '@/components/SectionHead'
 import { projects } from '@/lib/projects'
 
@@ -12,11 +12,11 @@ export default function ProjectsPage() {
   return (
     <section className="page pb-24 pt-16 md:pt-24">
       <SectionHead index="01" title="All projects">
-        Each case study is paired with a Sentinel-2 plate of the landscape it deals with.
+        Each case study walks through how the work is done, with figures computed from open data.
       </SectionHead>
-      <div className="divide-y divide-line">
+      <div className="grid gap-x-10 gap-y-16 md:grid-cols-2">
         {projects.map((p, i) => (
-          <ProjectRow key={p.slug} project={p} index={i} flip={i % 2 === 1} />
+          <ProjectCard key={p.slug} project={p} index={i} />
         ))}
       </div>
     </section>

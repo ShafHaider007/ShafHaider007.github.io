@@ -27,21 +27,29 @@ One-time setup: **Settings → Pages → Build and deployment → Source: GitHub
 
 - `lib/site.ts`: profile, experience, skills, education
 - `lib/projects.ts`: case studies (one page each under `/projects/[slug]`)
-- `lib/plates.ts`: satellite image metadata (bounds, acquisition date, scene id)
+- `components/stories/*`: the scroll-driven "how it works" visual for each case study
+- `components/viz/*`: the home-page spectral stack and relief map
 
-## Satellite plates
+## Figures and data
 
-Every image in `public/media` is a Sentinel-2 L2A crop rendered from the open
-[sentinel-cogs](https://registry.opendata.aws/sentinel-2-l2a-cogs/) archive on AWS
-with `scripts/render_s2.py`:
+Every image and number in the visuals is computed from open data by the scripts in `scripts/viz`
+(Python; `pip install -r scripts/viz/requirements.txt`), then exported to `public/viz` by `export.py`:
 
-```bash
-pip install rasterio numpy pillow mgrs
-python scripts/render_s2.py galiyat 73.40 34.06 14 9 2024-10,2024-11 --ndvi
-```
+| Script | Visual | Sources |
+| --- | --- | --- |
+| `hero.py` | Spectral stack (bands, true colour, NDVI, land cover) | Sentinel-2 L2A, ESA WorldCover |
+| `relief.py` | Shaded relief map of Pakistan | Copernicus GLO-90, Natural Earth, geoBoundaries |
+| `jfrel.py` | Forest-carbon activity-data walk-through | Sentinel-2 L2A, ESA WorldCover, Hansen GFC |
+| `unccd.py` | SDG 15.3.1 sub-indicators and one-out-all-out | Sentinel-2 L2A (2017–2024), ESA WorldCover |
+| `nfms.py` | Tile pyramid and live map tiles | Copernicus GLO-90, ESA WorldCover |
+| `geofasal.py` | Season time-lapse and crop calendars | Sentinel-2 L2A |
+| `movesmart.py` | Surface temperature, scatter, routes, isochrones | Landsat 8, Sentinel-2, Overture Maps |
+| `mottainai.py` | Pickup route optimisation | Overture Maps, Sentinel-2 |
+| `dha.py` | Axonometric building search | Overture Maps |
 
-It picks the least cloudy scene for the given months, reads B04/B03/B02 over the
-area of interest, applies a percentile stretch and writes a JPEG (plus an NDVI
-array with `--ndvi`). Contains modified Copernicus Sentinel data.
+Imagery is read straight from the cloud-optimised open archives on AWS and Google Cloud (no downloads of
+whole scenes); Overture Maps GeoParquet is read with HTTP range requests. The visuals are method
+demonstrations on open data: they reproduce how each project works, not its confidential results.
 
-The locator map uses ADM1 boundaries from [geoBoundaries](https://www.geoboundaries.org/) (CC BY 4.0).
+Contains modified Copernicus Sentinel data (2017–2025). Landsat courtesy of the U.S. Geological Survey.
+ESA WorldCover © ESA WorldCover project, CC BY 4.0. Overture Maps data under ODbL/CDLA as applicable.
