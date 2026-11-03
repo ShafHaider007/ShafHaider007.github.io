@@ -3,104 +3,100 @@
 @tailwind utilities;
 
 :root {
-  /* Survey-sheet palette: warm paper, graphite ink, one vermilion accent. */
-  --paper-rgb: 246 244 239;
-  --surface-rgb: 255 254 251;
-  --ink-rgb: 27 34 32;
+  /* Technical-report palette (docs/DESIGN-DIRECTION.md): white page, near-black text, one link blue.
+     Other colour appears only inside figures, where it carries meaning. All text colours pass WCAG AA on white
+     and on the figure ground. */
+  --paper-rgb: 255 255 255;
+  --surface-rgb: 255 255 255;
+  /* figure ground: the paper colour already baked into the figure images */
+  --plate-rgb: 246 244 239;
+  --ink-rgb: 21 25 28;
   --paper: rgb(var(--paper-rgb));
-  --surface: rgb(var(--surface-rgb));
   --ink: rgb(var(--ink-rgb));
-  --ink-2: #4b5552;
-  --ink-3: #7c8481;
-  --line: #e1ddd3;
-  --accent: #b8452a;
-  --accent-ink: #933620;
-  --water: #c9dbe3;
-  --land: #ece7dc;
+  --ink-2: #465057;
+  --ink-3: #5a636a;
+  --line: #d9dde0;
+  --accent: #1c4f8a;
+  --accent-ink: #133a66;
+  --loss: #b8452a;
+  --gain: #2f6f7e;
   color-scheme: light;
 }
 
 @layer base {
   html {
     -webkit-text-size-adjust: 100%;
-    scroll-padding-top: 5rem;
+    scroll-padding-top: 1.5rem;
   }
 
   body {
     background: var(--paper);
     color: var(--ink);
-    font-feature-settings: 'ss01', 'ss02';
     text-rendering: optimizeLegibility;
   }
 
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
   ::selection {
-    background: #f1d6cb;
+    background: #cfe0f3;
     color: var(--ink);
   }
 
   :focus-visible {
     outline: 2px solid var(--accent);
-    outline-offset: 3px;
-    border-radius: 2px;
+    outline-offset: 2px;
+    border-radius: 1px;
   }
 }
 
 @layer components {
   .page {
-    @apply mx-auto w-full max-w-page px-5 sm:px-8;
+    @apply mx-auto w-full max-w-page px-4 sm:px-8;
   }
 
-  /* Small mono label used for section numbers, metadata and plate captions. */
+  /* Reading text: research statements, project text, walk-through steps. */
+  .prose-text {
+    @apply font-serif text-[16px] leading-[1.65] text-ink sm:text-[17px];
+  }
+
+  /* Small data label: dates, figure annotations, step counters. */
   .eyebrow {
-    @apply font-mono text-[0.72rem] uppercase tracking-[0.14em] text-ink-3;
+    @apply font-mono text-[12px] leading-snug text-ink-3;
+  }
+
+  .label {
+    @apply text-[13px] font-medium text-ink-3;
   }
 
   .link {
-    @apply underline decoration-line decoration-1 underline-offset-[0.22em] transition-colors hover:text-accent-ink hover:decoration-accent;
+    @apply text-accent underline decoration-[1px] underline-offset-[0.18em] hover:text-accent-ink hover:decoration-2 active:text-ink;
   }
 
-  .rule {
-    @apply border-t border-line;
+  /* A title that is also a link: reads as text, still shows it can be followed. */
+  .title-link {
+    @apply underline decoration-line decoration-[1px] underline-offset-[0.2em] hover:text-accent hover:decoration-accent active:text-accent-ink;
   }
-}
 
-/* Headings split by GSAP stay hidden until split; the fallback reveals them if scripts never run. */
-.js .split-heading {
-  visibility: hidden;
-  animation: reveal-fallback 0s 2.5s forwards;
-}
-.js [data-intro] {
-  opacity: 0;
-  animation: intro-fallback 0.4s 2.5s forwards;
-}
-@keyframes reveal-fallback {
-  to {
-    visibility: visible;
+  .button {
+    @apply inline-flex items-center gap-2 border border-ink bg-ink px-4 py-2.5 text-[15px] font-medium text-paper hover:border-accent-ink hover:bg-accent-ink active:bg-ink;
   }
-}
-@keyframes intro-fallback {
-  to {
-    opacity: 1;
-  }
-}
-.split-line {
-  padding-bottom: 0.08em;
-  margin-bottom: -0.08em;
-}
 
-@keyframes grow {
-  from {
-    width: 0;
+  .figure-caption {
+    @apply mt-2 text-[13px] leading-snug text-ink-2;
   }
-  to {
-    width: 100%;
+
+  /* Missing information that only Shaf can supply. Visible on purpose. */
+  .placeholder {
+    @apply rounded-[2px] border border-dashed border-[#8a6a00] bg-[#fff4c2] px-1 font-sans text-[0.92em] text-[#4a3700];
   }
 }
 
-@keyframes dash {
-  to {
-    stroke-dashoffset: 0;
-  }
+.print-only {
+  display: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -112,5 +108,68 @@
   *::after {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
+  }
+}
+
+@media print {
+  @page {
+    margin: 16mm 14mm;
+  }
+  html {
+    font-size: 10.5pt;
+  }
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  [data-site-nav],
+  [data-print-hide],
+  [data-scrolly-graphic],
+  .maplibregl-map {
+    display: none !important;
+  }
+  .print-only {
+    display: block;
+  }
+  [data-scrolly-step] {
+    min-height: 0 !important;
+    padding: 0 0 10pt !important;
+    display: block !important;
+  }
+  [data-scrolly-step] > div {
+    border: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    background: none !important;
+  }
+  .page {
+    max-width: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  figure,
+  li,
+  img,
+  tr {
+    break-inside: avoid;
+  }
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+  a {
+    color: #000 !important;
+  }
+  main a[href^='http']::after,
+  main a[href^='mailto']::after {
+    content: ' (' attr(href) ')';
+    font-size: 8.5pt;
+    word-break: break-all;
+    color: #333;
+  }
+  .placeholder {
+    background: none;
+    border-color: #000;
+    color: #000;
   }
 }
