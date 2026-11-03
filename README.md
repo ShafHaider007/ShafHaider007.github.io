@@ -1,5 +1,7 @@
 # Shaf Haider — portfolio
 
+Live at **https://shafhaider007.github.io/**
+
 Personal site of Shaf Haider, GIS & remote-sensing specialist. Next.js 16 (App Router), React 19, TypeScript and Tailwind CSS.
 
 ## Develop
@@ -15,8 +17,9 @@ npm run type-check
 
 The site is a static export (`output: 'export'`) published to GitHub Pages by
 `.github/workflows/deploy.yml` on every push to `main`. The workflow passes the
-Pages base path (`/v0-portfolio`) and URL to the build through
-`NEXT_PUBLIC_BASE_PATH` and `NEXT_PUBLIC_SITE_URL`.
+Pages base path and URL to the build through `NEXT_PUBLIC_BASE_PATH` and
+`NEXT_PUBLIC_SITE_URL`. As a `<user>.github.io` repository the site is served
+from the root, so the base path is empty.
 
 One-time setup: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
 
