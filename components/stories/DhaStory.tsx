@@ -17,8 +17,8 @@ export function DhaStory() {
       <Scrolly steps={steps} graphic={(s) => (d ? <Axon d={d} s={s} /> : <div className="h-full animate-pulse bg-line/40" />)} />
       <DemoNote>
         Building footprints and streets for a 1.5 × 1.05 km part of DHA Lahore from Overture Maps (heights where available,
-        otherwise two storeys). It shows the kind of map search the platforms offer. The platforms use DHA’s own verified
-        plot records, which are not shown here.
+        otherwise two storeys). It illustrates map-based property search. The platforms use DHA’s own verified plot records,
+        which are not shown here.
       </DemoNote>
     </>
   )
@@ -28,49 +28,48 @@ function buildSteps(d: Data | null) {
   return [
     {
       kicker: 'Footprints',
-      title: 'Where does a property platform start?',
+      title: 'Building footprints',
       body: (
         <>
           <p>
-            With shapes on a map. This one neighbourhood has {d ? fmt(d.buildings.length) : '…'} building footprints, and
-            each can be linked to a record. Searching on the map means the plot, not a list entry, is where a search
-            begins.
+            This part of DHA Lahore has {d ? fmt(d.buildings.length) : '…'} building footprints in open data. On a map-based
+            platform each plot can be linked to a record, so a search starts from a place rather than from a list.
           </p>
         </>
       ),
     },
     {
       kicker: '3D',
-      title: 'What does the block look like in 3D?',
+      title: 'The neighbourhood in 3D',
       body: (
         <>
           <p>
-            Raising each footprint by its height turns a flat plan into a block that buyers recognise. Commercial buildings
-            stand out from the two-storey houses around them.
+            Raising each footprint by its height, or by two storeys where no height is recorded, turns the plan into a block that
+            is easier to read. Larger commercial buildings stand out from the houses around them.
           </p>
         </>
       ),
     },
     {
       kicker: 'Distance search',
-      title: 'How does a distance search work?',
+      title: 'A distance search',
       body: (
         <>
           <p>
             A question like “plots within 250 m of this park” is a spatial query. As the search circle grows, the matching
-            buildings light up and the count updates. The platforms run the same kind of query against verified records.
+            buildings are highlighted and the count updates. Map-based property search relies on queries of this kind.
           </p>
         </>
       ),
     },
     {
       kicker: 'Records',
-      title: 'What does a record show?',
+      title: 'Building records',
       body: (
         <>
           <p>
-            Point at any building to open its card. On the real platforms the card links to verified records, seller
-            dashboards and realtor tools. Here it shows what the shape alone can tell you.
+            Point at any building to open its card. Here the card shows what the open data can tell you. On the platforms, the map
+            is connected to verified records, seller dashboards and realtor tools.
           </p>
         </>
       ),
@@ -86,12 +85,12 @@ function Axon({ d, s }: { d: Data; s: ScrollState }) {
   const [W, H] = d.size
   return (
     <div className="flex h-full flex-col">
-      <div className="relative min-h-0 flex-1 border border-ink/80 bg-surface p-[5px]">
+      <div className="relative min-h-0 flex-1 border border-ink/70 bg-surface p-1">
         <Fit aspect={W / H}>
           <Canvas d={d} pitch={pitch} lift={lift} radius={radius} interactive={step >= 2} />
         </Fit>
       </div>
-      <div className="flex justify-between pt-2.5 font-mono text-[10.5px] text-ink-3">
+      <div className="flex justify-between pt-2.5 font-mono text-[11px] text-ink-3">
         <span>Overture Maps buildings · DHA Lahore</span>
         <span>{step >= 2 ? `search radius ${Math.round(radius)} m` : step === 1 ? 'extruded by height · 2× vertical' : 'plan view'}</span>
       </div>
@@ -264,13 +263,13 @@ function Canvas({ d, pitch, lift, radius, interactive }: { d: Data; pitch: numbe
       <canvas ref={ref} className="absolute inset-0" />
       {radius > 0 && (
         <div className="absolute right-3 top-3 bg-surface/95 px-3 py-2 text-right">
-          <div className="font-serif text-[1.9rem] leading-none text-ink">{fmt(count)}</div>
+          <div className="font-sans font-medium text-[1.9rem] leading-none text-ink">{fmt(count)}</div>
           <div className="mt-1 font-mono text-[10px] uppercase tracking-wider text-ink-3">buildings within {Math.round(radius)} m</div>
         </div>
       )}
       {hb && hover && (
         <div className="pointer-events-none absolute z-10 w-52 border border-ink bg-surface p-3 text-[12.5px] shadow-sm" style={{ left: Math.min(hover.x + 14, 9999), top: hover.y + 14 }}>
-          <p className="eyebrow text-accent">Building record</p>
+          <p className="eyebrow text-ink-2">Building record</p>
           <dl className="mt-2 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1">
             <dt className="text-ink-3">Footprint</dt>
             <dd className="text-right font-mono text-ink">{fmt(hb.a)} m²</dd>

@@ -47,11 +47,11 @@ export function Sheet({
 }) {
   return (
     <figure className={cn('flex h-full w-full flex-col items-center justify-center', className)}>
-      <div className="flex max-h-full w-full flex-col border border-ink/80 bg-surface p-[5px]" style={{ maxWidth: `calc((100% ) )` }}>
+      <div className="flex max-h-full w-full flex-col border border-ink/70 bg-surface p-1" style={{ maxWidth: `calc((100% ) )` }}>
         <div className="relative w-full overflow-hidden" style={{ aspectRatio: String(aspect), maxHeight: 'calc(100% - 2rem)' }}>
           {children}
         </div>
-        {footer && <figcaption className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-1 pt-2 font-mono text-[10.5px] leading-snug text-ink-3">{footer}</figcaption>}
+        {footer && <figcaption className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-1 pt-2 font-mono text-[11px] leading-snug text-ink-3">{footer}</figcaption>}
       </div>
     </figure>
   )
@@ -102,7 +102,7 @@ export function Figure({
     <div className="flex h-full w-full flex-col">
       <div className="min-h-0 flex-1">
         <Fit aspect={aspect}>
-          <div className="absolute inset-0 border border-ink/80 bg-surface p-[5px]">
+          <div className="absolute inset-0 border border-ink/70 bg-surface p-1">
             <div className="relative h-full w-full overflow-hidden">{children}</div>
           </div>
           {topLeft && <div className="absolute left-[14px] top-[14px] z-10">{topLeft}</div>}
@@ -110,7 +110,7 @@ export function Figure({
         </Fit>
       </div>
       {footer && (
-        <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 pt-2.5 font-mono text-[10.5px] leading-snug text-ink-3">
+        <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 pt-2.5 font-mono text-[11px] leading-snug text-ink-3">
           {footer}
         </div>
       )}
@@ -127,7 +127,7 @@ export function Wipe({ a, b, t, labelA, labelB }: { a: ReactNode; b: ReactNode; 
       <div className="absolute inset-0" style={{ clipPath: `inset(0 ${100 - pct}% 0 0)` }}>
         {b}
       </div>
-      {t > 0.001 && t < 0.999 && <div className="absolute inset-y-0 w-[2px] -translate-x-1/2 bg-surface shadow-[0_0_0_1px_rgba(27,34,32,0.35)]" style={{ left: `${pct}%` }} />}
+      {t > 0.001 && t < 0.999 && <div className="absolute inset-y-0 w-[2px] -translate-x-1/2 bg-surface shadow-[0_0_0_1px_rgba(21,25,28,0.35)]" style={{ left: `${pct}%` }} />}
       {labelB && <Chip className="absolute left-2.5 top-2.5" style={{ opacity: t > 0.08 ? 1 : 0 }}>{labelB}</Chip>}
       {labelA && <Chip className="absolute right-2.5 top-2.5" style={{ opacity: t < 0.92 ? 1 : 0 }}>{labelA}</Chip>}
     </>
@@ -137,7 +137,7 @@ export function Wipe({ a, b, t, labelA, labelB }: { a: ReactNode; b: ReactNode; 
 export function Chip({ children, className, style }: { children: ReactNode; className?: string; style?: CSSProperties }) {
   return (
     <span
-      className={cn('rounded-[2px] bg-surface/90 px-1.5 py-1 font-mono text-[10px] uppercase tracking-wider text-ink transition-opacity duration-300', className)}
+      className={cn('rounded-[2px] bg-surface/90 px-1.5 py-0.5 font-mono text-[11px] text-ink transition-opacity duration-300', className)}
       style={style}
     >
       {children}
@@ -158,28 +158,12 @@ export function Legend({ items, className }: { items: { label: string; color: st
   )
 }
 
-/** Number that eases toward its target value. */
+/** A number formatted for display. It changes at once when the step changes; there is no counting animation. */
 export function Count({ value, digits = 0, suffix = '', prefix = '' }: { value: number; digits?: number; suffix?: string; prefix?: string }) {
-  const [v, setV] = useState(value)
-  const from = useRef(value)
-  useEffect(() => {
-    const start = performance.now()
-    const a = from.current
-    let raf = 0
-    const step = (t: number) => {
-      const k = Math.min(1, (t - start) / 700)
-      const e = 1 - Math.pow(1 - k, 3)
-      setV(a + (value - a) * e)
-      if (k < 1) raf = requestAnimationFrame(step)
-      else from.current = value
-    }
-    raf = requestAnimationFrame(step)
-    return () => cancelAnimationFrame(raf)
-  }, [value])
   return (
     <>
       {prefix}
-      {v.toLocaleString('en-GB', { minimumFractionDigits: digits, maximumFractionDigits: digits })}
+      {value.toLocaleString('en-GB', { minimumFractionDigits: digits, maximumFractionDigits: digits })}
       {suffix}
     </>
   )
@@ -187,11 +171,11 @@ export function Count({ value, digits = 0, suffix = '', prefix = '' }: { value: 
 
 export const rgb = (c: number[]) => `rgb(${c[0]},${c[1]},${c[2]})`
 
-/** Small "method demonstration" note placed under a story. */
+/** Note under a walk-through that says what the figures are and where the data come from. */
 export function DemoNote({ children }: { children: ReactNode }) {
   return (
-    <div className="mt-10 border-l-2 border-accent pl-4 text-[13.5px] leading-relaxed text-ink-2">
-      <p className="eyebrow mb-1.5">About these figures</p>
+    <div className="mt-10 max-w-prose border border-line bg-plate px-4 py-3.5 text-[14px] leading-relaxed text-ink-2">
+      <p className="mb-1 text-[13px] font-semibold text-ink">About these figures</p>
       {children}
     </div>
   )

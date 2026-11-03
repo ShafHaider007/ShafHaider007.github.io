@@ -36,9 +36,9 @@ export function MoveSmartStory() {
     <>
       <Scrolly steps={steps} graphic={(s) => (d ? <Graphic d={d} s={s} /> : <div className="h-full animate-pulse bg-line/40" />)} />
       <DemoNote>
-        Recomputed for this site with open data: Landsat 8 thermal data (27 June 2019) for surface temperature,
-        Sentinel-2 for vegetation and the Overture Maps street network for routing. The project also used MODIS, tree
-        detection in street photos and PostGIS. Its 12 °C heat-island figure comes from that fuller analysis.
+        Recomputed for this site with open data: Landsat 8 thermal data (27 June 2019) for surface temperature, Sentinel-2 for
+        vegetation and the Overture Maps street network for routing. The project also used MODIS, a tree-trunk detection model
+        and PostGIS. Its 12 °C heat-island figure comes from that fuller analysis.
       </DemoNote>
     </>
   )
@@ -50,57 +50,55 @@ function buildSteps(d: Data | null) {
   return [
     {
       kicker: 'Heat',
-      title: 'Which parts of Islamabad are hottest?',
+      title: 'Surface heat across the city',
       body: (
         <>
           <p>
-            Landsat’s thermal band measures the heat given off by the ground. After correcting for how differently
-            surfaces give off heat, it shows land-surface temperature at 30 m.
+            Landsat’s thermal band measures the heat given off by the ground. After correcting for how differently surfaces give
+            off heat, it gives land-surface temperature on a 30 m grid (the thermal sensor itself sees about 100 m).
           </p>
           <p>
-            On a late-June morning the Margalla forest and the green belts are near {d ? Math.round(d.lst_range[0]) : '…'}{' '}
-            °C, while main roads and dense blocks pass {d ? Math.round(d.lst_range[1]) : '…'} °C.
+            On a late-June morning the Margalla forest and the green belts are near {d ? Math.round(d.lst_range[0]) : '…'} °C,
+            while main roads and dense blocks pass {d ? Math.round(d.lst_range[1]) : '…'} °C.
           </p>
         </>
       ),
     },
     {
       kicker: 'Vegetation',
-      title: 'Does vegetation make a difference?',
+      title: 'Vegetation and temperature',
       body: (
         <>
-          <p>
-            Plotting temperature against vegetation (NDVI) for every pixel shows a clear pattern: greener means cooler.
-          </p>
+          <p>Plotting temperature against vegetation (NDVI) for a sample of pixels shows a clear pattern: greener means cooler.</p>
           <p>
             Recomputed here with open data, the correlation is{' '}
-            <strong className="font-medium text-ink">r = {d ? d.scatter.r.toFixed(2) : '…'}</strong>, about{' '}
-            {d ? Math.abs(d.scatter.slope / 10).toFixed(1) : '…'} °C cooler for every 0.1 of NDVI. The project found r =
-            −0.72.
+            <strong className="font-semibold text-ink">r = {d ? d.scatter.r.toFixed(2) : '…'}</strong>, about{' '}
+            {d ? Math.abs(d.scatter.slope / 10).toFixed(1) : '…'} °C cooler for every 0.1 of NDVI. The project found r = −0.72.
           </p>
         </>
       ),
     },
     {
       kicker: 'Comfort',
-      title: 'How comfortable is each street?',
+      title: 'A comfort score for each street',
       body: (
         <>
           <p>
-            Each street segment takes the temperature and vegetation along it. Weights set with AHP combine heat (
+            Each street segment takes the temperature and vegetation along it. This re-creation combines heat (
             {d ? d.weights.heat * 100 : 50}%), shade ({d ? d.weights.shade * 100 : 30}%) and type of street (
-            {d ? d.weights.street * 100 : 20}%), so footpaths score better than highways.
+            {d ? d.weights.street * 100 : 20}%) with fixed weights, so footpaths score better than highways. The project derived
+            its weights with AHP, the analytic hierarchy process.
           </p>
           <p>
-            The routing cost is the length of a street, raised when the street is uncomfortable. A pleasant street can be
-            worth a short detour.
+            The routing cost is the length of a street, raised when the street is uncomfortable. A pleasant street can be worth a
+            short detour.
           </p>
         </>
       ),
     },
     {
       kicker: 'Routing',
-      title: 'Is the cooler route much longer?',
+      title: 'Shortest route against coolest route',
       body: (
         <>
           <p>
@@ -108,24 +106,23 @@ function buildSteps(d: Data | null) {
             {r ? fmt(r.shortest.length_m) : '…'} m at an average {r ? r.shortest.heat_c.toFixed(1) : '…'} °C.
           </p>
           <p>
-            The coolest is {r ? fmt(r.coolest.length_m) : '…'} m, only {Math.round(extra)}% longer, and{' '}
-            <strong className="font-medium text-ink">{r ? (r.shortest.heat_c - r.coolest.heat_c).toFixed(1) : '…'} °C cooler</strong>{' '}
-            on average, with {r ? Math.round((r.coolest.shade / r.shortest.shade - 1) * 100) : '…'}% more vegetation along
-            the way.
+            The coolest is {r ? fmt(r.coolest.length_m) : '…'} m, {Math.round(extra)}% longer, and{' '}
+            <strong className="font-semibold text-ink">{r ? (r.shortest.heat_c - r.coolest.heat_c).toFixed(1) : '…'} °C cooler</strong>{' '}
+            on average, with {r ? Math.round((r.coolest.shade / r.shortest.shade - 1) * 100) : '…'}% more vegetation along the way.
           </p>
         </>
       ),
     },
     {
       kicker: 'Walking areas',
-      title: 'How far can you walk in 5 to 30 minutes?',
+      title: 'Walking areas from 5 to 30 minutes',
       body: (
         <>
           <p>
-            The same street network shows how far you can walk from {d?.iso_origin_name ?? 'F-7 Markaz'} in 5, 10, 15, 20,
-            25 and 30 minutes at 4.8 km/h.
+            The same street network shows how far you can walk from {d?.iso_origin_name ?? 'F-7 Markaz'} in 5, 10, 15, 20, 25 and
+            30 minutes at 4.8 km/h.
           </p>
-          <p>In the project these walking areas sat next to the routes, so planners could see access and comfort together.</p>
+          <p>The project offered 5 to 30 minute walking areas alongside the routes.</p>
         </>
       ),
     },
@@ -240,7 +237,7 @@ function NetMap({ d, step, p, lstLegend }: { d: Data; step: number; p: number; l
       topRight={
         step === 4 ? (
           <div className="bg-surface/95 px-3 py-2 text-right">
-            <div className="font-serif text-[1.9rem] leading-none text-ink">
+            <div className="font-sans font-medium text-[1.9rem] leading-none text-ink">
               <Count value={shown ? d.iso_bins[shown - 1] : 0} /> min
             </div>
             <div className="mt-1 font-mono text-[10px] uppercase tracking-wider text-ink-3">walking from {d.iso_origin_name}</div>
@@ -319,7 +316,7 @@ function Scatter({ d, t }: { d: Data; t: number }) {
   const lt = seg(t, 0.65, 1)
   return (
     <div className="flex h-full flex-col">
-      <div className="relative min-h-0 flex-1 border border-ink/80 bg-surface p-3">
+      <div className="relative min-h-0 flex-1 border border-ink/70 bg-surface p-3">
         <svg viewBox={`0 0 ${W} ${H}`} className="h-full w-full" role="img" aria-label="Scatter of NDVI against land-surface temperature">
           {[30, 34, 38, 42, 46].map((v) => (
             <g key={v}>
@@ -356,11 +353,11 @@ function Scatter({ d, t }: { d: Data; t: number }) {
           />
         </svg>
         <div className="absolute right-6 top-6 bg-surface/95 px-3 py-2 text-right" style={{ opacity: lt }}>
-          <div className="font-serif text-[2rem] leading-none text-ink">r = {d.scatter.r.toFixed(2)}</div>
+          <div className="font-sans font-medium text-[2rem] leading-none text-ink">r = {d.scatter.r.toFixed(2)}</div>
           <div className="mt-1 font-mono text-[10px] uppercase tracking-wider text-ink-3">{d.scatter.ndvi.length.toLocaleString()} pixels</div>
         </div>
       </div>
-      <div className="pt-2.5 font-mono text-[10.5px] text-ink-3">Random sample of non-water pixels, 30 m · least-squares fit</div>
+      <div className="pt-2.5 font-mono text-[11px] text-ink-3">Random sample of non-water pixels, 30 m · least-squares fit</div>
     </div>
   )
 }
@@ -394,7 +391,7 @@ function Profile({ d, a, b }: { d: Data; a: number; b: number }) {
           {fmt(maxD)} m
         </text>
       </svg>
-      <div className="flex flex-wrap gap-x-5 font-mono text-[10.5px] text-ink-3">
+      <div className="flex flex-wrap gap-x-5 font-mono text-[11px] text-ink-3">
         <span>Temperature along each route</span>
         <span className="text-ink">shortest {d.routes.shortest.heat_c.toFixed(1)} °C</span>
         <span style={{ color: COOL }}>coolest {d.routes.coolest.heat_c.toFixed(1)} °C</span>

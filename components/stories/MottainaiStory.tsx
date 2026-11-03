@@ -18,9 +18,9 @@ export function MottainaiStory() {
     <>
       <Scrolly steps={steps} graphic={(s) => (d ? <Graphic d={d} s={s} /> : <div className="h-full animate-pulse bg-line/40" />)} />
       <DemoNote>
-        The street network is real (Overture Maps, Lagos mainland). The fourteen pickup points are random, placed only for
-        this example, and the distances are measured on the real streets. The 28% in the project summary is the real drop
-        in Mottainai’s routing costs, which is a different number.
+        The street network is real (Overture Maps, Lagos mainland). The fourteen pickup points are random, placed only for this
+        example, and the distances are measured on the real streets. The figure of at least 28% in the project summary is the
+        real fall in Mottainai’s routing costs, which is a different measure.
       </DemoNote>
     </>
   )
@@ -31,52 +31,56 @@ function buildSteps(d: Data | null) {
   return [
     {
       kicker: 'Operations',
-      title: 'Where are the pickups?',
+      title: 'Pickups, drivers and field teams',
       body: (
         <>
           <p>
-            Customers ask for recycling pickups in an app. Drivers and field managers do the work on the street. Behind
-            them is the ArcGIS Online setup I run: data on customers, requests, depots and routes.
+            Customers ask for recycling pickups in an app. Drivers and field managers do the work on the street. Behind them was
+            the ArcGIS Online organisation I administered, with the data and services for customer pickups, driver dispatch and
+            field management.
           </p>
         </>
       ),
     },
     {
       kicker: 'Arrival order',
-      title: 'What does first come, first served cost?',
+      title: 'Stops in the order requests arrive',
       body: (
         <>
           <p>
-            Collecting in the order requests arrive sends a truck back and forth across the city. On this street network,
-            fourteen stops in arrival order add up to{' '}
-            <strong className="font-medium text-ink">{d ? d.naive.km.toFixed(1) : '…'} km</strong>.
+            Collecting in the order requests arrive sends a truck back and forth across the city. On this street network, fourteen
+            example stops in arrival order add up to{' '}
+            <strong className="font-semibold text-ink">{d ? d.naive.km.toFixed(1) : '…'} km</strong>.
           </p>
         </>
       ),
     },
     {
       kicker: 'Ordered stops',
-      title: 'How much does ordering the stops save?',
+      title: 'Stops in the shortest order',
       body: (
         <>
           <p>
-            A self-hosted GraphHopper engine works out the street distance between every pair of stops and puts them in the
-            order that gives the shortest drive. Here that is{' '}
-            <strong className="font-medium text-ink">{d ? d.optimised.km.toFixed(1) : '…'} km</strong>, {save}% shorter.
+            Mottainai’s routing used a self-hosted GraphHopper engine to order stops. This walk-through does the same kind of
+            calculation: it finds the street distance between every pair of stops and the order with the shortest total drive.
+            Here that is <strong className="font-semibold text-ink">{d ? d.optimised.km.toFixed(1) : '…'} km</strong>, {save}%
+            shorter.
           </p>
-          <p>Running the engine ourselves also removed the per-request fees from Google Maps and Mapbox.</p>
+          <p>
+            For Mottainai, running the engine in-house reduced reliance on paid Google Maps and Mapbox routing, and recurring
+            routing costs fell by at least 28%.
+          </p>
         </>
       ),
     },
     {
       kicker: 'Field apps',
-      title: 'How do the apps work with a weak signal?',
+      title: 'Field apps for weak signals',
       body: (
         <>
           <p>
-            The customer, driver and field manager apps, written in Kotlin with the ArcGIS Maps SDK and Mapbox SDK, save
-            locations offline and send them when the phone is back online. On Lagos streets with patchy coverage, that
-            keeps the data complete.
+            The customer, driver and field manager apps, written in Kotlin with the ArcGIS Maps SDK and Mapbox SDK, save locations
+            offline and send them when the phone is back online, so field data are not lost when the signal drops.
           </p>
         </>
       ),
@@ -97,7 +101,7 @@ function Graphic({ d, s }: { d: Data; s: ScrollState }) {
       topRight={
         step >= 1 ? (
           <div className="bg-surface/95 px-3 py-2 text-right">
-            <div className="font-serif text-[1.9rem] leading-none text-ink">
+            <div className="font-sans font-medium text-[1.9rem] leading-none text-ink">
               <Count value={km} digits={1} /> km
             </div>
             <div className="mt-1 font-mono text-[10px] uppercase tracking-wider text-ink-3">{step === 1 ? 'arrival order' : 'optimised'}</div>
@@ -187,7 +191,7 @@ function Architecture({ p }: { p: number }) {
     { name: 'GraphHopper', sub: 'self-hosted routing', y: 280 },
   ]
   return (
-    <div className="flex h-full flex-col justify-center border border-ink/80 bg-surface p-5">
+    <div className="flex h-full flex-col justify-center border border-ink/70 bg-surface p-5">
       <svg viewBox="0 0 640 400" className="w-full" role="img" aria-label="App and service architecture">
         {apps.map((a, i) => (
           <g key={a.name} opacity={seg(t, i * 0.1, i * 0.1 + 0.2)}>

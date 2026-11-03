@@ -39,12 +39,12 @@ function buildSteps(d: Data | null) {
   return [
     {
       kicker: 'Inputs',
-      title: 'Why don’t national layers line up?',
+      title: 'Bringing layers onto one grid',
       body: (
         <>
           <p>
-            A forest platform takes maps from many sources. They come in different projections, cell sizes, data types
-            and ways of marking missing data. Shown as they are, they do not line up and they load slowly.
+            A forest platform takes maps from many sources. They come in different projections, cell sizes, data types and ways of
+            marking missing data. Shown as they are, they do not line up and they load slowly.
           </p>
           <p>The first job is to bring them all onto one grid.</p>
         </>
@@ -52,42 +52,42 @@ function buildSteps(d: Data | null) {
     },
     {
       kicker: 'Checks',
-      title: 'How do we stop bad data reaching the map?',
+      title: 'Automatic checks before publishing',
       body: (
         <>
           <p>
-            Every layer goes through automatic checks before it is published: coverage, value ranges, class codes and
-            projection. If a layer fails, the run stops instead of putting a broken map online.
+            In this rebuilt pipeline, every layer goes through automatic checks before it is published: coverage, value ranges,
+            class codes and projection. If a layer fails, the run stops instead of putting a broken map online.
           </p>
         </>
       ),
     },
     {
       kicker: 'Tiles',
-      title: 'How can a huge raster load quickly in a browser?',
+      title: 'Tiles for fast loading',
       body: (
         <>
           <p>
-            Each layer is cut into small 256-pixel tiles for every zoom level and packed as MBTiles. The browser only asks
-            for the few tiles on screen.
+            Each layer is cut into small 256-pixel tiles for every zoom level and packed as MBTiles. The browser only asks for the
+            few tiles on screen.
           </p>
           <p>
-            This example has {total || '…'} tiles across zoom levels {d?.minzoom ?? 5} to {d?.maxzoom ?? 9}. Each level has
-            about four times as many tiles as the one above it.
+            This example has {total || '…'} tiles across zoom levels {d?.minzoom ?? 5} to {d?.maxzoom ?? 9}. Each level has about
+            four times as many tiles as the one above it.
           </p>
         </>
       ),
     },
     {
       kicker: 'The map',
-      title: 'What does the user get?',
+      title: 'The live map',
       body: (
         <>
           <p>
-            A map that responds at once. Try it: drag to move, hold Ctrl or ⌘ and scroll to zoom (two fingers on a phone),
-            and switch the forest layer on and off.
+            Try it: drag to move, hold Ctrl or ⌘ and scroll to zoom (two fingers on a phone), and switch the forest layer on and
+            off.
           </p>
-          <p className="text-[13px] text-ink-3">Relief from Copernicus GLO-90. Forest from ESA WorldCover 2021.</p>
+          <p className="font-sans text-[13.5px] leading-relaxed text-ink-3">Relief from Copernicus GLO-90. Forest from ESA WorldCover 2021.</p>
         </>
       ),
     },
@@ -114,7 +114,7 @@ function Pipeline({ p }: { p: number; stage: number }) {
   const stages = ['Harmonise', 'QA/QC', 'Tile', 'Publish']
   const t = seg(p, 0.05, 0.85)
   return (
-    <div className="flex h-full flex-col justify-center border border-ink/80 bg-surface p-5">
+    <div className="flex h-full flex-col justify-center border border-ink/70 bg-surface p-5">
       <svg viewBox="0 0 640 400" className="w-full" role="img" aria-label="Raster pipeline">
         {inputs.map((inp, i) => {
           const y = 40 + i * 90
@@ -158,7 +158,7 @@ function Pipeline({ p }: { p: number; stage: number }) {
           </text>
         </g>
       </svg>
-      <p className="mt-2 font-mono text-[10.5px] text-ink-3">Python · GDAL · rasterio · MBTiles</p>
+      <p className="mt-2 font-mono text-[11px] text-ink-3">Python · GDAL · rasterio · MBTiles</p>
     </div>
   )
 }
@@ -171,7 +171,7 @@ function QaPanel({ d, p }: { d: Data; p: number }) {
     { check: 'Payload', value: `${((d.bytes.relief + d.bytes.forest) / 1e6).toFixed(1)} MB for both layers`, ok: true },
   ]
   return (
-    <div className="flex h-full flex-col justify-center border border-ink/80 bg-surface p-6">
+    <div className="flex h-full flex-col justify-center border border-ink/70 bg-surface p-6">
       <p className="eyebrow">Automated QA/QC · this run</p>
       <ul className="mt-4 divide-y divide-line">
         {rows.map((r, i) => {
@@ -205,7 +205,7 @@ function Pyramid({ d, p }: { d: Data; p: number }) {
   const aspect = (x1 - x0) / (y1 - y0)
   return (
     <div className="grid h-full grid-rows-[minmax(0,1fr)_auto] gap-3">
-      <div className="relative min-h-0 overflow-hidden border border-ink/80 bg-surface [perspective:1600px]">
+      <div className="relative min-h-0 overflow-hidden border border-ink/70 bg-surface [perspective:1600px]">
         <Fit aspect={aspect}>
           <div
             className="absolute inset-[22%_24%_18%_20%] [transform-style:preserve-3d]"
@@ -257,9 +257,9 @@ function Pyramid({ d, p }: { d: Data; p: number }) {
           const max = Math.max(...Object.values(d.counts))
           return (
             <div key={z} className="flex flex-1 flex-col items-center gap-1">
-              <span className="font-mono text-[10.5px] text-ink-2">{n}</span>
+              <span className="font-mono text-[11px] text-ink-2">{n}</span>
               <span className="w-full bg-ink/80" style={{ height: `${6 + (n / max) * 36}px` }} />
-              <span className="font-mono text-[10.5px] text-ink-3">z{z}</span>
+              <span className="font-mono text-[11px] text-ink-3">z{z}</span>
             </div>
           )
         })}
@@ -275,15 +275,24 @@ function LiveMap({ d }: { d: Data }) {
   const map = useRef<import('maplibre-gl').Map | null>(null)
   const [forest, setForest] = useState(true)
   const [ready, setReady] = useState(false)
+  const [failed, setFailed] = useState(false)
 
   useEffect(() => {
     let cancelled = false
     ;(async () => {
-      const maplibregl = (await import('maplibre-gl')).default
+      let maplibregl: typeof import('maplibre-gl')
+      try {
+        maplibregl = (await import('maplibre-gl')).default
+      } catch {
+        if (!cancelled) setFailed(true)
+        return
+      }
       if (cancelled || !el.current) return
       const root = `${window.location.origin}${basePath}/viz/nfms/tiles`
       const [w, s, e, n] = d.bounds
-      const m = new maplibregl.Map({
+      let m: import('maplibre-gl').Map
+      try {
+        m = new maplibregl.Map({
         container: el.current,
         style: {
           version: 8,
@@ -311,6 +320,11 @@ function LiveMap({ d }: { d: Data }) {
         cooperativeGestures: true,
         dragRotate: false,
       })
+      } catch {
+        // no WebGL (or it is switched off): show the fallback message instead of an empty frame
+        if (!cancelled) setFailed(true)
+        return
+      }
       m.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right')
       m.addControl(new maplibregl.ScaleControl({ unit: 'metric' }), 'bottom-left')
       m.on('load', () => setReady(true))
@@ -329,12 +343,19 @@ function LiveMap({ d }: { d: Data }) {
 
   return (
     <div className="flex h-full flex-col">
-      <div className="relative min-h-0 flex-1 border border-ink/80 bg-surface p-[5px]">
-        <div ref={el} className="h-full w-full" aria-label="Interactive map of forest cover in northern Pakistan" />
+      <div className="relative min-h-0 flex-1 border border-ink/70 bg-surface p-1">
+        <div ref={el} className="h-full w-full" role="region" aria-label="Interactive map of forest cover in northern Pakistan" />
+        {failed && (
+          <div role="alert" className="absolute inset-1 grid place-items-center bg-plate p-6 text-center text-[14px] leading-relaxed text-ink-2">
+            The live map needs WebGL, which is not available in this browser. The tile figure in the previous step shows the same
+            layers.
+          </div>
+        )}
         <div className="absolute left-4 top-4 z-10 flex gap-1.5">
           <button
             type="button"
             onClick={() => setForest((f) => !f)}
+            aria-pressed={forest}
             className={cn('border px-2.5 py-1.5 text-[12px] font-medium transition-colors', forest ? 'border-[#265c3a] bg-[#265c3a] text-white' : 'border-ink bg-surface text-ink')}
           >
             Forest cover {forest ? 'on' : 'off'}
@@ -342,7 +363,7 @@ function LiveMap({ d }: { d: Data }) {
           <Chip className="self-center">zoom 5–9 tiles</Chip>
         </div>
       </div>
-      <div className="flex justify-between pt-2.5 font-mono text-[10.5px] text-ink-3">
+      <div className="flex justify-between pt-2.5 font-mono text-[11px] text-ink-3">
         <span>MapLibre GL · raster tiles from this site</span>
         <span>Copernicus GLO-90 · ESA WorldCover 2021</span>
       </div>

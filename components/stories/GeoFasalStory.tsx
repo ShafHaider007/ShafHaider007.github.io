@@ -28,9 +28,9 @@ export function GeoFasalStory() {
     <>
       <Scrolly steps={steps} graphic={(s) => (d ? <Graphic d={d} s={s} /> : <div className="h-full animate-pulse bg-line/40" />)} />
       <DemoNote>
-        A 4.2 × 2.8 km block of fields near Sahiwal, Punjab, through the 2024–25 winter season: every clear Sentinel-2
-        image from October to May, fields found by image segmentation and grouped by the shape of their NDVI curve.
-        GeoFasal does the same for any field a farmer draws.
+        A 4.2 × 2.8 km block of fields near Sahiwal, Punjab, through the 2024–25 winter season: every clear Sentinel-2 image from
+        October to May, fields found by image segmentation and grouped by the shape of their NDVI curve. GeoFasal computes NDVI
+        and NDWI for any field a user draws.
       </DemoNote>
     </>
   )
@@ -41,12 +41,12 @@ function buildSteps(d: Data | null) {
   return [
     {
       kicker: 'The season',
-      title: 'What does one season look like from space?',
+      title: 'One season from space',
       body: (
         <>
           <p>
-            GeoFasal gets Sentinel-2 images for each field through a STAC API and keeps only clear days. Winter fog in
-            Punjab is not always caught by the cloud mask, so days when the fields suddenly look bare are removed too.
+            GeoFasal pulls Sentinel-2 data for each field through STAC APIs. This walk-through keeps only clear days. Winter fog in
+            Punjab is not always caught by the cloud mask, so days when the fields suddenly look bare are removed as well.
           </p>
           <p>Scroll to move through the {d ? d.dates.length : '…'} clear days of the 2024–25 season.</p>
         </>
@@ -54,38 +54,42 @@ function buildSteps(d: Data | null) {
     },
     {
       kicker: 'NDVI',
-      title: 'How green is each field, week by week?',
+      title: 'How green each field is, week by week',
       body: (
         <>
           <p>
-            NDVI turns each image into a measure of how green and dense the crop is. Wheat greens up in January, peaks in
-            February and March, and dries before harvest in April. Other fields follow other calendars.
+            NDVI turns each image into a measure of how green and dense the crop is. Wheat greens up in January, peaks in February
+            and March, and dries before harvest in April. Other fields follow other calendars.
           </p>
         </>
       ),
     },
     {
       kicker: 'Crop groups',
-      title: 'Can fields be grouped by crop without labels?',
+      title: 'Grouping fields by crop calendar',
       body: (
         <>
           <p>
-            Splitting the area into {d ? d.n_fields : '…'} fields and grouping their NDVI curves separates the crops
-            without any training labels. Wheat covers about {wheat ? Math.round(wheat.share * 100) : '…'}% of the field area
-            here.
+            Grouping the NDVI curves of {d ? d.n_fields : '…'} fields finds a few typical crop calendars without any training
+            labels. The largest group follows a wheat calendar and covers about{' '}
+            {wheat ? Math.round(wheat.share * 100) : '…'}% of the field area here.
           </p>
-          <p>The outlined fields are one example from each group.</p>
+          <p>
+            The outlined fields are one example from each group. The group names are read from the shape of each curve, not
+            checked in the field.
+          </p>
         </>
       ),
     },
     {
       kicker: 'Yield model',
-      title: 'What goes into the yield model?',
+      title: 'Inputs to the yield model',
       body: (
         <>
           <p>
-            NDWI follows the water in the leaves alongside NDVI. The curves of both, plus timing such as green-up date,
-            peak value and how fast the crop dries, are the inputs to GeoFasal’s yield predictions and advice.
+            NDWI follows the water in the leaves alongside NDVI. GeoFasal computes both for each field a user draws and passes them
+            to machine-learning models that predict yield. Features such as green-up date, peak value and how fast the crop dries
+            are typical inputs to models of this kind.
           </p>
         </>
       ),
@@ -109,10 +113,20 @@ function Graphic({ d, s }: { d: Data; s: ScrollState }) {
         topRight={<span className="bg-surface/95 px-2 py-1 font-mono text-[12px] text-ink">{label(d.dates[idx])}</span>}
       >
         {d.dates.map((_, i) => (
-          <Layer key={`r${i}`} src={`geofasal/rgb_${String(i).padStart(2, '0')}.webp`} alt="" style={{ opacity: !showNdvi && i === idx ? 1 : 0 }} />
+          <Layer
+            key={`r${i}`}
+            src={`geofasal/rgb_${String(i).padStart(2, '0')}.webp`}
+            alt={!showNdvi && i === idx ? `True-colour Sentinel-2 image of the fields near Sahiwal on ${label(d.dates[i])}` : ''}
+            style={{ opacity: !showNdvi && i === idx ? 1 : 0 }}
+          />
         ))}
         {d.dates.map((_, i) => (
-          <Layer key={`n${i}`} src={`geofasal/ndvi_${String(i).padStart(2, '0')}.webp`} alt="" style={{ opacity: showNdvi && i === idx ? 1 : 0 }} />
+          <Layer
+            key={`n${i}`}
+            src={`geofasal/ndvi_${String(i).padStart(2, '0')}.webp`}
+            alt={showNdvi && i === idx ? `NDVI map of the same fields on ${label(d.dates[i])}: darker green means denser crops` : ''}
+            style={{ opacity: showNdvi && i === idx ? 1 : 0 }}
+          />
         ))}
         <Layer src="geofasal/fields.webp" alt="" className="transition-opacity duration-500" style={{ opacity: fieldsOn ? 0.55 : 0 }} />
         <svg viewBox={`0 0 ${W} ${H}`} className="absolute inset-0 h-full w-full transition-opacity duration-500" style={{ opacity: fieldsOn ? 1 : 0 }}>
@@ -184,7 +198,7 @@ function Calendar({ d, idx, metric, highlight }: { d: Data; idx: number; metric:
             {c.name} <span className="text-ink-3">{Math.round(c.share * 100)}%</span>
           </span>
         ))}
-        <span className="ml-auto font-mono text-[10.5px] text-ink-3">{metric.toUpperCase()} · mean per crop group</span>
+        <span className="ml-auto font-mono text-[11px] text-ink-3">{metric.toUpperCase()} · mean per crop group</span>
       </div>
     </div>
   )

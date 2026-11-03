@@ -40,9 +40,9 @@ export function JfrelStory() {
     <>
       <Scrolly steps={steps} graphic={(s) => (d ? <Graphic d={d} s={s} /> : <div className="h-full animate-pulse bg-line/40" />)} />
       <DemoNote>
-        The study’s jurisdictions and results are not public. This walk-through repeats the method on a 15 × 17 km public
-        test area near Murree, using open data: Sentinel-2 images, ESA WorldCover as reference labels, and Hansen Global
-        Forest Change for comparison. The numbers describe the test area only.
+        The study’s maps and results are not shown here. This walk-through repeats the method on a 15 × 17 km open-data test
+        area near Murree, using Sentinel-2 images, ESA WorldCover as reference labels and Hansen Global Forest Change for
+        comparison. The numbers describe the test area only.
       </DemoNote>
     </>
   )
@@ -55,130 +55,132 @@ function buildSteps(d: Data | null) {
   return [
     {
       kicker: 'Comparable images',
-      title: 'Can images from different years be compared fairly?',
+      title: 'Comparable images for each year',
       body: (
         <>
           <p>
-            A change on the map is only real if the images agree on everything except the land. For each year I used
-            scenes from the same three weeks of September, removed cloud and shadow, and kept the middle value of each
-            pixel.
+            A change on the map is only real if the images agree on everything except the land. For each year, this walk-through
+            uses scenes from the same three weeks of September, removes cloud and shadow, and keeps the median value of each pixel.
           </p>
           <p>
-            The season matters in the hills. By October the grass turns brown and the low sun casts long shadows, and
-            both look like forest change. A last step matches the brightness of each year to the most recent one, using
-            pixels that did not change.
+            The season matters in the hills. By October the grass turns brown and the low sun casts long shadows, and both can look
+            like forest change. A last step matches the brightness of each year to the most recent one, using pixels that did not
+            change.
           </p>
-          <p className="text-[13px] text-ink-3">
-            The study used 2016, 2020 and 2024. The open archive used here starts in 2017, so this walk-through uses{' '}
-            {y.join(', ')}.
+          <p className="font-sans text-[13.5px] leading-relaxed text-ink-3">
+            The study used 2016, 2020 and 2024. This walk-through uses {y.join(', ')}.
           </p>
         </>
       ),
     },
     {
       kicker: 'Land cover',
-      title: 'What covers the land in each year?',
+      title: 'A land-cover map for each year',
       body: (
         <>
           <p>
-            Each year is mapped on its own at 10 m. A random forest model learns from labelled pixels, using ten
-            spectral bands and five indices such as NDVI.
+            Each year is mapped on its own at 10 m. A random forest model learns from labelled pixels, using ten spectral bands and
+            five indices such as NDVI.
           </p>
           <p>
-            Checked against reference labels it has not seen, the maps agree{' '}
-            {oa.length ? `${Math.round(Math.min(...oa) * 100)} to ${Math.round(Math.max(...oa) * 100)}%` : '…'} of the
-            time, and forest is the most reliable class. Forest is then split into dense and open by canopy density.
+            Against ESA WorldCover labels it was not trained on, the maps agree{' '}
+            {oa.length ? `${Math.round(Math.min(...oa) * 100)} to ${Math.round(Math.max(...oa) * 100)}%` : '…'} of the time.
+            WorldCover is itself a model output, so this measures agreement, not ground truth. Forest is then split into dense and
+            open by canopy density.
           </p>
         </>
       ),
     },
     {
       kicker: 'Real change',
-      title: 'Which changes are real?',
+      title: 'Separating real change from map error',
       body: (
         <>
           <p>
             Compare two maps made independently and{' '}
-            <strong className="font-medium text-ink">{d ? Math.round(d.changed.raw * 100) : '…'}%</strong> of pixels
-            change class at least once. Most of that is map error, not change on the ground.
+            <strong className="font-semibold text-ink">{d ? Math.round(d.changed.raw * 100) : '…'}%</strong> of pixels change
+            class at least once. Most of that is map error, not change on the ground.
           </p>
           <p>
-            I kept only change that makes sense and lasts. A pixel that flips and flips back is ignored. Built-up land
-            cannot turn back into forest in a few years. Patches smaller than half a hectare are dropped. Forest only
-            counts as degraded if its canopy falls clearly. What is left is{' '}
-            <strong className="font-medium text-ink">{d ? Math.round(d.changed.refined * 100) : '…'}%</strong>.
+            Rules then remove change that is implausible or does not last. A pixel that flips and flips back is ignored. Built-up
+            land cannot turn back into forest in a few years. Patches smaller than half a hectare are dropped. Forest only counts
+            as degraded if its canopy falls clearly. What is left is{' '}
+            <strong className="font-semibold text-ink">{d ? Math.round(d.changed.refined * 100) : '…'}%</strong>.
           </p>
         </>
       ),
     },
     {
       kicker: 'Transitions',
-      title: 'Where did each hectare go?',
+      title: 'Transitions between land-cover classes',
       body: (
         <>
           <p>
-            The cleaned maps give a transition matrix: how much of each class in {y[0]} became each class in {y[1]},
-            and then in {y[2]}. Wide bands are land that stayed the same. The thin crossings are the activity data that
-            carbon accounts need.
+            The cleaned maps give a transition matrix: how much of each class in {y[0]} became each class in {y[1]}, and then in{' '}
+            {y[2]}. Wide bands are land that stayed the same. The thin crossings are the activity data that carbon accounts need.
           </p>
           <p>
             Built-up land grows from{' '}
-            {d ? `${fmt(d.areas[y[0]]['Built-up'])} to ${fmt(d.areas[y[2]]['Built-up'])} hectares` : '…'}, mostly on
-            former grass, shrub and terraced fields.
+            {d ? `${fmt(d.areas[y[0]]['Built-up'])} to ${fmt(d.areas[y[2]]['Built-up'])} hectares` : '…'}, taking land from shrub
+            and grass, open forest and cropland in similar amounts.
           </p>
         </>
       ),
     },
     {
       kicker: 'Degradation',
-      title: 'Is the forest thinning before it disappears?',
+      title: 'Degradation inside the forest',
       body: (
         <>
           <p>
-            Degradation rarely removes a whole 10 m pixel of forest. Spectral unmixing estimates how much of each pixel
-            is green leaves, bare soil and shadow, which gives a measure of canopy density.
+            Degradation rarely removes a whole 10 m pixel of forest. Spectral unmixing estimates how much of each pixel is green
+            leaves, bare soil and shadow, which gives a measure of canopy density.
           </p>
           <p>
-            A forest pixel whose canopy drops by more than 0.15 and falls below the dense-forest line of{' '}
-            {d ? d.dense_threshold.toFixed(2) : '…'} counts as degraded. A simple forest or non-forest map would miss it.
+            Here a forest pixel whose canopy drops by more than 0.15 and falls below the dense-forest line of{' '}
+            {d ? d.dense_threshold.toFixed(2) : '…'} counts as degraded. A forest or non-forest map would not record it.
           </p>
         </>
       ),
     },
     {
       kicker: 'Uncertainty',
-      title: 'How sure are we about the area?',
+      title: 'Area estimates with confidence intervals',
       body: (
         <>
           <p>
-            Counting pixels on a map carries the map’s errors into the totals. The IPCC recommends estimating areas from
-            a random sample of checked points instead, and reporting a confidence interval.
+            Counting pixels on a map carries the map’s errors into the totals. Good-practice guidance for land-change mapping
+            (Olofsson and others, 2014) recommends estimating areas from a random sample of reference points instead, and
+            reporting a confidence interval.
           </p>
           <p>
-            Here the map shows {fe ? fmt(fe.map_ha) : '…'} ha of forest. The sample-based estimate is{' '}
-            <strong className="font-medium text-ink">{fe ? `${fmt(fe.est_ha)} ± ${fmt(fe.ci95_ha)} ha` : '…'}</strong>{' '}
-            at 95% confidence. When the map says forest it is almost always right ({fe ? Math.round(fe.users * 100) : '…'}
-            %), but it misses some sparse tree cover.
+            In the {y[1]} map, forest covers {fe ? fmt(fe.map_ha) : '…'} ha. The sample-based estimate is{' '}
+            <strong className="font-semibold text-ink">{fe ? `${fmt(fe.est_ha)} ± ${fmt(fe.ci95_ha)} ha` : '…'}</strong> at 95%
+            confidence. When the map says forest it is almost always right ({fe ? Math.round(fe.users * 100) : '…'}%), but it
+            misses a large share of sparse tree cover: about {fe ? 100 - Math.round(fe.producers * 100) : '…'}% of the forest in
+            the reference sample is mapped as another class.
           </p>
-          <p className="text-[13px] text-ink-3">
-            For comparison, Hansen Global Forest Change records only {d ? d.hansen_loss_ha.toFixed(1) : '…'} ha of
-            forest loss in this area for 2019 to 2024.
+          <p className="font-sans text-[13.5px] leading-relaxed text-ink-3">
+            The reference labels here come from ESA WorldCover; a real assessment checks each sample point against very high
+            resolution imagery or in the field. Hansen Global Forest Change, which maps stand-replacing loss, records{' '}
+            {d ? d.hansen_loss_ha.toFixed(1) : '…'} ha of loss in this area for 2019 to 2024. It defines loss differently, so
+            the two numbers are not directly comparable.
           </p>
         </>
       ),
     },
     {
       kicker: 'Carbon',
-      title: 'What does this mean for carbon?',
+      title: 'From area to carbon',
       body: (
         <>
           <p>
-            The IPCC method multiplies the area of each change per year by an emission factor: the difference in carbon
-            between the two land types, measured on field plots.
+            The IPCC method multiplies the area of each change per year (the activity data) by an emission factor: the difference
+            in carbon per hectare between the two land types, measured on field plots.
           </p>
           <p>
-            In the study, the emission factors came from the field inventory, and the uncertainty in both parts was
-            carried through to the reference level.
+            In the study, the activity data were combined with field inventories for IPCC-aligned carbon accounting, with
+            uncertainty assessment, field verification and stakeholder validation.
           </p>
         </>
       ),
@@ -195,7 +197,7 @@ function Graphic({ d, s }: { d: Data; s: ScrollState }) {
     return (
       <Figure
         aspect={ASPECT}
-        topLeft={<span className="font-serif text-[2.4rem] leading-none text-surface drop-shadow-[0_1px_3px_rgba(0,0,0,0.45)]">{y[k]}</span>}
+        topLeft={<span className="font-sans font-medium text-[2.4rem] leading-none text-surface drop-shadow-[0_1px_3px_rgba(0,0,0,0.45)]">{y[k]}</span>}
         footer={
           <>
             <span>Sentinel-2 L2A median composite · 1–25 September</span>
@@ -249,7 +251,7 @@ function Graphic({ d, s }: { d: Data; s: ScrollState }) {
         aspect={ASPECT}
         topRight={
           <div className="bg-surface/95 px-3 py-2 text-right">
-            <div className="font-serif text-[1.9rem] leading-none text-ink">
+            <div className="font-sans font-medium text-[1.9rem] leading-none text-ink">
               <Count value={Math.round(share * 100)} suffix="%" />
             </div>
             <div className="mt-1 font-mono text-[10px] uppercase tracking-wider text-ink-3">pixels changing</div>
@@ -341,7 +343,7 @@ function SankeyFig({ d, t }: { d: Data; t: number }) {
   const path = sankeyLinkHorizontal()
   return (
     <div className="flex h-full flex-col">
-      <div className="min-h-0 flex-1 border border-ink/80 bg-surface p-3">
+      <div className="min-h-0 flex-1 border border-ink/70 bg-surface p-3">
         <svg viewBox={`0 0 ${W} ${H}`} className="h-full w-full" role="img" aria-label="Land-cover transitions between epochs">
           {d.epochs.map((e, i) => (
             <text key={e} x={92 + i * ((W - 184 - 12) / 2) + 6} y={14} textAnchor="middle" className="fill-ink font-mono" fontSize={12}>
@@ -390,7 +392,7 @@ function SankeyFig({ d, t }: { d: Data; t: number }) {
           })}
         </svg>
       </div>
-      <div className="flex flex-wrap items-center justify-between gap-x-4 pt-2.5 font-mono text-[10.5px] text-ink-3">
+      <div className="flex flex-wrap items-center justify-between gap-x-4 pt-2.5 font-mono text-[11px] text-ink-3">
         <span>Refined transitions, hectares (flows under 25 ha hidden)</span>
         <span>Faint = stable · strong = change</span>
       </div>
@@ -433,7 +435,7 @@ function Histogram({ d, t }: { d: Data; t: number }) {
           </text>
         ))}
       </svg>
-      <div className="flex flex-wrap gap-x-4 font-mono text-[10.5px] text-ink-3">
+      <div className="flex flex-wrap gap-x-4 font-mono text-[11px] text-ink-3">
         <span className="flex items-center gap-1.5">
           <span className="h-[2px] w-4 bg-[#7c8481]" /> {d.epochs[0]}
         </span>
@@ -455,7 +457,7 @@ function EstimateFig({ d, t }: { d: Data; t: number }) {
   const x = (v: number) => 120 + (v / max) * (W - 150)
   const acc = d.epochs.map((e) => d.accuracy[String(e)])
   return (
-    <div className="flex h-full flex-col justify-center gap-6 border border-ink/80 bg-surface p-6">
+    <div className="flex h-full flex-col justify-center gap-6 border border-ink/70 bg-surface p-6">
       <div>
         <p className="eyebrow">Forest area, middle epoch</p>
         <svg viewBox={`0 0 ${W} 150`} className="mt-3 w-full">
@@ -491,7 +493,7 @@ function EstimateFig({ d, t }: { d: Data; t: number }) {
       <div className="grid grid-cols-3 gap-4 border-t border-line pt-5">
         {acc.map((a, i) => (
           <div key={i}>
-            <div className="font-serif text-[1.8rem] leading-none text-ink">
+            <div className="font-sans font-medium text-[1.8rem] leading-none text-ink">
               <Count value={Math.round(a.oa * 100 * seg(t, 0.2, 0.8))} suffix="%" />
             </div>
             <div className="mt-1.5 text-[12.5px] leading-snug text-ink-3">
@@ -500,7 +502,7 @@ function EstimateFig({ d, t }: { d: Data; t: number }) {
           </div>
         ))}
       </div>
-      <p className="font-mono text-[10.5px] leading-snug text-ink-3">
+      <p className="font-mono text-[11px] leading-snug text-ink-3">
         Stratified random sample, 150 points per map class; reference: ESA WorldCover 2021 standing in for visual
         interpretation.
       </p>
@@ -520,12 +522,12 @@ function EquationFig({ d, t }: { d: Data; t: number }) {
     { label: 'Dense → open forest', ad: degr, ef: 'EF degradation', color: '#e2a840' },
   ]
   return (
-    <div className="flex h-full flex-col justify-center gap-5 border border-ink/80 bg-surface p-6">
-      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-2 font-serif text-[1.55rem] leading-tight text-ink sm:text-[1.9rem]">
+    <div className="flex h-full flex-col justify-center gap-5 border border-ink/70 bg-surface p-6">
+      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-2 font-sans font-medium text-[1.55rem] leading-tight text-ink sm:text-[1.9rem]">
         <span style={{ opacity: seg(t, 0, 0.2) }}>Emissions</span>
         <span style={{ opacity: seg(t, 0.1, 0.3) }}>=</span>
         <span style={{ opacity: seg(t, 0.2, 0.4) }}>Σ</span>
-        <span className="text-accent-ink" style={{ opacity: seg(t, 0.3, 0.5) }}>
+        <span className="text-loss" style={{ opacity: seg(t, 0.3, 0.5) }}>
           AD<sub className="text-[0.55em]">i</sub>
         </span>
         <span style={{ opacity: seg(t, 0.4, 0.6) }}>×</span>
@@ -535,7 +537,7 @@ function EquationFig({ d, t }: { d: Data; t: number }) {
       </div>
       <div className="grid gap-2 font-mono text-[11px] text-ink-3 sm:grid-cols-2">
         <span>
-          <span className="text-accent-ink">AD</span> activity data: hectares per year of each transition (from the maps)
+          <span className="text-loss">AD</span> activity data: hectares per year of each transition (from the maps)
         </span>
         <span>
           <span className="text-[#265c3a]">EF</span> emission factor: tCO₂e per hectare (from field inventory plots)
@@ -548,7 +550,7 @@ function EquationFig({ d, t }: { d: Data; t: number }) {
               <span className="h-2.5 w-2.5" style={{ background: r.color }} />
               {r.label}
             </span>
-            <span className="font-serif text-[1.35rem] text-ink">
+            <span className="font-sans font-medium text-[1.35rem] text-ink">
               <Count value={t > 0.55 ? r.ad : 0} digits={1} /> <span className="text-[0.7em] text-ink-3">ha/yr</span>
             </span>
             <span className="font-mono text-[11px] text-ink-3">× {r.ef}</span>
