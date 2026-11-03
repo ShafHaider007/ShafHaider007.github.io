@@ -1,13 +1,13 @@
 import type { Metadata } from 'next'
 import { siteUrl } from '@/lib/paths'
 
-const title = 'Shaf Haider — GIS & Remote Sensing Specialist'
+const title = 'Shaf Haider · GIS and remote sensing'
 const description =
-  'GIS and remote-sensing specialist in Islamabad. National-scale Earth-observation analysis, land-cover and forest-change mapping, UNCCD reporting, raster pipelines and WebGIS.'
+  'Geoinformatics engineer in Islamabad working on GIS and remote sensing: forest change, land degradation, urban heat and web mapping. Applying to graduate programs in geography.'
 const url = new URL(siteUrl)
 
 export const siteMetadata: Metadata = {
-  title: { default: title, template: '%s — Shaf Haider' },
+  title: { default: title, template: '%s · Shaf Haider' },
   description,
   metadataBase: url,
   applicationName: 'Shaf Haider',
@@ -25,7 +25,7 @@ export const siteMetadata: Metadata = {
     'GDAL',
     'Pakistan',
   ],
-  authors: [{ name: 'Shaf Haider' }],
+  authors: [{ name: 'Muhammad Shaf Haider' }],
   openGraph: {
     title,
     description,

@@ -8,7 +8,8 @@ export function SiteFooter() {
           © {new Date().getFullYear()} {profile.name} · {profile.location}
         </p>
         <p className="max-w-xl sm:text-right">
-          Satellite plates contain modified Copernicus Sentinel data (2024–2025), rendered from the Sentinel-2 L2A open archive on AWS.
+          Figures use open data: modified Copernicus Sentinel-2 data (2017–2025), Landsat 8 (USGS), ESA WorldCover, Hansen
+          Global Forest Change, the Copernicus DEM and Overture Maps.
         </p>
       </div>
     </footer>

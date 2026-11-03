@@ -25,9 +25,9 @@ export function NfmsStory() {
     <>
       <Scrolly steps={steps} graphic={(s) => (d ? <Graphic d={d} s={s} /> : <div className="h-full animate-pulse bg-line/40" />)} />
       <DemoNote>
-        The pipeline shown here was rebuilt for this site on open national-scale layers, the Copernicus GLO-90
-        elevation model and ESA WorldCover 2021 forest cover, and cut into the XYZ tiles served by the map above. The
-        production NFMS pipeline handles the platform’s own forest, land-cover and reporting layers.
+        Rebuilt for this site with two open national layers, the Copernicus 90 m elevation model and ESA WorldCover 2021
+        forest cover, cut into the tiles used by the map above. The real NFMS pipeline handles the platform’s own forest,
+        land-cover and reporting layers.
       </DemoNote>
     </>
   )
@@ -38,55 +38,55 @@ function buildSteps(d: Data | null) {
   return [
     {
       kicker: 'Inputs',
-      title: 'National layers never line up',
+      title: 'Why don’t national layers line up?',
       body: (
         <>
           <p>
-            A forest monitoring platform pulls rasters from many producers: different projections, resolutions, data
-            types and nodata conventions. Served as they are, they misalign and load slowly.
+            A forest platform takes maps from many sources. They come in different projections, cell sizes, data types
+            and ways of marking missing data. Shown as they are, they do not line up and they load slowly.
           </p>
-          <p>The pipeline’s first job is to bring them onto one grid in one projection.</p>
+          <p>The first job is to bring them all onto one grid.</p>
         </>
       ),
     },
     {
-      kicker: 'QA/QC',
-      title: 'Checks run before anything is published',
+      kicker: 'Checks',
+      title: 'How do we stop bad data reaching the map?',
       body: (
         <>
           <p>
-            Every layer passes automated checks: coverage, value ranges, class codes, projection. A layer that fails
-            stops the run instead of reaching the map.
-          </p>
-        </>
-      ),
-    },
-    {
-      kicker: 'Tiling',
-      title: 'Cut into a pyramid of tiles',
-      body: (
-        <>
-          <p>
-            Each layer is reprojected to Web Mercator and cut into 256-pixel tiles for every zoom level, packed as
-            MBTiles in production. The browser then only fetches the handful of tiles in view.
-          </p>
-          <p>
-            This demonstration pyramid has {total || '…'} tiles across zooms {d?.minzoom ?? 5}–{d?.maxzoom ?? 9}: each
-            level quadruples the count.
+            Every layer goes through automatic checks before it is published: coverage, value ranges, class codes and
+            projection. If a layer fails, the run stops instead of putting a broken map online.
           </p>
         </>
       ),
     },
     {
-      kicker: 'WebGIS',
-      title: 'Served to a responsive map',
+      kicker: 'Tiles',
+      title: 'How can a huge raster load quickly in a browser?',
       body: (
         <>
           <p>
-            The tiles go straight into the Next.js front end as tile services. Try it: pan, zoom (Ctrl or ⌘ + scroll,
-            or two fingers) and toggle the forest layer.
+            Each layer is cut into small 256-pixel tiles for every zoom level and packed as MBTiles. The browser only asks
+            for the few tiles on screen.
           </p>
-          <p className="text-[13px] text-ink-3">Relief from Copernicus GLO-90; forest from ESA WorldCover 2021.</p>
+          <p>
+            This example has {total || '…'} tiles across zoom levels {d?.minzoom ?? 5} to {d?.maxzoom ?? 9}. Each level has
+            about four times as many tiles as the one above it.
+          </p>
+        </>
+      ),
+    },
+    {
+      kicker: 'The map',
+      title: 'What does the user get?',
+      body: (
+        <>
+          <p>
+            A map that responds at once. Try it: drag to move, hold Ctrl or ⌘ and scroll to zoom (two fingers on a phone),
+            and switch the forest layer on and off.
+          </p>
+          <p className="text-[13px] text-ink-3">Relief from Copernicus GLO-90. Forest from ESA WorldCover 2021.</p>
         </>
       ),
     },

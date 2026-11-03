@@ -15,9 +15,9 @@ export function DhaStory() {
     <>
       <Scrolly steps={steps} graphic={(s) => (d ? <Axon d={d} s={s} /> : <div className="h-full animate-pulse bg-line/40" />)} />
       <DemoNote>
-        Building footprints and streets for a 1.5 × 1.05 km neighbourhood of DHA Lahore from Overture Maps (heights
-        where available, otherwise two storeys). It illustrates the kind of map-first search the platforms provide; the
-        platforms themselves use DHA’s verified plot records, which are not shown here.
+        Building footprints and streets for a 1.5 × 1.05 km part of DHA Lahore from Overture Maps (heights where available,
+        otherwise two storeys). It shows the kind of map search the platforms offer. The platforms use DHA’s own verified
+        plot records, which are not shown here.
       </DemoNote>
     </>
   )
@@ -27,50 +27,49 @@ function buildSteps(d: Data | null) {
   return [
     {
       kicker: 'Footprints',
-      title: 'Every plot is a geometry',
+      title: 'Where does a property platform start?',
       body: (
         <>
           <p>
-            A property platform starts from geometry: {d ? fmt(d.buildings.length) : '…'} building footprints in this
-            one neighbourhood, each tied to a record. Map-first search means the parcel, not a listing, is the entry
-            point.
+            With shapes on a map. This one neighbourhood has {d ? fmt(d.buildings.length) : '…'} building footprints, and
+            each can be linked to a record. Searching on the map means the plot, not a list entry, is where a search
+            begins.
           </p>
         </>
       ),
     },
     {
       kicker: '3D',
-      title: 'Lifted into the third dimension',
+      title: 'What does the block look like in 3D?',
       body: (
         <>
           <p>
-            Extruding footprints by height turns the plan into a city block buyers recognise. Commercial blocks stand out
-            from the two-storey houses around them.
+            Raising each footprint by its height turns a flat plan into a block that buyers recognise. Commercial buildings
+            stand out from the two-storey houses around them.
           </p>
         </>
       ),
     },
     {
-      kicker: 'Spatial search',
-      title: 'Search by distance, not by list',
+      kicker: 'Distance search',
+      title: 'How does a distance search work?',
       body: (
         <>
           <p>
-            “Show me plots within 250 m of this park” is a spatial query. As the search radius grows, the matching
-            buildings light up and the count updates, the same kind of query the platforms run against verified
-            records.
+            A question like “plots within 250 m of this park” is a spatial query. As the search circle grows, the matching
+            buildings light up and the count updates. The platforms run the same kind of query against verified records.
           </p>
         </>
       ),
     },
     {
       kicker: 'Records',
-      title: 'Click a plot, see its record',
+      title: 'What does a record show?',
       body: (
         <>
           <p>
-            Hover or tap any building to open its card. In production the card links to verified ownership records,
-            seller dashboards and realtor workflows; here it shows what the geometry alone can tell you.
+            Point at any building to open its card. On the real platforms the card links to verified records, seller
+            dashboards and realtor tools. Here it shows what the shape alone can tell you.
           </p>
         </>
       ),

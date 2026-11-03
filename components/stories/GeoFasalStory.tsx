@@ -27,9 +27,9 @@ export function GeoFasalStory() {
     <>
       <Scrolly steps={steps} graphic={(s) => (d ? <Graphic d={d} s={s} /> : <div className="h-full animate-pulse bg-line/40" />)} />
       <DemoNote>
-        A 4.2 × 2.8 km block of fields near Sahiwal, Punjab, through the 2024–25 rabi season: every cloud- and
-        fog-free Sentinel-2 scene from October to May, fields delineated by image segmentation and grouped by the shape
-        of their NDVI curve. GeoFasal runs the same index computation for any field a farmer draws.
+        A 4.2 × 2.8 km block of fields near Sahiwal, Punjab, through the 2024–25 winter season: every clear Sentinel-2
+        image from October to May, fields found by image segmentation and grouped by the shape of their NDVI curve.
+        GeoFasal does the same for any field a farmer draws.
       </DemoNote>
     </>
   )
@@ -39,54 +39,52 @@ function buildSteps(d: Data | null) {
   const wheat = d?.clusters.find((c) => c.name === 'Wheat')
   return [
     {
-      kicker: 'Season',
-      title: 'One block of fields, October to May',
+      kicker: 'The season',
+      title: 'What does one season look like from space?',
       body: (
         <>
           <p>
-            GeoFasal queries Sentinel-2 through a STAC API for each field, masks cloud with the scene classification,
-            and keeps only clear dates. Punjab’s winter fog slips past the cloud mask, so frames with a sudden collapse
-            in field NDVI are dropped too.
+            GeoFasal gets Sentinel-2 images for each field through a STAC API and keeps only clear days. Winter fog in
+            Punjab is not always caught by the cloud mask, so days when the fields suddenly look bare are removed too.
           </p>
-          <p>Scroll to move through the {d ? d.dates.length : '…'} clear dates of the 2024–25 season.</p>
+          <p>Scroll to move through the {d ? d.dates.length : '…'} clear days of the 2024–25 season.</p>
         </>
       ),
     },
     {
       kicker: 'NDVI',
-      title: 'The same season, as plant vigour',
+      title: 'How green is each field, week by week?',
       body: (
         <>
           <p>
-            NDVI turns each frame into a measure of green biomass. Wheat fields green up in January, peak in
-            February–March and dry down to harvest in April; other fields follow different calendars.
+            NDVI turns each image into a measure of how green and dense the crop is. Wheat greens up in January, peaks in
+            February and March, and dries before harvest in April. Other fields follow other calendars.
           </p>
         </>
       ),
     },
     {
-      kicker: 'Crop calendars',
-      title: 'Fields sort themselves by calendar',
+      kicker: 'Crop groups',
+      title: 'Can fields be grouped by crop without labels?',
       body: (
         <>
           <p>
-            Segmenting the season into {d ? d.n_fields : '…'} fields and clustering their NDVI curves separates the
-            crops without any labels. Wheat covers about {wheat ? Math.round(wheat.share * 100) : '…'}% of the field
-            area here.
+            Splitting the area into {d ? d.n_fields : '…'} fields and grouping their NDVI curves separates the crops
+            without any training labels. Wheat covers about {wheat ? Math.round(wheat.share * 100) : '…'}% of the field area
+            here.
           </p>
-          <p>The outlined fields are one representative from each group.</p>
+          <p>The outlined fields are one example from each group.</p>
         </>
       ),
     },
     {
-      kicker: 'Model inputs',
-      title: 'Indicators per field feed the yield model',
+      kicker: 'Yield model',
+      title: 'What goes into the yield model?',
       body: (
         <>
           <p>
-            NDWI tracks canopy water alongside NDVI. Per-field curves of both, with timing features such as green-up
-            date, peak value and senescence rate, become the inputs to GeoFasal’s machine-learning yield prediction and
-            its crop and irrigation advice.
+            NDWI follows the water in the leaves alongside NDVI. The curves of both, plus timing such as green-up date,
+            peak value and how fast the crop dries, are the inputs to GeoFasal’s yield predictions and advice.
           </p>
         </>
       ),

@@ -41,9 +41,6 @@ h = load("hero_meta.json")
 dump({"date": h["date"], "scene": h["scene"], "shares": h["shares"], "oa": h["accuracy"]["overall"],
       "kappa": h["accuracy"]["kappa"], "bounds": h["grid"]["bounds"]}, "hero", "hero.json")
 
-# ---------------- relief map ----------------
-webp("relief_pakistan.webp", "map/relief.webp", quality=84)
-shutil.copy(os.path.join(SRC, "pakistan_map.json"), d("map", "pakistan.json"))
 
 # ---------------- JFREL ----------------
 J = load("jfrel.json")

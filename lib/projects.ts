@@ -5,152 +5,170 @@ export type Project = {
   client: string
   role: string
   period: string
+  /** The question the work answers. */
+  question: string
+  /** Why the question matters, in two or three plain sentences. */
+  why: string
+  /** One-paragraph summary for cards. */
   blurb: string
   /** What I did, from the CV. */
   did: string[]
   figures: { value: string; label: string }[]
   stack: string[]
   links?: { label: string; href: string }[]
-  /** Marker on the home-page map (null when off-sheet or national). */
-  where: { lon: number; lat: number; label: string } | null
-  /** What the visual on the project page shows. */
+  /** What the walk-through on the project page shows. */
   media: string
 }
 
 export const projects: Project[] = [
   {
     slug: 'forest-carbon-activity-data',
-    title: 'Activity data for a jurisdictional forest reference emission level',
+    title: 'How much forest did four jurisdictions lose, and how sure can we be?',
     short: 'JFREL forest-carbon study',
     client: 'GISPLUS · UNOPS-supported study',
-    role: 'One of five named lead authors · geospatial activity-data lead',
+    role: 'One of five named lead authors · responsible for all geospatial activity data',
     period: '2025',
+    question:
+      'How much forest did four jurisdictions lose, degrade or regain between 2016 and 2024, and how certain is that number?',
+    why:
+      'Under REDD+, a jurisdiction is paid for keeping emissions below its forest reference emission level. That baseline is only as good as the forest-change data behind it. If past loss is overstated, future payments are inflated. If it is understated, real progress goes unrewarded.',
     blurb:
-      'Built the complete activity-data workflow for a UNOPS-supported forest-carbon study: three epochs of Sentinel-2 classified into 10 m land cover, refined across years, and turned into forest change, canopy density and IPCC-aligned activity data for four jurisdictions.',
+      'A UNOPS-supported study needed a record of forest change across four jurisdictions that could stand up to review. As one of five named lead authors, I produced that record: where forest was lost, degraded or regained, and how certain each figure is.',
     did: [
-      'Processed Sentinel-2 imagery for 2016, 2020 and 2024 in Google Earth Engine and QGIS to produce 10 m LULC datasets with Random Forest classification and interpretation-based cross-year refinement.',
-      'Quantified land-cover transitions, forest disturbance and canopy-density change across four jurisdictions using change analysis and spectral unmixing.',
-      'Integrated outputs with field inventories and IPCC-aligned carbon accounting, and supported uncertainty assessment, field verification and stakeholder validation.',
+      'Mapped land cover at 10 m for 2016, 2020 and 2024 and checked the changes between years by visual interpretation.',
+      'Measured land-cover transitions, forest disturbance and canopy-density change in four jurisdictions.',
+      'Combined the maps with field inventory data for IPCC-based carbon accounting, and supported the uncertainty assessment, field checks and stakeholder review.',
     ],
     figures: [
-      { value: '3', label: 'Sentinel-2 epochs: 2016, 2020, 2024' },
-      { value: '10 m', label: 'land-cover resolution' },
-      { value: '4', label: 'jurisdictions assessed' },
+      { value: '3', label: 'time points: 2016, 2020 and 2024' },
+      { value: '10 m', label: 'map resolution' },
+      { value: '4', label: 'jurisdictions' },
     ],
-    stack: ['Google Earth Engine', 'Sentinel-2', 'Random Forest', 'Spectral unmixing', 'QGIS', 'IPCC accounting'],
-    where: { lon: 73.405, lat: 33.99, label: 'Galiyat forests' },
-    media: 'Method walk-through: epochs, classification, refinement, transitions, canopy density, uncertainty',
+    stack: ['Google Earth Engine', 'Sentinel-2', 'Random forest', 'Spectral unmixing', 'QGIS', 'IPCC guidelines'],
+    media: 'The method step by step, repeated on a public test area',
   },
   {
     slug: 'unccd-2026-national-reporting',
-    title: 'UNCCD 2026 national reporting for Pakistan',
+    title: 'How much of Pakistan’s land is degraded, and where?',
     short: 'UNCCD 2026 national reporting',
     client: 'GISPLUS · IUCN Pakistan',
-    role: 'GIS expert & geospatial team lead',
-    period: '2025 — Present',
+    role: 'GIS expert and geospatial team lead',
+    period: '2025 – present',
+    question: 'How much of Pakistan’s land is degraded, where is it, and is the land improving or getting worse?',
+    why:
+      'Every four years, countries report the share of their land that is degraded to the UN Convention to Combat Desertification. That number shapes national restoration targets and funding. It has to be consistent, repeatable by the provinces, and clear about what the indicator can and cannot see.',
     blurb:
-      'Leading the GIS and remote-sensing workstream behind Pakistan’s report to the UN Convention to Combat Desertification: land degradation, Land Degradation Neutrality, SDG Indicator 15.3.1 and drought.',
+      'I lead the GIS and remote sensing work for Pakistan’s 2026 report to the UNCCD, with IUCN Pakistan: land degradation, Land Degradation Neutrality, SDG Indicator 15.3.1 and drought.',
     did: [
-      'Lead the GIS and remote-sensing workstream for Pakistan’s UNCCD 2026 national reporting with IUCN Pakistan.',
-      'Coordinate national assessments of land degradation, Land Degradation Neutrality, SDG Indicator 15.3.1 and drought, guiding data review, QA/QC and technical documentation.',
-      'Delivered provincial workshops for government and technical stakeholders on satellite-based land-degradation assessment and the Trends.Earth workflow.',
+      'Lead the GIS and remote sensing work for Pakistan’s UNCCD 2026 national report, with IUCN Pakistan.',
+      'Coordinate the national assessments of land degradation, Land Degradation Neutrality, SDG Indicator 15.3.1 and drought, including data review, quality checks and technical documentation.',
+      'Ran provincial workshops for government and technical staff on satellite-based land degradation assessment with Trends.Earth.',
     ],
     figures: [
-      { value: 'SDG 15.3.1', label: 'proportion of degraded land' },
+      { value: 'SDG 15.3.1', label: 'share of land that is degraded' },
       { value: 'LDN', label: 'Land Degradation Neutrality' },
-      { value: 'Provincial', label: 'workshops for government stakeholders' },
+      { value: 'Provincial', label: 'training workshops' },
     ],
-    stack: ['Trends.Earth', 'Google Earth Engine', 'QGIS', 'Drought indices', 'QA/QC'],
-    where: { lon: 71.8, lat: 29.05, label: 'Cholistan (demo window)' },
-    media: 'The three SDG 15.3.1 sub-indicators, combined under one-out-all-out',
+    stack: ['Trends.Earth', 'Google Earth Engine', 'QGIS', 'Drought indices', 'Quality checks'],
+    media: 'How the three SDG 15.3.1 measures combine, shown on a test area',
   },
   {
     slug: 'national-forest-monitoring-system',
-    title: 'National Forest Monitoring System of Pakistan',
+    title: 'Can national forest data from many sources live on one fast, trusted map?',
     short: 'National Forest Monitoring System',
     client: 'GISPLUS',
-    role: 'Geospatial data engineering & WebGIS',
+    role: 'Geospatial data engineering and web GIS',
     period: '2025',
+    question: 'How do you put national forest data from many sources onto one map that loads quickly and can be trusted?',
+    why:
+      'Forest data in Pakistan comes from many agencies, in different formats and projections. If layers do not line up or take too long to load, people stop using the platform and decisions fall back on old reports.',
     blurb:
-      'Engineered the Python/GDAL raster pipeline that harmonises national Earth-observation layers, automates QA/QC and publishes optimised tiles into the Next.js WebGIS of Pakistan’s forest monitoring platform.',
+      'I built the raster pipeline behind Pakistan’s National Forest Monitoring System: it brings national layers onto one grid, checks them automatically, and turns them into map tiles for the web platform.',
     did: [
-      'Contributed as part of the development team to Pakistan’s National Forest Monitoring System in Next.js, an operational platform for forest-monitoring, land-cover and climate-reporting information.',
-      'Engineered a Python/GDAL raster pipeline to harmonise inputs, automate QA/QC, create optimised MBTiles, publish tile services and integrate large Earth-observation layers into a responsive WebGIS.',
+      'Worked in the team that built Pakistan’s National Forest Monitoring System, a Next.js platform for forest monitoring, land-cover and climate-reporting data.',
+      'Built a Python and GDAL pipeline that aligns input rasters, runs automatic quality checks, packs them as MBTiles and publishes them as tile services for the web map.',
     ],
     figures: [
-      { value: 'GDAL', label: 'harmonisation and QA/QC pipeline' },
-      { value: 'MBTiles', label: 'optimised tile services' },
+      { value: 'GDAL', label: 'alignment and quality checks' },
+      { value: 'MBTiles', label: 'tile packaging' },
       { value: 'National', label: 'forest and land-cover layers' },
     ],
-    stack: ['Python', 'GDAL', 'MBTiles', 'Tile services', 'Next.js', 'WebGIS'],
+    stack: ['Python', 'GDAL', 'MBTiles', 'Tile services', 'Next.js', 'Web GIS'],
     links: [{ label: 'nfmspak.org', href: 'https://www.nfmspak.org/' }],
-    where: null,
-    media: 'The raster pipeline, a real tile pyramid, and a live map built from it',
+    media: 'The pipeline, a real tile pyramid and a live map built from it',
   },
   {
     slug: 'geofasal',
-    title: 'GeoFasal: field-level agricultural intelligence',
+    title: 'Can free satellite data tell a farmer how each field is doing?',
     short: 'GeoFasal agri-tech platform',
     client: 'GISPLUS',
-    role: 'Geospatial workflows & satellite integration',
+    role: 'Geospatial workflows and satellite data',
     period: '2025',
+    question: 'Can free satellite data follow a crop field by field through a season, well enough to guide a farmer?',
+    why:
+      'Most farms in Punjab are small, field visits are slow and advice is often general. Sentinel-2 passes every five days at 10 m resolution, which is enough to follow individual fields through a season.',
     blurb:
-      'Field-level soil suitability, crop recommendations and weather guidance, driven by Sentinel products pulled through STAC and vegetation indices computed per field.',
+      'GeoFasal gives farmers field-level advice on soil suitability, crops and weather. I built the satellite side: Sentinel data pulled through STAC, crop indices computed for each field, and inputs for the yield models.',
     did: [
-      'Developed field-level geospatial workflows for soil-suitability assessment, crop recommendations and location-specific weather and agricultural guidance through an interactive map.',
-      'Integrated Sentinel products through STAC APIs, automated NDVI and NDWI computation for user-defined fields, and fed the indicators into machine-learning models for crop-yield prediction.',
+      'Built field-level workflows for soil suitability, crop recommendations and local weather advice in an interactive map.',
+      'Brought in Sentinel data through STAC APIs, computed NDVI and NDWI for each user-drawn field, and passed these to machine-learning models that predict yield.',
     ],
     figures: [
-      { value: 'STAC', label: 'Sentinel ingestion' },
-      { value: 'NDVI · NDWI', label: 'per user-drawn field' },
-      { value: 'ML', label: 'crop-yield prediction inputs' },
+      { value: 'STAC', label: 'Sentinel data access' },
+      { value: 'NDVI · NDWI', label: 'for each user-drawn field' },
+      { value: 'ML', label: 'yield prediction inputs' },
     ],
     stack: ['Sentinel-2', 'STAC API', 'NDVI / NDWI', 'Python', 'Machine learning', 'Web mapping'],
     links: [{ label: 'geofasal.com', href: 'https://www.geofasal.com/' }],
-    where: { lon: 73.095, lat: 30.795, label: 'Fields near Sahiwal' },
-    media: 'A season of fields, scrubbed by scroll, with per-field crop calendars',
+    media: 'One season of fields, scrubbed by scroll, with crop calendars for each field',
   },
   {
     slug: 'move-smart',
-    title: 'Move Smart: heat-aware walking routes for Islamabad',
+    title: 'Can we walk the city on cooler streets without walking much further?',
     short: 'Move Smart (final-year project)',
     client: 'NUST · Final-year design project',
     role: 'Co-developer',
-    period: '2024 — 2025',
+    period: '2024 – 2025',
+    question:
+      'Can pedestrians in Islamabad be routed along cooler, shadier streets without making the walk much longer?',
+    why:
+      'Summer heat in Pakistan’s cities is getting worse, and many people walk or wait outside. Navigation apps choose the shortest path, which often follows the hottest roads.',
     blurb:
-      'A decision-support system that routes pedestrians by heat exposure, shade, connectivity and accessibility, combining satellite indicators, street-level tree detection and OpenStreetMap networks.',
+      'A routing tool that picks walking routes by heat, shade and comfort, using satellite measures of vegetation and surface temperature, trees detected in street photos, and the road network.',
     did: [
-      'Built a Google Earth Engine workflow with Landsat, Sentinel-2 and MODIS to derive vegetation, canopy and land-surface-temperature indicators; found urban heat-island intensity up to 12 °C and r = −0.72 between vegetation and temperature.',
-      'Fine-tuned a tree-trunk detection model on 450 annotated images (about 75% mAP), detecting more than 1,200 trees.',
-      'Scored road segments for comfort with AHP and PostGIS, served through customised GraphHopper routing with 5–30 minute isochrones in a Next.js, Mapbox GL and FastAPI platform.',
+      'Built a Google Earth Engine workflow with Landsat, Sentinel-2 and MODIS to map vegetation, canopy and land-surface temperature. Found an urban heat island of up to 12 °C and r = −0.72 between vegetation and temperature.',
+      'Trained a tree-trunk detection model on 450 labelled street images (about 75% mAP), detecting more than 1,200 trees.',
+      'Scored each road segment for comfort with AHP in PostGIS, and served routes and 5–30 minute walking areas through a customised GraphHopper, in a Next.js, Mapbox GL and FastAPI app.',
     ],
     figures: [
-      { value: '12 °C', label: 'peak urban heat-island intensity' },
-      { value: 'r = −0.72', label: 'vegetation vs. surface temperature' },
-      { value: '1,200+', label: 'trees detected, ~75% mAP' },
+      { value: '12 °C', label: 'strongest urban heat island' },
+      { value: 'r = −0.72', label: 'vegetation against surface temperature' },
+      { value: '1,200+', label: 'trees detected, about 75% mAP' },
     ],
     stack: ['Google Earth Engine', 'Landsat', 'MODIS', 'PyTorch', 'PostGIS', 'AHP', 'GraphHopper', 'Mapbox GL', 'FastAPI'],
-    where: { lon: 73.05, lat: 33.709, label: 'Islamabad' },
-    media: 'Land-surface temperature, the vegetation link, comfort-weighted routing and isochrones',
+    media: 'Surface heat, the link with vegetation, comfort-weighted routes and walking areas',
   },
   {
     slug: 'mottainai-recycling',
-    title: 'Field GIS and routing for Mottainai Recycling',
+    title: 'How can a recycling company collect from more homes with fewer kilometres?',
     short: 'Mottainai Recycling, Lagos',
     client: 'Upwork · Mottainai Recycling, Nigeria',
-    role: 'GIS expert & Kotlin Android specialist',
-    period: '2021 — Present',
+    role: 'GIS expert and Android developer',
+    period: '2021 – present',
+    question: 'How can a recycling company in Lagos collect from more homes with fewer kilometres and lower costs?',
+    why:
+      'Every extra kilometre costs fuel and time. Paid routing services charge per request, which adds up quickly for a small company running daily pickups.',
     blurb:
-      'Three Android apps, an ArcGIS Online organisation and a custom routing engine for a recycling company collecting across Lagos, cutting recurring routing costs by at least 28%.',
+      'Three Android apps, an ArcGIS Online setup and a self-hosted routing engine for a recycling company in Lagos. The routing engine cut recurring routing costs by at least 28%.',
     did: [
-      'Administer Mottainai’s ArcGIS Online organisation and the operational data and services behind customer pickups, driver dispatch and field management.',
-      'Developed and deployed three Kotlin Android apps with ArcGIS Maps SDK, ArcGIS Online, Mapbox SDK and device GPS, with offline capture and sync for low-connectivity areas.',
-      'Designed a custom GraphHopper multi-stop routing solution that optimises pickup sequences and replaced paid Google Maps and Mapbox routing, cutting recurring routing costs by at least 28%.',
+      'Run Mottainai’s ArcGIS Online organisation and the data and services behind customer pickups, driver dispatch and field management.',
+      'Built and released three Kotlin Android apps with ArcGIS Maps SDK, Mapbox SDK and GPS, which record locations offline and sync when a signal returns.',
+      'Designed multi-stop routing on a self-hosted GraphHopper engine that orders pickups for trucks and guides field managers. It replaced paid Google Maps and Mapbox routing and cut recurring costs by at least 28%.',
     ],
     figures: [
-      { value: '3', label: 'live Android apps on Google Play' },
-      { value: '≥28%', label: 'lower recurring routing cost' },
-      { value: 'Offline', label: 'capture and sync for field teams' },
+      { value: '3', label: 'Android apps on Google Play' },
+      { value: '≥28%', label: 'lower recurring routing costs' },
+      { value: 'Offline', label: 'data capture and sync' },
     ],
     stack: ['Kotlin', 'ArcGIS Maps SDK', 'ArcGIS Online', 'Mapbox SDK', 'GraphHopper', 'Android'],
     links: [
@@ -159,34 +177,35 @@ export const projects: Project[] = [
       { label: 'Field Manager app', href: 'https://play.google.com/store/apps/details?id=com.tech.mottainaifieldmapapplication' },
       { label: 'Driver app', href: 'https://play.google.com/store/apps/details?id=com.mottainai.driver' },
     ],
-    where: null,
-    media: 'Multi-stop route optimisation on the Lagos street network',
+    media: 'Ordering pickups on the real Lagos street network',
   },
   {
     slug: 'dha-property-webgis',
-    title: 'Spatial property intelligence for DHA',
-    short: 'DHA property WebGIS',
-    client: 'GISPLUS · DHA Islamabad–Rawalpindi & DHA Lahore',
-    role: 'Geospatial functionality, development team',
+    title: 'Can people search for property by place instead of by list?',
+    short: 'DHA property web GIS',
+    client: 'GISPLUS · DHA Islamabad–Rawalpindi and DHA Lahore',
+    role: 'Map features, development team',
     period: '2025',
+    question: 'How can buyers search for property by location, with each plot linked to a verified record?',
+    why:
+      'Property records are often kept as lists that ignore location. A map tied to verified records makes it easier to see what is for sale, where it is, and what is nearby.',
     blurb:
-      'Geospatial features for two production Next.js platforms: interactive maps and spatial property discovery tied to verified records, seller dashboards and realtor workflows.',
+      'Map features for two live Next.js property platforms: interactive maps and search by location, linked to verified records, seller dashboards and realtor tools.',
     did: [
-      'As part of the GISPLUS development team, contributed the geospatial functionality for two production Next.js platforms serving DHA Islamabad–Rawalpindi and DHA Lahore.',
-      'Integrated interactive mapping and spatial property discovery with verified records, seller dashboards and realtor-management workflows.',
+      'Worked in the GISPLUS team on two live Next.js platforms for DHA Islamabad–Rawalpindi and DHA Lahore, building the map features.',
+      'Connected interactive maps and location search to verified records, seller dashboards and realtor management.',
     ],
     figures: [
-      { value: '2', label: 'production platforms' },
+      { value: '2', label: 'live platforms' },
       { value: 'Verified', label: 'records linked to the map' },
-      { value: 'Next.js', label: 'map-first property discovery' },
+      { value: 'Next.js', label: 'map-first search' },
     ],
     stack: ['Next.js', 'Web mapping', 'Spatial search', 'Dashboards'],
     links: [
       { label: 'DHA Marketplace', href: 'https://dhamarketplace.com/' },
       { label: 'DHA Lahore digital auction', href: 'https://digitalauction.dhalahore.org/' },
     ],
-    where: { lon: 74.4005, lat: 31.4735, label: 'DHA Lahore' },
-    media: 'A spatial search over real building footprints, in 3D',
+    media: 'A distance search over real building footprints, in 3D',
   },
 ]
 

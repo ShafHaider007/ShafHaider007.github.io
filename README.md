@@ -28,7 +28,9 @@ One-time setup: **Settings → Pages → Build and deployment → Source: GitHub
 - `lib/site.ts`: profile, experience, skills, education
 - `lib/projects.ts`: case studies (one page each under `/projects/[slug]`)
 - `components/stories/*`: the scroll-driven "how it works" visual for each case study
-- `components/viz/*`: the home-page spectral stack and relief map
+- `components/viz/*`: the home-page spectral stack
+- `components/home/*`: home sections (research questions, experience timeline, methods matrix)
+- `components/motion/*`: Lenis smooth scrolling and GSAP scroll animations
 
 ## Figures and data
 
@@ -38,7 +40,6 @@ Every image and number in the visuals is computed from open data by the scripts 
 | Script | Visual | Sources |
 | --- | --- | --- |
 | `hero.py` | Spectral stack (bands, true colour, NDVI, land cover) | Sentinel-2 L2A, ESA WorldCover |
-| `relief.py` | Shaded relief map of Pakistan | Copernicus GLO-90, Natural Earth, geoBoundaries |
 | `jfrel.py` | Forest-carbon activity-data walk-through | Sentinel-2 L2A, ESA WorldCover, Hansen GFC |
 | `unccd.py` | SDG 15.3.1 sub-indicators and one-out-all-out | Sentinel-2 L2A (2017–2024), ESA WorldCover |
 | `nfms.py` | Tile pyramid and live map tiles | Copernicus GLO-90, ESA WorldCover |

@@ -39,10 +39,9 @@ export function JfrelStory() {
     <>
       <Scrolly steps={steps} graphic={(s) => (d ? <Graphic d={d} s={s} /> : <div className="h-full animate-pulse bg-line/40" />)} />
       <DemoNote>
-        Every figure in this walk-through is computed for this site on open data over a 15 × 17 km window of the
-        Galiyat–Murree forest belt: Sentinel-2 L2A (AWS open archive), ESA WorldCover 2021 as reference labels and
-        Hansen Global Forest Change as a cross-check. It reproduces the study’s method, not its results; the study’s
-        own jurisdictions, field plots and emission factors are not shown.
+        The study’s jurisdictions and results are not public. This walk-through repeats the method on a 15 × 17 km public
+        test area near Murree, using open data: Sentinel-2 images, ESA WorldCover as reference labels, and Hansen Global
+        Forest Change for comparison. The numbers describe the test area only.
       </DemoNote>
     </>
   )
@@ -51,63 +50,61 @@ export function JfrelStory() {
 function buildSteps(d: Data | null) {
   const y = d?.epochs ?? [2018, 2020, 2024]
   const oa = d ? Object.values(d.accuracy).map((a) => a.oa) : []
-  const forestYrs = d ? y.map((e) => (d.areas[e]['Dense forest'] ?? 0) + (d.areas[e]['Open forest'] ?? 0)) : []
   const fe = d?.forest_estimate
   return [
     {
-      kicker: 'Input',
-      title: 'Three epochs, one season',
+      kicker: 'Comparable images',
+      title: 'Can images from different years be compared fairly?',
       body: (
         <>
           <p>
-            Activity data starts with comparable images. For each epoch I took every Sentinel-2 scene from the same
-            three September weeks, masked cloud and shadow with the scene classification layer, and kept the per-pixel
-            median.
+            A change on the map is only real if the images agree on everything except the land. For each year I used
+            scenes from the same three weeks of September, removed cloud and shadow, and kept the middle value of each
+            pixel.
           </p>
           <p>
-            Matching the season matters in the hills: by October the grass has browned and low sun throws long
-            shadows, and both would read as forest change. A final relative normalisation fits each band to the 2024
-            composite over unchanged pixels.
+            The season matters in the hills. By October the grass turns brown and the low sun casts long shadows, and
+            both look like forest change. A last step matches the brightness of each year to the most recent one, using
+            pixels that did not change.
           </p>
           <p className="text-[13px] text-ink-3">
-            The study used 2016, 2020 and 2024; the open L2A archive for this tile starts in 2017, so this
-            demonstration uses {y.join(', ')}.
+            The study used 2016, 2020 and 2024. The open archive used here starts in 2017, so this walk-through uses{' '}
+            {y.join(', ')}.
           </p>
         </>
       ),
     },
     {
-      kicker: 'Classification',
-      title: 'A random forest for every year',
+      kicker: 'Land cover',
+      title: 'What covers the land in each year?',
       body: (
         <>
           <p>
-            Each composite is classified separately at 10 m. The model sees ten spectral bands and five indices
-            (NDVI, NDWI, NDBI, MNDWI, red-edge NDVI) and learns from labelled pixels, here sampled from ESA
-            WorldCover.
+            Each year is mapped on its own at 10 m. A random forest model learns from labelled pixels, using ten
+            spectral bands and five indices such as NDVI.
           </p>
           <p>
-            Held-out agreement with the reference labels is{' '}
-            {oa.length ? `${Math.round(Math.min(...oa) * 100)}–${Math.round(Math.max(...oa) * 100)}%` : '…'}, with forest
-            the most reliable class. Forest is then split by canopy density into dense and open.
+            Checked against reference labels it has not seen, the maps agree{' '}
+            {oa.length ? `${Math.round(Math.min(...oa) * 100)} to ${Math.round(Math.max(...oa) * 100)}%` : '…'} of the
+            time, and forest is the most reliable class. Forest is then split into dense and open by canopy density.
           </p>
         </>
       ),
     },
     {
-      kicker: 'Refinement',
-      title: 'Most raw “change” is classifier noise',
+      kicker: 'Real change',
+      title: 'Which changes are real?',
       body: (
         <>
           <p>
-            Compare two independent maps and{' '}
+            Compare two maps made independently and{' '}
             <strong className="font-medium text-ink">{d ? Math.round(d.changed.raw * 100) : '…'}%</strong> of pixels
-            change class at least once. Very little of that is real.
+            change class at least once. Most of that is map error, not change on the ground.
           </p>
           <p>
-            Cross-year refinement keeps only plausible, persistent change: a spatial majority filter, removing A→B→A
-            flips, forbidding built-up land from reverting, a 0.5 ha minimum mapping unit, and a canopy change of at
-            least 0.15 before forest is called degraded. What survives is{' '}
+            I kept only change that makes sense and lasts. A pixel that flips and flips back is ignored. Built-up land
+            cannot turn back into forest in a few years. Patches smaller than half a hectare are dropped. Forest only
+            counts as degraded if its canopy falls clearly. What is left is{' '}
             <strong className="font-medium text-ink">{d ? Math.round(d.changed.refined * 100) : '…'}%</strong>.
           </p>
         </>
@@ -115,75 +112,72 @@ function buildSteps(d: Data | null) {
     },
     {
       kicker: 'Transitions',
-      title: 'Where each hectare went',
+      title: 'Where did each hectare go?',
       body: (
         <>
           <p>
-            The refined maps give a transition matrix: how much of each class in {y[0]} became each class in {y[1]},
-            and again to {y[2]}. Wide bands are stable land; the thin crossings are the activity data.
+            The cleaned maps give a transition matrix: how much of each class in {y[0]} became each class in {y[1]},
+            and then in {y[2]}. Wide bands are land that stayed the same. The thin crossings are the activity data that
+            carbon accounts need.
           </p>
           <p>
             Built-up land grows from{' '}
-            {d ? `${fmt(d.areas[y[0]]['Built-up'])} to ${fmt(d.areas[y[2]]['Built-up'])} ha` : '…'}, mostly at the
-            expense of shrub, grass and terraced fields.
+            {d ? `${fmt(d.areas[y[0]]['Built-up'])} to ${fmt(d.areas[y[2]]['Built-up'])} hectares` : '…'}, mostly on
+            former grass, shrub and terraced fields.
           </p>
         </>
       ),
     },
     {
-      kicker: 'Canopy density',
-      title: 'Thinning shows up before clearing',
+      kicker: 'Degradation',
+      title: 'Is the forest thinning before it disappears?',
       body: (
         <>
           <p>
-            Degradation rarely removes a whole pixel of forest. Linear spectral unmixing splits each pixel into green
-            vegetation, soil and shade; the shade-normalised green fraction is a canopy-density index.
+            Degradation rarely removes a whole 10 m pixel of forest. Spectral unmixing estimates how much of each pixel
+            is green leaves, bare soil and shadow, which gives a measure of canopy density.
           </p>
           <p>
-            Pixels whose canopy falls by more than 0.15 and below the dense-forest threshold of{' '}
-            {d ? d.dense_threshold.toFixed(2) : '…'} are counted as degradation, which an annual forest/non-forest map
-            would miss.
+            A forest pixel whose canopy drops by more than 0.15 and falls below the dense-forest line of{' '}
+            {d ? d.dense_threshold.toFixed(2) : '…'} counts as degraded. A simple forest or non-forest map would miss it.
           </p>
         </>
       ),
     },
     {
       kicker: 'Uncertainty',
-      title: 'Map areas are biased; samples correct them',
+      title: 'How sure are we about the area?',
       body: (
         <>
           <p>
-            Counting pixels on a map inherits its errors. Good practice (Olofsson et al., IPCC) estimates areas from a
-            stratified sample of reference points instead, and reports a confidence interval.
+            Counting pixels on a map carries the map’s errors into the totals. The IPCC recommends estimating areas from
+            a random sample of checked points instead, and reporting a confidence interval.
           </p>
           <p>
-            Here the map shows {fe ? fmt(fe.map_ha) : '…'} ha of forest; the sample-based estimate is{' '}
-            <strong className="font-medium text-ink">
-              {fe ? `${fmt(fe.est_ha)} ± ${fmt(fe.ci95_ha)} ha` : '…'}
-            </strong>{' '}
-            (95%). Map forest is almost always forest (user’s accuracy {fe ? Math.round(fe.users * 100) : '…'}%), but the
-            map misses sparse tree cover.
+            Here the map shows {fe ? fmt(fe.map_ha) : '…'} ha of forest. The sample-based estimate is{' '}
+            <strong className="font-medium text-ink">{fe ? `${fmt(fe.est_ha)} ± ${fmt(fe.ci95_ha)} ha` : '…'}</strong>{' '}
+            at 95% confidence. When the map says forest it is almost always right ({fe ? Math.round(fe.users * 100) : '…'}
+            %), but it misses some sparse tree cover.
           </p>
           <p className="text-[13px] text-ink-3">
-            Hansen Global Forest Change records only {d ? d.hansen_loss_ha.toFixed(1) : '…'} ha of stand-replacing loss
-            here for 2019–2024: in these forests the change is thinning and conversion at the edges, not clear-cuts.
+            For comparison, Hansen Global Forest Change records only {d ? d.hansen_loss_ha.toFixed(1) : '…'} ha of
+            forest loss in this area for 2019 to 2024.
           </p>
         </>
       ),
     },
     {
-      kicker: 'Accounting',
-      title: 'Activity data × emission factors',
+      kicker: 'Carbon',
+      title: 'What does this mean for carbon?',
       body: (
         <>
           <p>
-            The IPCC gain–loss method multiplies each transition’s area per year by an emission factor: the carbon
-            difference between the two land states, measured on field inventory plots.
+            The IPCC method multiplies the area of each change per year by an emission factor: the difference in carbon
+            between the two land types, measured on field plots.
           </p>
           <p>
-            In the study the emission factors came from the field inventory, and uncertainty in both terms was
-            propagated before the reference level was set. Over these six years the demonstration window shows{' '}
-            {forestYrs.length ? `${fmt(forestYrs[0])} → ${fmt(forestYrs[2])} ha of mapped forest` : '…'}.
+            In the study, the emission factors came from the field inventory, and the uncertainty in both parts was
+            carried through to the reference level.
           </p>
         </>
       ),
@@ -564,7 +558,7 @@ function EquationFig({ d, t }: { d: Data; t: number }) {
         Annualised over {d.epochs[0]}–{d.epochs[2]} from the refined maps. Emission factors and their uncertainty come
         from the study’s field inventory and are not reproduced here.
       </p>
-      <Chip className="self-start">Demonstration window · not study results</Chip>
+      <Chip className="self-start">Public test area · not the study’s results</Chip>
     </div>
   )
 }

@@ -32,9 +32,9 @@ export function UnccdStory() {
     <>
       <Scrolly steps={steps} graphic={(s) => (d ? <Graphic d={d} s={s} /> : <div className="h-full animate-pulse bg-line/40" />)} />
       <DemoNote>
-        A 24 × 15 km window on the edge of the Cholistan desert, computed for this site from Sentinel-2 (2017–2024)
-        and ESA WorldCover labels with the logic of the UNCCD Good Practice Guidance. It shows how the indicator is
-        built; it is not Pakistan’s reported figure, which comes from the national assessment.
+        A 24 × 15 km test area on the edge of the Cholistan desert, computed for this site from Sentinel-2 (2017 to 2024)
+        and ESA WorldCover with the UNCCD good practice rules. It shows how the indicator works. It is not Pakistan’s
+        reported figure, which comes from the national assessment.
       </DemoNote>
     </>
   )
@@ -45,94 +45,94 @@ function buildSteps(d: Data | null) {
   const pct = (v?: number) => (v === undefined ? '…' : `${Math.round(v * 100)}%`)
   return [
     {
-      kicker: 'Landscape',
-      title: 'A desert edge that is changing fast',
+      kicker: 'The place',
+      title: 'What is happening at the desert edge?',
       body: (
         <>
           <p>
-            South of the canal-irrigated plain, the Cholistan desert is being reclaimed: between 2017 and 2024 new
-            rectangular fields appear in the sand. Is that land improving or degrading? SDG 15.3.1 answers with three
-            sub-indicators.
+            South of the irrigated plain, parts of the Cholistan desert are being turned into farms. Between 2017 and
+            2024 new rectangular fields appear in the sand. Is this land getting better or worse? SDG 15.3.1 answers with
+            three measures.
           </p>
         </>
       ),
     },
     {
-      kicker: 'Sub-indicator 1',
-      title: 'Land productivity',
+      kicker: 'Measure 1',
+      title: 'Is the land growing more or less?',
       body: (
         <>
           <p>
-            Annual NDVI (the mean of each month’s clear-sky maximum) for every pixel from {d?.years[0] ?? 2017} to{' '}
-            {d?.years[d.years.length - 1] ?? 2024}, then a Theil–Sen slope and a Mann–Kendall test. Only significant
-            trends count.
+            For every pixel I took the yearly average of each month’s greenest clear view (NDVI) from{' '}
+            {d?.years[0] ?? 2017} to {d?.years[d.years.length - 1] ?? 2024}, fitted a trend, and kept only trends that
+            pass a statistical test (Mann–Kendall).
           </p>
           <p>
-            Here {pct(sh?.productivity.improved)} of the window shows a significant increase and{' '}
-            {pct(sh?.productivity.degraded)} a decline.
+            Here {pct(sh?.productivity.improved)} of the area shows a clear increase and {pct(sh?.productivity.degraded)}{' '}
+            a clear decline.
           </p>
         </>
       ),
     },
     {
-      kicker: 'Sub-indicator 2',
-      title: 'Land cover',
+      kicker: 'Measure 2',
+      title: 'Has the land cover changed for better or worse?',
       body: (
         <>
           <p>
-            Land cover is classified for both years and every transition is scored with a degradation matrix: forest
-            lost or land sealed by construction is degradation; desert turned to cropland or grassland is improvement.
+            Land cover is mapped in both years and every change is scored. Losing forest or building on land counts as
+            degradation. Desert turned into farmland or grassland counts as improvement.
           </p>
           <p>
-            {pct(sh?.land_cover.degraded)} degraded, {pct(sh?.land_cover.improved)} improved, after a minimum mapping
-            unit removes edge noise.
+            {pct(sh?.land_cover.degraded)} of the area is degraded and {pct(sh?.land_cover.improved)} improved, after very
+            small patches are removed.
           </p>
         </>
       ),
     },
     {
-      kicker: 'Sub-indicator 3',
-      title: 'Soil organic carbon',
+      kicker: 'Measure 3',
+      title: 'What happens to the carbon in the soil?',
       body: (
         <>
           <p>
-            Without repeated soil surveys, carbon change is estimated from land-cover change with IPCC Tier-1 stock
-            factors. Converting land to cropland lowers the stock by about a fifth; sealing it by construction removes
-            most of it.
+            There are no repeated soil surveys, so soil carbon change is estimated from land-cover change with IPCC
+            default factors. Turning land into cropland lowers soil carbon by about a fifth. Building on it removes most of
+            it.
           </p>
-          <p>A decline of more than 10% counts as degradation: {pct(sh?.soc.degraded)} of the window.</p>
+          <p>A drop of more than 10% counts as degradation: {pct(sh?.soc.degraded)} of the area.</p>
         </>
       ),
     },
     {
-      kicker: 'Integration',
-      title: 'One out, all out',
+      kicker: 'Combining',
+      title: 'How do the three answers combine?',
       body: (
         <>
           <p>
-            The three layers are stacked. A pixel is degraded if any one of them says so; it is improved only if at
-            least one improves and none degrades.
+            The rule is “one out, all out”. A pixel is degraded if any one measure says so. It is improved only if at least
+            one measure improves and none gets worse.
           </p>
           <p>
-            That is why new desert fields can count as degraded: productivity rises and land cover improves, but the
-            conversion to cropland costs soil carbon, and that one “out” decides.
+            That is why many new desert farms count as degraded: plant growth and land cover improve, but the soil carbon
+            rule decides.
           </p>
         </>
       ),
     },
     {
-      kicker: 'Indicator',
-      title: 'The proportion of degraded land',
+      kicker: 'The answer',
+      title: 'So how much of the land is degraded?',
       body: (
         <>
           <p>
-            SDG 15.3.1 is the degraded area over the total land area. For this window:{' '}
+            SDG 15.3.1 is the degraded area divided by the total land area. For this test area it is{' '}
             <strong className="font-medium text-ink">{d ? (d.sdg_15_3_1 * 100).toFixed(1) : '…'}%</strong>, or{' '}
-            {d ? fmt(d.degraded_ha) : '…'} of {d ? fmt(d.area_ha) : '…'} ha.
+            {d ? fmt(d.degraded_ha) : '…'} of {d ? fmt(d.area_ha) : '…'} hectares.
           </p>
           <p>
-            In the national assessment this runs for the whole country, with QA/QC of each input and documentation that
-            provinces can reproduce, which is the part of the work I lead.
+            In the national report the same steps run for the whole country, with quality checks on every input and
+            documentation that the provinces can repeat.
           </p>
         </>
       ),

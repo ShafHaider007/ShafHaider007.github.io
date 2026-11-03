@@ -35,10 +35,9 @@ export function MoveSmartStory() {
     <>
       <Scrolly steps={steps} graphic={(s) => (d ? <Graphic d={d} s={s} /> : <div className="h-full animate-pulse bg-line/40" />)} />
       <DemoNote>
-        Recomputed for this site on open data: Landsat 8 band 10 (27 June 2019) for land-surface temperature,
-        Sentinel-2 for vegetation, and the Overture Maps street network for routing (networkx in place of the
-        project’s GraphHopper). The project itself also used MODIS, street-level tree detection and PostGIS; its 12 °C
-        heat-island figure comes from that fuller analysis.
+        Recomputed for this site with open data: Landsat 8 thermal data (27 June 2019) for surface temperature,
+        Sentinel-2 for vegetation and the Overture Maps street network for routing. The project also used MODIS, tree
+        detection in street photos and PostGIS. Its 12 °C heat-island figure comes from that fuller analysis.
       </DemoNote>
     </>
   )
@@ -50,62 +49,65 @@ function buildSteps(d: Data | null) {
   return [
     {
       kicker: 'Heat',
-      title: 'Islamabad’s surface temperature, from orbit',
+      title: 'Which parts of Islamabad are hottest?',
       body: (
         <>
           <p>
-            Landsat’s thermal band measures emitted heat. Converting it to brightness temperature and correcting for
-            surface emissivity (estimated from vegetation cover) gives land-surface temperature at 30 m.
+            Landsat’s thermal band measures the heat given off by the ground. After correcting for how differently
+            surfaces give off heat, it shows land-surface temperature at 30 m.
           </p>
           <p>
-            On a late-June morning the Margalla forest and the green belts sit near{' '}
-            {d ? Math.round(d.lst_range[0]) : '…'} °C while arterial roads and dense blocks pass{' '}
-            {d ? Math.round(d.lst_range[1]) : '…'} °C.
+            On a late-June morning the Margalla forest and the green belts are near {d ? Math.round(d.lst_range[0]) : '…'}{' '}
+            °C, while main roads and dense blocks pass {d ? Math.round(d.lst_range[1]) : '…'} °C.
           </p>
         </>
       ),
     },
     {
       kicker: 'Vegetation',
-      title: 'Greener means cooler, measurably',
+      title: 'Does vegetation make a difference?',
       body: (
         <>
           <p>
-            Plotting temperature against NDVI for every non-water pixel shows the inverse relationship the project
-            reported.
+            Plotting temperature against vegetation (NDVI) for every pixel shows a clear pattern: greener means cooler.
           </p>
           <p>
-            Recomputed here on open data, the correlation is{' '}
-            <strong className="font-medium text-ink">r = {d ? d.scatter.r.toFixed(2) : '…'}</strong>: about{' '}
-            {d ? Math.abs(d.scatter.slope / 10).toFixed(1) : '…'} °C cooler for every 0.1 of NDVI. The project found
-            r = −0.72.
+            Recomputed here with open data, the correlation is{' '}
+            <strong className="font-medium text-ink">r = {d ? d.scatter.r.toFixed(2) : '…'}</strong>, about{' '}
+            {d ? Math.abs(d.scatter.slope / 10).toFixed(1) : '…'} °C cooler for every 0.1 of NDVI. The project found r =
+            −0.72.
           </p>
         </>
       ),
     },
     {
-      kicker: 'Comfort score',
-      title: 'Every street gets a comfort score',
+      kicker: 'Comfort',
+      title: 'How comfortable is each street?',
       body: (
         <>
           <p>
-            Each street segment samples the temperature and vegetation along it. An AHP-style weighting combines heat
-            ({d ? d.weights.heat * 100 : 50}%), shade ({d ? d.weights.shade * 100 : 30}%) and street type (
-            {d ? d.weights.street * 100 : 20}%: footpaths beat highways) into a comfort score.
+            Each street segment takes the temperature and vegetation along it. Weights set with AHP combine heat (
+            {d ? d.weights.heat * 100 : 50}%), shade ({d ? d.weights.shade * 100 : 30}%) and type of street (
+            {d ? d.weights.street * 100 : 20}%), so footpaths score better than highways.
           </p>
-          <p>Routing cost is length inflated by discomfort, so a pleasant street can be worth a short detour.</p>
+          <p>
+            The routing cost is the length of a street, raised when the street is uncomfortable. A pleasant street can be
+            worth a short detour.
+          </p>
         </>
       ),
     },
     {
       kicker: 'Routing',
-      title: `${r?.origin_name ?? 'F-7 Markaz'} to ${r?.dest_name ?? 'Faisal Mosque'}`,
+      title: 'Is the cooler route much longer?',
       body: (
         <>
           <p>
-            The shortest walk is {r ? fmt(r.shortest.length_m) : '…'} m and averages{' '}
-            {r ? r.shortest.heat_c.toFixed(1) : '…'} °C. The coolest is {r ? fmt(r.coolest.length_m) : '…'} m, only{' '}
-            {Math.round(extra)}% longer, and{' '}
+            From {r?.origin_name ?? 'F-7 Markaz'} to {r?.dest_name ?? 'Faisal Mosque'}, the shortest walk is{' '}
+            {r ? fmt(r.shortest.length_m) : '…'} m at an average {r ? r.shortest.heat_c.toFixed(1) : '…'} °C.
+          </p>
+          <p>
+            The coolest is {r ? fmt(r.coolest.length_m) : '…'} m, only {Math.round(extra)}% longer, and{' '}
             <strong className="font-medium text-ink">{r ? (r.shortest.heat_c - r.coolest.heat_c).toFixed(1) : '…'} °C cooler</strong>{' '}
             on average, with {r ? Math.round((r.coolest.shade / r.shortest.shade - 1) * 100) : '…'}% more vegetation along
             the way.
@@ -114,15 +116,15 @@ function buildSteps(d: Data | null) {
       ),
     },
     {
-      kicker: 'Isochrones',
-      title: 'How far you can walk in 5 to 30 minutes',
+      kicker: 'Walking areas',
+      title: 'How far can you walk in 5 to 30 minutes?',
       body: (
         <>
           <p>
-            The same network gives walking isochrones: every street reachable from {d?.iso_origin_name ?? 'F-7 Markaz'}{' '}
-            in 5, 10, 15, 20, 25 and 30 minutes at 4.8 km/h.
+            The same street network shows how far you can walk from {d?.iso_origin_name ?? 'F-7 Markaz'} in 5, 10, 15, 20,
+            25 and 30 minutes at 4.8 km/h.
           </p>
-          <p>In the platform these sat beside the routes, so planners could see access and comfort together.</p>
+          <p>In the project these walking areas sat next to the routes, so planners could see access and comfort together.</p>
         </>
       ),
     },

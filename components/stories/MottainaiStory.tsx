@@ -17,9 +17,9 @@ export function MottainaiStory() {
     <>
       <Scrolly steps={steps} graphic={(s) => (d ? <Graphic d={d} s={s} /> : <div className="h-full animate-pulse bg-line/40" />)} />
       <DemoNote>
-        The street network is real (Overture Maps, Lagos mainland); the fourteen pickup points are randomly placed for
-        this illustration, and the route lengths are computed on that network. The 28% figure in the project summary is
-        the measured reduction in Mottainai’s recurring routing costs, a different and real quantity.
+        The street network is real (Overture Maps, Lagos mainland). The fourteen pickup points are random, placed only for
+        this example, and the distances are measured on the real streets. The 28% in the project summary is the real drop
+        in Mottainai’s routing costs, which is a different number.
       </DemoNote>
     </>
   )
@@ -30,52 +30,52 @@ function buildSteps(d: Data | null) {
   return [
     {
       kicker: 'Operations',
-      title: 'Pickups across Lagos, every day',
+      title: 'Where are the pickups?',
       body: (
         <>
           <p>
-            Customers request recycling pickups from an app; drivers and field managers work the streets. Behind them
-            sits the ArcGIS Online organisation I administer: feature services for customers, requests, depots and
-            routes.
+            Customers ask for recycling pickups in an app. Drivers and field managers do the work on the street. Behind
+            them is the ArcGIS Online setup I run: data on customers, requests, depots and routes.
           </p>
         </>
       ),
     },
     {
-      kicker: 'Naive order',
-      title: 'First come, first served',
+      kicker: 'Arrival order',
+      title: 'What does first come, first served cost?',
       body: (
         <>
           <p>
-            Visiting pickups in the order they arrive sends a truck back and forth across the city. On this street
-            network, fourteen stops in arrival order come to{' '}
+            Collecting in the order requests arrive sends a truck back and forth across the city. On this street network,
+            fourteen stops in arrival order add up to{' '}
             <strong className="font-medium text-ink">{d ? d.naive.km.toFixed(1) : '…'} km</strong>.
           </p>
         </>
       ),
     },
     {
-      kicker: 'Optimised',
-      title: 'The same stops, sequenced',
+      kicker: 'Ordered stops',
+      title: 'How much does ordering the stops save?',
       body: (
         <>
           <p>
-            A self-hosted GraphHopper engine computes street distances between every pair of stops and orders them to
-            minimise the drive. Here that is{' '}
+            A self-hosted GraphHopper engine works out the street distance between every pair of stops and puts them in the
+            order that gives the shortest drive. Here that is{' '}
             <strong className="font-medium text-ink">{d ? d.optimised.km.toFixed(1) : '…'} km</strong>, {save}% shorter.
           </p>
-          <p>Running the engine in-house also replaced per-request fees from Google Maps and Mapbox.</p>
+          <p>Running the engine ourselves also removed the per-request fees from Google Maps and Mapbox.</p>
         </>
       ),
     },
     {
       kicker: 'Field apps',
-      title: 'Three apps that keep working offline',
+      title: 'How do the apps work with a weak signal?',
       body: (
         <>
           <p>
-            Customer, Driver and Field Manager apps, built in Kotlin with the ArcGIS Maps SDK and Mapbox SDK, capture
-            locations offline and sync when a signal returns, which matters on Lagos streets with patchy coverage.
+            The customer, driver and field manager apps, written in Kotlin with the ArcGIS Maps SDK and Mapbox SDK, save
+            locations offline and send them when the phone is back online. On Lagos streets with patchy coverage, that
+            keeps the data complete.
           </p>
         </>
       ),
