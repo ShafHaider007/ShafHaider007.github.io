@@ -3,7 +3,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Scrolly, type ScrollState } from '@/components/scrolly/Scrolly'
 import { Count, DemoNote, Figure, Layer, Legend } from '@/components/viz/primitives'
-import { seg, useVizJson } from '@/lib/viz'
+import { seg } from '@/lib/viz'
+import { useVizJson } from '@/lib/useVizJson'
 
 type Tour = { order: number[]; path: number[][]; km: number }
 type Data = { size: [number, number]; roads: { major: string; minor: string }; depot: number[]; stops: number[][]; naive: Tour; optimised: Tour }

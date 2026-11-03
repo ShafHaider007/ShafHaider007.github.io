@@ -3,7 +3,8 @@
 import { type PointerEvent, useEffect, useMemo, useRef, useState } from 'react'
 import { Scrolly, type ScrollState } from '@/components/scrolly/Scrolly'
 import { DemoNote, Fit } from '@/components/viz/primitives'
-import { fmt, seg, useVizJson } from '@/lib/viz'
+import { fmt, seg } from '@/lib/viz'
+import { useVizJson } from '@/lib/useVizJson'
 
 type Bld = { r: number[][]; h: number | null; a: number }
 type Data = { size: [number, number]; buildings: Bld[]; roads: { c: number[][]; k: string }[] }

@@ -3,7 +3,8 @@
 import { useMemo } from 'react'
 import { Scrolly, type ScrollState } from '@/components/scrolly/Scrolly'
 import { Chip, Count, DemoNote, Figure, Fit, Layer, Legend, Wipe } from '@/components/viz/primitives'
-import { fmt, seg, useVizJson, viz } from '@/lib/viz'
+import { fmt, seg, viz } from '@/lib/viz'
+import { useVizJson } from '@/lib/useVizJson'
 import { cn } from '@/lib/utils'
 
 type Shares = { degraded: number; stable: number; improved: number }

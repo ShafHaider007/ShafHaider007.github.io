@@ -3,7 +3,8 @@
 import { type ReactNode, useMemo } from 'react'
 import { Scrolly, type ScrollState } from '@/components/scrolly/Scrolly'
 import { Chip, Count, DemoNote, Figure, Layer, Legend, Wipe } from '@/components/viz/primitives'
-import { fmt, seg, useVizJson } from '@/lib/viz'
+import { fmt, seg } from '@/lib/viz'
+import { useVizJson } from '@/lib/useVizJson'
 
 type Route = { path: number[][]; length_m: number; heat_c: number; shade: number; profile: number[][] }
 type Data = {

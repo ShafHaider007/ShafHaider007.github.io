@@ -3,7 +3,8 @@
 import { useMemo } from 'react'
 import { Scrolly, type ScrollState } from '@/components/scrolly/Scrolly'
 import { Chip, DemoNote, Figure, Layer } from '@/components/viz/primitives'
-import { seg, useVizJson } from '@/lib/viz'
+import { seg } from '@/lib/viz'
+import { useVizJson } from '@/lib/useVizJson'
 import { cn } from '@/lib/utils'
 
 type Cluster = { name: string; ndvi: number[]; ndwi: number[]; share: number }

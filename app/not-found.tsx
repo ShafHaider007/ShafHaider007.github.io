@@ -2,15 +2,32 @@ import Link from 'next/link'
 
 export default function NotFound() {
   return (
-    <main className="grid min-h-screen place-items-center px-6">
-      <div className="max-w-md text-center">
-        <p className="eyebrow">404 · Off the map</p>
-        <h1 className="mt-4 font-serif text-4xl text-ink">This page isn’t on any sheet.</h1>
-        <p className="mt-4 leading-relaxed text-ink-2">The link may be old, or the page may have moved.</p>
-        <Link href="/" className="mt-8 inline-block bg-ink px-5 py-3 text-sm font-medium text-paper transition-colors hover:bg-accent-ink">
-          Back to home
-        </Link>
-      </div>
+    <main className="mx-auto flex min-h-screen max-w-prose flex-col justify-center px-4">
+      <p className="eyebrow">Error 404</p>
+      <h1 className="mt-2 text-[30px] font-semibold leading-tight tracking-[-0.02em] text-ink">Page not found</h1>
+      <p className="prose-text mt-4 text-ink-2">The link may be out of date, or the page may have moved. These pages exist:</p>
+      <ul className="mt-4 space-y-1.5 text-[15px]">
+        <li>
+          <Link href="/" className="link">
+            Home: Shaf Haider
+          </Link>
+        </li>
+        <li>
+          <Link href="/research/" className="link">
+            Research interests
+          </Link>
+        </li>
+        <li>
+          <Link href="/projects/" className="link">
+            Projects
+          </Link>
+        </li>
+        <li>
+          <Link href="/outputs/" className="link">
+            Reports and outputs
+          </Link>
+        </li>
+      </ul>
     </main>
   )
 }

@@ -1,23 +1,13 @@
 import type { ReactNode } from 'react'
-import { DrawRule, Reveal, SplitHeading } from '@/components/motion/Reveal'
 
-export function SectionHead({ index, title, children }: { index: string; title: string; children?: ReactNode }) {
+/** Section heading with a rule above it, as in a printed report. */
+export function SectionHead({ id, title, children }: { id?: string; title: string; children?: ReactNode }) {
   return (
-    <div className="mb-10 md:mb-14">
-      <DrawRule />
-      <div className="grid gap-4 pt-5 md:grid-cols-[12rem_1fr] md:gap-8">
-        <Reveal y={10}>
-          <p className="eyebrow pt-2">§ {index}</p>
-        </Reveal>
-        <div>
-          <SplitHeading className="font-serif text-[2rem] leading-[1.1] tracking-tight text-ink md:text-[2.6rem]">{title}</SplitHeading>
-          {children && (
-            <Reveal delay={0.15} className="mt-3 max-w-2xl text-ink-2">
-              {children}
-            </Reveal>
-          )}
-        </div>
-      </div>
+    <div className="mb-8 border-t border-ink pt-4 md:mb-10">
+      <h2 id={id} className="text-[24px] font-semibold leading-tight tracking-[-0.01em] text-ink md:text-[28px]">
+        {title}
+      </h2>
+      {children && <div className="mt-2.5 max-w-prose text-[15px] leading-relaxed text-ink-2">{children}</div>}
     </div>
   )
 }

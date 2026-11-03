@@ -4,7 +4,8 @@ import { useMemo } from 'react'
 import { sankey, sankeyLinkHorizontal, type SankeyLink, type SankeyNode } from 'd3-sankey'
 import { Scrolly, type ScrollState } from '@/components/scrolly/Scrolly'
 import { Chip, Count, DemoNote, Figure, Layer, Legend, Wipe, rgb } from '@/components/viz/primitives'
-import { fmt, seg, useVizJson } from '@/lib/viz'
+import { fmt, seg } from '@/lib/viz'
+import { useVizJson } from '@/lib/useVizJson'
 import { cn } from '@/lib/utils'
 
 type Data = {

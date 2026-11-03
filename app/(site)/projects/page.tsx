@@ -1,24 +1,25 @@
 import type { Metadata } from 'next'
-import { ProjectCard } from '@/components/ProjectCard'
-import { SectionHead } from '@/components/SectionHead'
+import { ProjectList } from '@/components/ProjectList'
 import { projects } from '@/lib/projects'
 
 export const metadata: Metadata = {
   title: 'Projects',
-  description: 'Earth-observation, forest-monitoring, land-degradation and WebGIS projects by Shaf Haider.',
+  description:
+    'Seven GIS and remote sensing projects by Shaf Haider: forest-change data for a forest-carbon study, land degradation for UNCCD reporting, a national forest monitoring pipeline, field-level crop monitoring, heat-aware routing, recycling logistics and property web GIS.',
+  alternates: { canonical: '/projects/' },
 }
 
 export default function ProjectsPage() {
   return (
-    <section className="page pb-24 pt-16 md:pt-24">
-      <SectionHead index="01" title="All projects">
-        Each case study walks through how the work is done, with figures computed from open data.
-      </SectionHead>
-      <div className="grid gap-x-10 gap-y-16 md:grid-cols-2">
-        {projects.map((p, i) => (
-          <ProjectCard key={p.slug} project={p} index={i} />
-        ))}
-      </div>
+    <section className="page pb-20 pt-10 md:pb-24 md:pt-14">
+      <header className="mb-10 max-w-prose">
+        <h1 className="text-[32px] font-semibold leading-tight tracking-[-0.02em] text-ink md:text-[40px]">Projects</h1>
+        <p className="prose-text mt-4 text-ink-2">
+          Each project page sets out the question, my part in the work and how the analysis is done. The method figures were
+          recomputed for this site from open data; they are not project results.
+        </p>
+      </header>
+      <ProjectList items={projects} headingLevel={2} />
     </section>
   )
 }
