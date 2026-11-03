@@ -45,7 +45,7 @@ Severity:
 | W4 | Project cards | "On the project page: …" line on every card. | Scaffolding that repeats on all seven cards. | Low | Remove. |
 | W5 | Research intro | "Project work has deadlines and a fixed scope…" | Narrative filler before the content. | Low | Say plainly what the section is. |
 | W6 | Tagline-style labels | "Off the map", "This page isn't on any sheet." (404) | A pun where a plain message is needed. | Low | "Page not found" plus links to the main pages. |
-| W7 | Scan for stock phrases (passionate, leverage, seamless, robust and so on) | None found. No em dashes in the copy. | — | — | Keep it that way: re-check after the rewrite. |
+| W7 | Scan for stock phrases (passionate, leverage, seamless, robust and so on) | None found. No em dashes in the copy. | n/a | n/a | Keep it that way: re-check after the rewrite. |
 
 ## 3. Visual design
 
@@ -53,7 +53,7 @@ Severity:
 |---|---|---|---|---|---|
 | V1 | Whole site: `globals.css`, fonts | Cream paper (#f6f4ef), serif display headings (Newsreader) and a terracotta accent (#b8452a). | It is the stock "editorial portfolio" look the brief names. Nothing in it comes from Shaf's work. | Medium | New direction in `DESIGN-DIRECTION.md`: white page, sans headings, serif reading text. Colour appears only where figures use the land-cover legend. |
 | V2 | Home facts band | Four big numbers with a counting animation. | A stat band is the cliché, and "Almost 3" makes no sense as a number. | Medium | Remove it. The facts go into the intro text. |
-| V3 | `Reveal`, `SplitHeading`, `ScrubText`, `DrawRule`, card parallax, poster auto-wipe, hero intro timeline, Methods scrub, Experience fill line | Decorative scroll and load animation on almost every element. | Content is hidden until JavaScript runs and the reader scrolls, with a 2.5 s CSS fallback. It adds GSAP and Lenis, about 70 kB gzipped, and the brief rules it out. | High | Remove all of it. Keep only walk-through state changes, which explain the analysis. |
+| V3 | `Reveal`, `SplitHeading`, `ScrubText`, `DrawRule`, card parallax, poster auto-wipe, hero intro timeline, Methods scrub, Experience fill line | Decorative scroll and load animation on almost every element. | Content is hidden until JavaScript runs and the reader scrolls, with a 2.5 s CSS fallback. It adds GSAP and Lenis: removing all of it cut the home page's JavaScript from 240 kB to 175 kB (gzipped, measured on both builds). The brief also rules it out. | High | Remove all of it. Keep only walk-through state changes, which explain the analysis. |
 | V4 | `SmoothScroll` (Lenis) | Replaces native scrolling. | It changes scroll speed and inertia that people and assistive tools rely on, and needs fixes for anchor links. | Medium | Remove and use native scrolling. |
 | V5 | Experience | Timeline with dots and an animated fill line. | A list does the job. | Low | Plain list. |
 | V6 | Tools, A grades, project sidebars | Walls of bordered tag chips. | Hard to read and adds visual noise. | Low | Comma-separated text lists under labels. |
