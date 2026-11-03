@@ -11,7 +11,14 @@ npm run build      # production build
 npm run type-check
 ```
 
-Deployed on AWS Amplify as an SSR app (see `amplify.yml`).
+## Deploy
+
+The site is a static export (`output: 'export'`) published to GitHub Pages by
+`.github/workflows/deploy.yml` on every push to `main`. The workflow passes the
+Pages base path (`/v0-portfolio`) and URL to the build through
+`NEXT_PUBLIC_BASE_PATH` and `NEXT_PUBLIC_SITE_URL`.
+
+One-time setup: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
 
 ## Content
 

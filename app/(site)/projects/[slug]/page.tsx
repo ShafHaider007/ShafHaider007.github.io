@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Plate } from '@/components/Plate'
 import { SwipeCompare } from '@/components/SwipeCompare'
+import { siteUrl } from '@/lib/paths'
 import { plates } from '@/lib/plates'
 import { getProject, projects } from '@/lib/projects'
 
@@ -21,7 +22,8 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   return {
     title: project.short,
     description: project.blurb,
-    openGraph: { images: [{ url: plates[project.plate].src.src }] },
+    // src already carries basePath, so join it to the bare origin
+    openGraph: { images: [{ url: new URL(plates[project.plate].src.src, new URL(siteUrl).origin).href }] },
   }
 }
 

@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import type { ReactNode } from 'react'
 import { IBM_Plex_Mono, IBM_Plex_Sans, Newsreader } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
 import '@/styles/globals.css'
 import { siteMetadata } from '@/lib/seo'
 
@@ -37,7 +36,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <body className={`${sans.variable} ${serif.variable} ${mono.variable} min-h-screen font-sans antialiased`}>
         {children}
-        <Analytics />
       </body>
     </html>
   )

@@ -1,10 +1,12 @@
+import { asset } from '@/lib/paths'
+
 export const profile = {
   name: 'Shaf Haider',
   role: 'GIS & Remote Sensing Specialist',
   location: 'Islamabad, Pakistan',
   coords: '33.6844° N, 73.0479° E',
   email: 'shaf.shafheidar@gmail.com',
-  cv: '/Shaf_Haider_CV.docx',
+  cv: asset('/Shaf_Haider_CV.docx'),
   summary:
     'I turn satellite imagery into national-scale evidence: land-cover and forest-change datasets, land-degradation reporting, raster pipelines and the WebGIS platforms that put them in front of decision-makers.',
   links: [

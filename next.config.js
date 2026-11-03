@@ -1,12 +1,12 @@
 /** @type {import('next').NextConfig} */
+
+// GitHub Pages serves the site from /<repo>; the deploy workflow passes that in.
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
+
 module.exports = {
-  // IMPORTANT: do NOT set `output: 'export'`
+  output: 'export',
+  basePath,
+  trailingSlash: true,
   reactStrictMode: true,
-  poweredByHeader: false,
-  async redirects() {
-    return [
-      { source: '/about', destination: '/#experience', permanent: true },
-      { source: '/contact', destination: '/#contact', permanent: true },
-    ]
-  },
+  images: { unoptimized: true },
 }
